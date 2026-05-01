@@ -445,6 +445,152 @@ footer { background: var(--black); padding: 72px 80px 40px; color: #fff; }
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
 
+/* ── DOUBLE MATERIALITY MATRIX ── */
+.materiality-matrix-block {
+  margin-top: 80px;
+  padding: 48px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 2px;
+}
+.mm-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 24px; margin-bottom: 40px;
+}
+.mm-head-left { flex: 1; min-width: 280px; }
+.mm-eyebrow {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lavender); margin-bottom: 12px;
+}
+.mm-title {
+  font-size: clamp(22px, 2.4vw, 32px); font-weight: 300;
+  color: #fff; margin-bottom: 8px; line-height: 1.2;
+}
+.mm-title strong { font-weight: 700; }
+.mm-sub {
+  font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.6;
+  max-width: 480px;
+}
+.mm-legend { display: flex; gap: 18px; flex-wrap: wrap; }
+.mm-legend-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 0.06em; color: rgba(255,255,255,0.7);
+}
+.mm-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mm-grid {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-template-rows: 1fr 32px;
+  gap: 6px;
+  height: 480px;
+}
+.mm-yaxis-label {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.mm-xaxis-label {
+  grid-column: 2 / 3; grid-row: 2 / 3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.mm-plot {
+  position: relative;
+  background:
+    linear-gradient(to top right, rgba(0,184,110,0.04) 0%, rgba(0,184,110,0.12) 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: visible;
+}
+/* Gridlines split the plot into 4 quadrants */
+.mm-plot::before, .mm-plot::after {
+  content: ''; position: absolute; background: rgba(255,255,255,0.07);
+}
+.mm-plot::before { top: 0; bottom: 0; left: 50%; width: 1px; }
+.mm-plot::after  { left: 0; right: 0; top: 50%; height: 1px; }
+.mm-quad-label {
+  position: absolute; font-size: 8px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); padding: 8px 10px; pointer-events: none;
+}
+.mm-quad-tl { top: 8px; left: 8px; }
+.mm-quad-tr { top: 8px; right: 8px; }
+.mm-quad-bl { bottom: 8px; left: 8px; }
+.mm-quad-br { bottom: 8px; right: 8px; color: rgba(0,184,110,0.7); font-weight: 700; }
+.mm-point {
+  position: absolute;
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.85);
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  z-index: 2;
+}
+.mm-point:hover {
+  transform: translate(-50%, 50%) scale(1.4);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.08);
+  z-index: 5;
+}
+.mm-point .mm-tip {
+  position: absolute; left: 50%; bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  background: #0d0d22; color: #fff;
+  padding: 8px 12px; border-radius: 2px;
+  font-size: 11px; line-height: 1.4; white-space: nowrap;
+  border: 1px solid rgba(255,255,255,0.1);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s;
+}
+.mm-point .mm-tip strong { font-weight: 600; margin-right: 6px; }
+.mm-point .mm-tip span { color: rgba(255,255,255,0.6); font-weight: 400; font-size: 10px; }
+.mm-point:hover .mm-tip { opacity: 1; }
+
+/* ── PART DIVIDERS (chapter breaks: Situação Atual / Creating Tomorrow) ── */
+.part-divider {
+  position: relative; overflow: hidden;
+  padding: 140px 80px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.part-divider-inner {
+  max-width: 1200px; margin: 0 auto;
+  position: relative; z-index: 2;
+}
+.part-num {
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: clamp(140px, 18vw, 240px); font-weight: 400;
+  line-height: 0.82; letter-spacing: -0.02em;
+  display: block; margin-bottom: 24px;
+}
+.part-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+  display: block; margin-bottom: 14px;
+}
+.part-title {
+  font-size: clamp(44px, 5.5vw, 84px); font-weight: 300; line-height: 1;
+  margin-bottom: 24px;
+}
+.part-title strong { font-weight: 700; }
+.part-sub {
+  font-size: 14px; line-height: 1.75; max-width: 480px;
+}
+/* Part 01 — Situação Atual (light/mint) */
+#part-1 { background: var(--mint); }
+#part-1 .part-num { color: var(--green); }
+#part-1 .part-eyebrow { color: var(--mid); }
+#part-1 .part-title { color: var(--black); }
+#part-1 .part-sub { color: var(--mid); }
+#part-1::after {
+  content: ''; position: absolute; right: 0; top: 0; bottom: 0;
+  width: 28px; background: var(--teal); z-index: 1;
+}
+/* Part 02 — Creating Tomorrow (dark/forward) */
+#part-2 { background: #1a2e1e; border: none; }
+#part-2 .part-num { color: var(--cyan); }
+#part-2 .part-eyebrow { color: rgba(255,255,255,0.45); }
+#part-2 .part-title { color: #fff; }
+#part-2 .part-sub { color: rgba(255,255,255,0.65); }
+
 /* ── ANIMATIONS ── */
 .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .fade-up.visible { opacity: 1; transform: translateY(0); }
@@ -544,6 +690,16 @@ footer { background: var(--black); padding: 72px 80px 40px; color: #fff; }
       <div class="esg-dot" style="background:var(--cyan)"></div>
       <span data-pt="Governança" data-en="Governance">Governança</span>
     </a>
+  </div>
+</section>
+
+<!-- ── PART 01 DIVIDER: Situação Atual ── -->
+<section class="part-divider" id="part-1">
+  <div class="part-divider-inner fade-up">
+    <span class="part-num">01</span>
+    <span class="part-eyebrow" data-pt="Castro Group" data-en="Castro Group">Castro Group</span>
+    <h2 class="part-title" data-pt="Situação<br><strong>Atual</strong>" data-en="Current<br><strong>State</strong>">Situação<br><strong>Atual</strong></h2>
+    <p class="part-sub" data-pt="Onde estamos hoje — desempenho ESG, portfólio e governança em 2025. Os dados que sustentam a narrativa, o que medimos e como nos posicionamos." data-en="Where we are today — ESG performance, portfolio and governance in 2025. The data that underpins the narrative, what we measure and how we stand.">Onde estamos hoje — desempenho ESG, portfólio e governança em 2025. Os dados que sustentam a narrativa, o que medimos e como nos posicionamos.</p>
   </div>
 </section>
 
@@ -867,6 +1023,73 @@ footer { background: var(--black); padding: 72px 80px 40px; color: #fff; }
         <div class="bar-track"><div class="bar-fill" data-w="50" style="background:var(--lavender)"></div></div>
       </div>
     </div>
+
+    <!-- Double Materiality Matrix -->
+    <div class="materiality-matrix-block fade-up">
+      <div class="mm-head">
+        <div class="mm-head-left">
+          <div class="mm-eyebrow" data-pt="Análise de Dupla Materialidade · 2025" data-en="Double Materiality Analysis · 2025">Análise de Dupla Materialidade · 2025</div>
+          <h3 class="mm-title" data-pt="Os temas que <strong>moldam o nosso impacto</strong>" data-en="The topics that <strong>shape our impact</strong>">Os temas que <strong>moldam o nosso impacto</strong></h3>
+          <p class="mm-sub" data-pt="Primeira análise interna realizada em 2025. Cada tema é posicionado segundo a sua relevância financeira para o Grupo (eixo X) e o seu impacto externo em pessoas e ambiente (eixo Y). Os temas no quadrante superior direito são os de prioridade dupla." data-en="First internal analysis conducted in 2025. Each topic is positioned by its financial relevance to the Group (X-axis) and its external impact on people and environment (Y-axis). Topics in the upper-right quadrant are double-priority.">Primeira análise interna realizada em 2025. Cada tema é posicionado segundo a sua relevância financeira para o Grupo (eixo X) e o seu impacto externo em pessoas e ambiente (eixo Y). Os temas no quadrante superior direito são os de prioridade dupla.</p>
+        </div>
+        <div class="mm-legend">
+          <span class="mm-legend-item"><span class="mm-legend-dot" style="background:var(--green)"></span><span data-pt="Ambiental" data-en="Environmental">Ambiental</span></span>
+          <span class="mm-legend-item"><span class="mm-legend-dot" style="background:var(--purple)"></span><span data-pt="Social" data-en="Social">Social</span></span>
+          <span class="mm-legend-item"><span class="mm-legend-dot" style="background:var(--lavender)"></span><span data-pt="Governança" data-en="Governance">Governança</span></span>
+        </div>
+      </div>
+
+      <div class="mm-grid">
+        <div class="mm-yaxis-label" data-pt="Materialidade de Impacto →" data-en="Impact Materiality →">Materialidade de Impacto →</div>
+        <div class="mm-plot">
+          <span class="mm-quad-label mm-quad-tl" data-pt="Alto Impacto" data-en="High Impact">Alto Impacto</span>
+          <span class="mm-quad-label mm-quad-tr" data-pt="Prioridade Dupla" data-en="Double Priority">Prioridade Dupla</span>
+          <span class="mm-quad-label mm-quad-bl" data-pt="Monitorizar" data-en="Monitor">Monitorizar</span>
+          <span class="mm-quad-label mm-quad-br" data-pt="Alta Materialidade Financeira" data-en="High Financial Materiality">Alta Mat. Financeira</span>
+
+          <!-- Environmental (green) -->
+          <div class="mm-point" style="left:88%;bottom:90%;background:var(--green);">
+            <div class="mm-tip"><strong>E1.1</strong><span data-pt="Energia &amp; Emissões" data-en="Energy &amp; Emissions">Energia &amp; Emissões</span></div>
+          </div>
+          <div class="mm-point" style="left:68%;bottom:80%;background:var(--green);">
+            <div class="mm-tip"><strong>E5</strong><span data-pt="Gestão de Resíduos" data-en="Waste Management">Gestão de Resíduos</span></div>
+          </div>
+          <div class="mm-point" style="left:62%;bottom:82%;background:var(--green);">
+            <div class="mm-tip"><strong>E1.2</strong><span data-pt="Adaptação Climática" data-en="Climate Adaptation">Adaptação Climática</span></div>
+          </div>
+          <div class="mm-point" style="left:52%;bottom:70%;background:var(--green);">
+            <div class="mm-tip"><strong>E2</strong><span data-pt="Poluição" data-en="Pollution">Poluição</span></div>
+          </div>
+
+          <!-- Social (purple) -->
+          <div class="mm-point" style="left:82%;bottom:85%;background:var(--purple);">
+            <div class="mm-tip"><strong>S1.2</strong><span data-pt="Condições de Trabalho" data-en="Working Conditions">Condições de Trabalho</span></div>
+          </div>
+          <div class="mm-point" style="left:74%;bottom:75%;background:var(--purple);">
+            <div class="mm-tip"><strong>S2</strong><span data-pt="Direitos Humanos (cadeia)" data-en="Human Rights (supply)">Direitos Humanos (cadeia)</span></div>
+          </div>
+          <div class="mm-point" style="left:56%;bottom:62%;background:var(--purple);">
+            <div class="mm-tip"><strong>S1.4</strong><span data-pt="Diversidade" data-en="Diversity">Diversidade</span></div>
+          </div>
+          <div class="mm-point" style="left:64%;bottom:55%;background:var(--purple);">
+            <div class="mm-tip"><strong>S1.3</strong><span data-pt="Formação" data-en="Training">Formação</span></div>
+          </div>
+
+          <!-- Governance (lavender) -->
+          <div class="mm-point" style="left:90%;bottom:80%;background:var(--lavender);">
+            <div class="mm-tip"><strong>G1.1</strong><span data-pt="Qualidade dos Edifícios" data-en="Building Quality">Qualidade dos Edifícios</span></div>
+          </div>
+          <div class="mm-point" style="left:78%;bottom:60%;background:var(--lavender);">
+            <div class="mm-tip"><strong>G2</strong><span data-pt="Inovação Digital" data-en="Digital Innovation">Inovação Digital</span></div>
+          </div>
+          <div class="mm-point" style="left:70%;bottom:65%;background:var(--lavender);">
+            <div class="mm-tip"><strong>G1.3</strong><span data-pt="Ética &amp; Compliance" data-en="Ethics &amp; Compliance">Ética &amp; Compliance</span></div>
+          </div>
+        </div>
+        <div></div>
+        <div class="mm-xaxis-label" data-pt="Materialidade Financeira →" data-en="Financial Materiality →">Materialidade Financeira →</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -903,6 +1126,16 @@ footer { background: var(--black); padding: 72px 80px 40px; color: #fff; }
 
 <!-- dot divider -->
 <div class="dot-divider"><span>· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·</span></div>
+
+<!-- ── PART 02 DIVIDER: Creating Tomorrow ── -->
+<section class="part-divider" id="part-2">
+  <div class="part-divider-inner fade-up">
+    <span class="part-num">02</span>
+    <span class="part-eyebrow" data-pt="Castro Group" data-en="Castro Group">Castro Group</span>
+    <h2 class="part-title" data-pt="Creating<br><strong>Tomorrow</strong>" data-en="Creating<br><strong>Tomorrow</strong>">Creating<br><strong>Tomorrow</strong></h2>
+    <p class="part-sub" data-pt="Para onde vamos — estratégia de certificação, plano de transição climática e os compromissos para 2026 e além. Os alicerces do futuro que estamos a construir." data-en="Where we are going — certification strategy, climate transition plan and commitments for 2026 and beyond. The foundations of the future we are building.">Para onde vamos — estratégia de certificação, plano de transição climática e os compromissos para 2026 e além. Os alicerces do futuro que estamos a construir.</p>
+  </div>
+</section>
 
 <!-- ── FUTURE / GOALS ── -->
 <section id="future">

@@ -943,12 +943,28 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
 
 /* ── RESPONSIVE: MOBILE (768px) ────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  /* Hide lateral rail entirely on mobile to free up screen real estate */
-  .scroll-rail { display: none; }
+  /* Mobile: convert lateral rail to a horizontal bar at the top */
+  .scroll-rail {
+    flex-direction: row;
+    width: 100%; height: 32px;
+    top: 0; right: 0; left: 0; bottom: auto;
+    z-index: 110;
+  }
+  .rail-section span {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+  .rail-section.active::after {
+    left: 0; right: 0; bottom: 0; top: auto;
+    width: 100%; height: 3px;
+  }
   nav, footer, .section-wrap { padding-right: 24px !important; }
 
-  /* Nav: trim down */
-  nav { padding: 0 16px; height: 56px; }
+  /* Push nav (and therefore content) below the top rail */
+  nav { padding: 0 16px; height: 56px; top: 32px; }
+  .hero-left { padding-top: 104px; }
   .nav-wordmark, .nav-sep, .nav-year { display: none; }
 
   /* Hero stack */
@@ -957,10 +973,16 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
   .hero-right { display: none; }
   .hero-title { font-size: 36px !important; line-height: 1.1; }
   .hero-quote { max-width: 100%; }
-  .hero-stats { grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
-  .hero-stat { padding: 14px 10px; }
-  .hero-stat-val { font-size: 24px; }
-  .hero-stat-label { font-size: 8px; }
+  .hero-stats {
+    grid-template-columns: 1fr;
+    margin-top: 22px;
+  }
+  .hero-stat {
+    padding: 11px 14px;
+    display: flex; align-items: baseline; gap: 14px;
+  }
+  .hero-stat-val { font-size: 20px; line-height: 1; flex-shrink: 0; }
+  .hero-stat-label { font-size: 9px; margin-top: 0; letter-spacing: 0.1em; }
   .hero-esg-nav {
     position: static; padding: 0;
     margin-top: 28px;
@@ -1041,8 +1063,6 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
 
 /* ── RESPONSIVE: PHONE (480px) ─────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .hero-stats { grid-template-columns: 1fr 1fr; }
-  .hero-stats .hero-stat:nth-child(3) { grid-column: 1 / -1; }
   .section-wrap { padding: 44px 20px !important; }
   .hero-left { padding: 64px 20px 28px; }
   .hero-title { font-size: 30px !important; }
@@ -1176,7 +1196,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
     <div class="ceo-grid fade-up">
       <div>
         <div style="width:200px;height:200px;overflow:hidden;border-radius:50%;margin-bottom:20px;background:var(--light);">
-          <img src="uploads/CEO.jpg" alt="Paulo Castro" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+          <img src="uploads/CEO.jpg" alt="Paulo Castro" loading="lazy" decoding="async" width="200" height="200" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
         </div>
         <div class="ceo-label" data-pt="Mensagem de" data-en="Message from">Mensagem de</div>
         <div class="ceo-name">Paulo Castro</div>
@@ -1198,7 +1218,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
     <div class="portfolio-photo-grid stagger">
       <!-- Featured: SPARK -->
       <div class="photo-card featured">
-        <img src="uploads/spark.jpg" alt="SPARK, Matosinhos">
+        <img src="uploads/spark.jpg" alt="SPARK, Matosinhos" loading="lazy" decoding="async">
         <div class="photo-card-badge construction" data-pt="Construção" data-en="Construction">Construção</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">SPARK</div>
@@ -1207,7 +1227,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- The Breeze -->
       <div class="photo-card">
-        <img src="uploads/the breeze.jpg" alt="The Breeze, Vila Nova de Gaia">
+        <img src="uploads/the breeze.jpg" alt="The Breeze, Vila Nova de Gaia" loading="lazy" decoding="async">
         <div class="photo-card-badge construction" data-pt="Construção" data-en="Construction">Construção</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">The Breeze</div>
@@ -1216,7 +1236,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- Valpark -->
       <div class="photo-card">
-        <img src="uploads/Valpark.jpg" alt="Valpark, Valongo">
+        <img src="uploads/Valpark.jpg" alt="Valpark, Valongo" loading="lazy" decoding="async">
         <div class="photo-card-badge construction" data-pt="Construção" data-en="Construction">Construção</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">Valpark</div>
@@ -1225,7 +1245,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- BUZ -->
       <div class="photo-card">
-        <img src="uploads/BUZ.jpg" alt="BUZ, Matosinhos">
+        <img src="uploads/BUZ.jpg" alt="BUZ, Matosinhos" loading="lazy" decoding="async">
         <div class="photo-card-badge operation" data-pt="Operação" data-en="Operation">Operação</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">BUZ</div>
@@ -1234,7 +1254,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- Fuse Valley -->
       <div class="photo-card">
-        <img src="uploads/fuse valley.jpg" alt="Fuse Valley, Matosinhos">
+        <img src="uploads/fuse valley.jpg" alt="Fuse Valley, Matosinhos" loading="lazy" decoding="async">
         <div class="photo-card-badge project" data-pt="Projeto" data-en="Project">Projeto</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">Fuse Valley</div>
@@ -1243,7 +1263,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- Palacete -->
       <div class="photo-card">
-        <img src="uploads/palacete.jpg" alt="Palacete 31 de Janeiro, Braga">
+        <img src="uploads/palacete.jpg" alt="Palacete 31 de Janeiro, Braga" loading="lazy" decoding="async">
         <div class="photo-card-badge operation" data-pt="Operação" data-en="Operation">Operação</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">Palacete 31 de Janeiro</div>
@@ -1252,7 +1272,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- Villa Bloom -->
       <div class="photo-card">
-        <img src="uploads/villa bloom.jpg" alt="Villa Bloom, Loulé">
+        <img src="uploads/villa bloom.jpg" alt="Villa Bloom, Loulé" loading="lazy" decoding="async">
         <div class="photo-card-badge project" data-pt="Projeto" data-en="Project">Projeto</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">Villa Bloom</div>
@@ -1261,7 +1281,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       </div>
       <!-- Villa Chloe -->
       <div class="photo-card">
-        <img src="uploads/Villa Chloe Julho 23 HighRes (9 de 17).jpg" alt="Villa Chloe, Loulé">
+        <img src="uploads/Villa Chloe Julho 23 HighRes (9 de 17).jpg" alt="Villa Chloe, Loulé" loading="lazy" decoding="async">
         <div class="photo-card-badge operation" data-pt="Operação" data-en="Operation">Operação</div>
         <div class="photo-card-overlay">
           <div class="photo-card-name">Villa Chloe</div>
@@ -1900,7 +1920,7 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
       <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--mid);margin-bottom:16px;" data-pt="Considerações Finais" data-en="Closing Remarks">Considerações Finais</div>
       <p style="font-size:18px;font-weight:300;line-height:1.6;color:var(--black);font-style:italic;border-left:3px solid var(--cyan);padding-left:24px;" data-pt="«As decisões que tomamos hoje são os alicerces do futuro sustentável que estamos a construir.»" data-en="«The decisions we make today are the foundations of the sustainable future we are building.»">«As decisões que tomamos hoje são os alicerces do futuro sustentável que estamos a construir.»</p>
       <div style="display:flex;align-items:center;gap:14px;margin-top:18px;padding-left:24px;">
-        <div class="fz-avatar"><img src="uploads/fernanda.jpg" alt="Fernanda Zelaya"></div>
+        <div class="fz-avatar"><img src="uploads/fernanda.jpg" alt="Fernanda Zelaya" loading="lazy" decoding="async" width="48" height="48"></div>
         <div>
           <div style="font-size:13px;font-weight:500;color:var(--black);">Fernanda Zelaya</div>
           <div style="font-size:11px;color:var(--mid);margin-top:2px;display:flex;align-items:center;gap:8px;">
@@ -2285,7 +2305,10 @@ document.querySelectorAll('.photo-card').forEach(card => {
 });
 
 // ── DOT CANVAS (hero) ─────────────────────────────────────────────────────────
+let _dotCanvasStop = null;
 function initDotCanvas() {
+  if (_dotCanvasStop) { _dotCanvasStop(); _dotCanvasStop = null; }
+
   const canvas = document.getElementById('dot-canvas');
   if (!canvas) return;
   const hero = document.getElementById('hero');
@@ -2293,24 +2316,32 @@ function initDotCanvas() {
   canvas.height = hero.offsetHeight;
   const ctx = canvas.getContext('2d');
   const colors = ['#00b86e','#00adb8','#7c4ddb','#9e8fd4','#00909a'];
+
+  // Responsive sizing: scale radius and dot count to canvas width
+  const w = canvas.width;
+  const scale = Math.max(0.32, Math.min(1, w / 1200));
+  const dotCount = w < 600 ? 14 : (w < 900 ? 18 : 26);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const dots = [];
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < dotCount; i++) {
     dots.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: 20 + Math.random() * 70,
+      r: (20 + Math.random() * 70) * scale,
       c: colors[Math.floor(Math.random() * colors.length)],
       vx: (Math.random() - 0.5) * 0.3,
       vy: (Math.random() - 0.5) * 0.3,
       a: 0, ta: 0.72 + Math.random() * 0.2
     });
   }
-  let frame;
+
+  let frame = null, running = false;
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     dots.forEach(d => {
       d.a += (d.ta - d.a) * 0.02;
-      d.x += d.vx; d.y += d.vy;
+      if (!reduced) { d.x += d.vx; d.y += d.vy; }
       if (d.x < -d.r) d.x = canvas.width + d.r;
       if (d.x > canvas.width + d.r) d.x = -d.r;
       if (d.y < -d.r) d.y = canvas.height + d.r;
@@ -2322,10 +2353,23 @@ function initDotCanvas() {
       ctx.fill();
     });
     ctx.globalAlpha = 1;
-    frame = requestAnimationFrame(draw);
+    if (running) frame = requestAnimationFrame(draw);
   }
-  draw();
-  return () => cancelAnimationFrame(frame);
+  function start() { if (!running) { running = true; frame = requestAnimationFrame(draw); } }
+  function stop()  { running = false; if (frame) cancelAnimationFrame(frame); }
+
+  // Pause when the hero is off-screen, and when the tab is hidden
+  const io = new IntersectionObserver(([entry]) => {
+    entry.isIntersecting ? start() : stop();
+  }, { threshold: 0 });
+  io.observe(hero);
+  document.addEventListener('visibilitychange', () => {
+    document.hidden ? stop() : start();
+  });
+
+  start();
+  _dotCanvasStop = () => { stop(); io.disconnect(); };
+  return _dotCanvasStop;
 }
 
 // ── DOT PEOPLE VISUALIZATION ──────────────────────────────────────────────────

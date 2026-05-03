@@ -965,6 +965,13 @@ nav, footer, .section-wrap { padding-right: max(48px, var(--side-pad, 80px)); }
   /* Push nav (and therefore content) below the top rail */
   nav { padding: 0 16px; height: 56px; top: 32px; }
   .hero-left { padding-top: 104px; }
+
+  /* Mobile: kill the heavy nav bar background; let logo + lang float */
+  nav, nav.over-dark {
+    background: transparent !important;
+    backdrop-filter: none;
+    border-bottom: none;
+  }
   .nav-wordmark, .nav-sep, .nav-year { display: none; }
 
   /* Hero stack */

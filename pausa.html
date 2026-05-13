@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Castro Group — Pausa · RS 2025</title>
+<meta name="description" content="Pausa contemplativa. Castro Group — Relatório de Sustentabilidade 2025.">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --cg-navy:     #2E4791;
+  --cg-orange:   #FB7622;
+  --cg-cyan:     #0E99D8;
+  --cg-green:    #33B67A;
+  --cg-rust:     #CC512C;
+  --cg-putty:    #D8D5CC;
+  --cg-bone:     #EFEDE6;
+  --cg-ink:      #1A1F2E;
+  --cg-mid:      #6B7280;
+  --cg-border:   #C7C4BA;
+  --cg-dark-ink: #14182A;
+  --cg-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--cg-putty);
+  color: var(--cg-ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV (minimal) */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 60px;
+  background: rgba(216, 213, 204, 0.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cg-border);
+}
+.nav-left { display: flex; align-items: center; gap: 20px; }
+.nav-logo { height: 22px; width: auto; display: block; }
+.nav-sep { width: 1px; height: 18px; background: var(--cg-border); }
+.nav-wordmark {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cg-ink); opacity: 0.7;
+}
+.nav-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--cg-navy);
+  transition: gap 0.2s var(--cg-ease);
+}
+.nav-back:hover { gap: 14px; }
+.nav-back .arrow { font-size: 16px; line-height: 1; }
+
+/* PAUSA STAGE — sphere grid + central orbit */
+.pausa-stage {
+  position: relative;
+  min-height: 100vh;
+  padding: 88px 20px 60px;
+  overflow: hidden;
+  display: grid; place-items: center;
+}
+
+/* Sphere grid (background) — 5×5 = 25 spheres cycling through flag colors */
+.pausa-grid {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: clamp(12px, 2vw, 32px);
+  padding: clamp(40px, 8vw, 120px);
+  pointer-events: none;
+  z-index: 1;
+}
+.pausa-sphere {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 130px;
+  justify-self: center; align-self: center;
+  background: var(--cg-navy);
+  opacity: 1;
+  animation: sphere-cycle 18s linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes sphere-cycle {
+  0%   { background: #2E4791; }   /* navy */
+  20%  { background: #FB7622; }   /* orange */
+  40%  { background: #0E99D8; }   /* cyan */
+  60%  { background: #33B67A; }   /* green */
+  80%  { background: #CC512C; }   /* rust */
+  100% { background: #2E4791; }
+}
+
+/* Central orbit — 5 concentric text rings */
+.pausa-orbit-wrap {
+  position: relative;
+  z-index: 2;
+  width: min(800px, 92vw);
+  aspect-ratio: 1 / 1;
+  display: grid; place-items: center;
+}
+.pausa-orbit-svg {
+  width: 100%; height: 100%; display: block;
+}
+.ring-g {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Velocities — Castro Group rings alternate (CW · CCW · CW), Drucker rings both CW (different speeds) */
+.ring-cg-outer  { animation: pausa-spin     90s linear infinite; }
+.ring-dr-outer  { animation: pausa-spin     70s linear infinite; }
+.ring-cg-middle { animation: pausa-spin-rev 60s linear infinite; }
+.ring-dr-inner  { animation: pausa-spin     40s linear infinite; }
+.ring-cg-inner  { animation: pausa-spin     34s linear infinite; }
+
+@keyframes pausa-spin     { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes pausa-spin-rev { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+
+/* Ring typography */
+.ring-text {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  fill: var(--cg-ink);
+}
+.ring-text-cg {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.ring-text-cg-mid { font-size: 26px; letter-spacing: 0.34em; }
+.ring-text-cg-inner { font-size: 18px; letter-spacing: 0.28em; }
+.ring-text-dr {
+  font-family: 'Instrument Serif', 'Helvetica Neue', serif;
+  font-size: 20px; font-style: italic; font-weight: 400;
+  letter-spacing: 0.02em;
+  fill: var(--cg-navy);
+}
+.ring-text-dr-inner { font-size: 17px; }
+
+/* Center mini-flag */
+.pausa-center-flag circle { /* fills set inline */ }
+
+/* Tagline below */
+.pausa-tagline {
+  position: relative; z-index: 2;
+  margin-top: clamp(24px, 4vw, 48px);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cg-mid);
+  text-align: center;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pausa-sphere,
+  .ring-cg-outer, .ring-cg-middle, .ring-cg-inner,
+  .ring-dr-outer, .ring-dr-inner { animation: none; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 0 32px; }
+  .pausa-grid { padding: clamp(24px, 5vw, 80px); }
+  .ring-text-cg { font-size: 17px; letter-spacing: 0.26em; }
+  .ring-text-cg-mid { font-size: 19px; letter-spacing: 0.28em; }
+  .ring-text-cg-inner { font-size: 14px; letter-spacing: 0.22em; }
+  .ring-text-dr { font-size: 16px; }
+  .ring-text-dr-inner { font-size: 14px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 16px; height: 56px; }
+  .nav-wordmark, .nav-sep { display: none; }
+  .pausa-stage { padding: 72px 12px 48px; }
+  .pausa-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 24px;
+  }
+  .pausa-grid .pausa-sphere:nth-child(n+17) { display: none; } /* hide 17-25 on mobile */
+  .ring-text-cg { font-size: 11px; letter-spacing: 0.22em; }
+  .ring-text-cg-mid { font-size: 13px; letter-spacing: 0.22em; }
+  .ring-text-cg-inner { font-size: 9px; letter-spacing: 0.18em; }
+  .ring-text-dr { font-size: 11px; }
+  .ring-text-dr-inner { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <img src="assets/brand/Castro_group_black.svg" alt="Castro Group" class="nav-logo">
+    <div class="nav-sep"></div>
+    <span class="nav-wordmark">Pausa · RS 2025</span>
+  </div>
+  <a href="index-v2.html" class="nav-back">
+    <span class="arrow">←</span>
+    <span data-pt="Voltar ao relatório" data-en="Back to report">Voltar ao relatório</span>
+  </a>
+</nav>
+
+<main class="pausa-stage">
+  <!-- Background sphere grid: 25 spheres cycling through 5 flag colors -->
+  <div class="pausa-grid" aria-hidden="true">
+    <span class="pausa-sphere" style="--delay:-1.2s"></span>
+    <span class="pausa-sphere" style="--delay:-4.8s"></span>
+    <span class="pausa-sphere" style="--delay:-9.4s"></span>
+    <span class="pausa-sphere" style="--delay:-13.1s"></span>
+    <span class="pausa-sphere" style="--delay:-2.5s"></span>
+
+    <span class="pausa-sphere" style="--delay:-15.7s"></span>
+    <span class="pausa-sphere" style="--delay:-6.3s"></span>
+    <span class="pausa-sphere" style="--delay:-11.2s"></span>
+    <span class="pausa-sphere" style="--delay:-0.4s"></span>
+    <span class="pausa-sphere" style="--delay:-17.0s"></span>
+
+    <span class="pausa-sphere" style="--delay:-7.9s"></span>
+    <span class="pausa-sphere" style="--delay:-14.3s"></span>
+    <span class="pausa-sphere" style="--delay:-3.1s"></span>
+    <span class="pausa-sphere" style="--delay:-10.6s"></span>
+    <span class="pausa-sphere" style="--delay:-5.2s"></span>
+
+    <span class="pausa-sphere" style="--delay:-12.4s"></span>
+    <span class="pausa-sphere" style="--delay:-8.5s"></span>
+    <span class="pausa-sphere" style="--delay:-16.1s"></span>
+    <span class="pausa-sphere" style="--delay:-2.0s"></span>
+    <span class="pausa-sphere" style="--delay:-11.8s"></span>
+
+    <span class="pausa-sphere" style="--delay:-4.0s"></span>
+    <span class="pausa-sphere" style="--delay:-14.9s"></span>
+    <span class="pausa-sphere" style="--delay:-7.2s"></span>
+    <span class="pausa-sphere" style="--delay:-9.0s"></span>
+    <span class="pausa-sphere" style="--delay:-1.6s"></span>
+  </div>
+
+  <!-- Central orbit composition: 5 concentric text rings -->
+  <div class="pausa-orbit-wrap">
+    <svg class="pausa-orbit-svg" viewBox="0 0 800 800" role="img" aria-labelledby="pausa-title">
+      <title id="pausa-title">Castro Group · The best way to predict the future is to create it. — Peter Drucker</title>
+      <defs>
+        <!-- CG OUTER  (radius 360, sweep 1 = clockwise text direction) -->
+        <path id="p-cg-outer"  d="M 400 400 m -360 0 a 360 360 0 1 1 720 0 a 360 360 0 1 1 -720 0" fill="none"/>
+        <!-- DR OUTER  (radius 295, sweep 1) -->
+        <path id="p-dr-outer"  d="M 400 400 m -295 0 a 295 295 0 1 1 590 0 a 295 295 0 1 1 -590 0" fill="none"/>
+        <!-- CG MIDDLE (radius 235, sweep 0 = ring renders with reversed glyph baseline, the visual rotation is set via CSS) -->
+        <path id="p-cg-middle" d="M 400 400 m -235 0 a 235 235 0 1 1 470 0 a 235 235 0 1 1 -470 0" fill="none"/>
+        <!-- DR INNER  (radius 175, sweep 1) -->
+        <path id="p-dr-inner"  d="M 400 400 m -175 0 a 175 175 0 1 1 350 0 a 175 175 0 1 1 -350 0" fill="none"/>
+        <!-- CG INNER  (radius 115, sweep 1) -->
+        <path id="p-cg-inner"  d="M 400 400 m -115 0 a 115 115 0 1 1 230 0 a 115 115 0 1 1 -230 0" fill="none"/>
+      </defs>
+
+      <!-- Outer: CASTRO GROUP, clockwise -->
+      <g class="ring-g ring-cg-outer">
+        <text class="ring-text ring-text-cg">
+          <textPath href="#p-cg-outer" textLength="2230" lengthAdjust="spacing">CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  </textPath>
+        </text>
+      </g>
+
+      <!-- Drucker outer: clockwise (faster) -->
+      <g class="ring-g ring-dr-outer">
+        <text class="ring-text ring-text-dr">
+          <textPath href="#p-dr-outer" textLength="1830" lengthAdjust="spacing" data-pt="The best way to predict the future is to create it.  —  Peter Drucker  ·  The best way to predict the future is to create it.  —  Peter Drucker  ·  " data-en="The best way to predict the future is to create it.  —  Peter Drucker  ·  The best way to predict the future is to create it.  —  Peter Drucker  ·  ">The best way to predict the future is to create it.  —  Peter Drucker  ·  The best way to predict the future is to create it.  —  Peter Drucker  ·  </textPath>
+        </text>
+      </g>
+
+      <!-- Middle: CASTRO GROUP, counter-clockwise -->
+      <g class="ring-g ring-cg-middle">
+        <text class="ring-text ring-text-cg ring-text-cg-mid">
+          <textPath href="#p-cg-middle" textLength="1460" lengthAdjust="spacing">CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  </textPath>
+        </text>
+      </g>
+
+      <!-- Drucker inner: clockwise (fastest) -->
+      <g class="ring-g ring-dr-inner">
+        <text class="ring-text ring-text-dr ring-text-dr-inner">
+          <textPath href="#p-dr-inner" textLength="1090" lengthAdjust="spacing" data-pt="The best way to predict the future is to create it.  —  Peter Drucker  ·  " data-en="The best way to predict the future is to create it.  —  Peter Drucker  ·  ">The best way to predict the future is to create it.  —  Peter Drucker  ·  </textPath>
+        </text>
+      </g>
+
+      <!-- Inner: CASTRO GROUP, clockwise -->
+      <g class="ring-g ring-cg-inner">
+        <text class="ring-text ring-text-cg ring-text-cg-inner">
+          <textPath href="#p-cg-inner" textLength="710" lengthAdjust="spacing">CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  </textPath>
+        </text>
+      </g>
+
+      <!-- Mini-flag at exact center (5 dots in flag order) -->
+      <g class="pausa-center-flag">
+        <circle cx="384" cy="400" r="4" fill="#2E4791"/>
+        <circle cx="392" cy="400" r="4" fill="#FB7622"/>
+        <circle cx="400" cy="400" r="4" fill="#0E99D8"/>
+        <circle cx="408" cy="400" r="4" fill="#33B67A"/>
+        <circle cx="416" cy="400" r="4" fill="#CC512C"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="pausa-tagline" data-pt="Castro Group · Relatório de Sustentabilidade 2025" data-en="Castro Group · Sustainability Report 2025">Castro Group · Relatório de Sustentabilidade 2025</p>
+</main>
+
+<script>
+// Language toggle via ?lang=en query param.
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get('lang') === 'en' ? 'en' : 'pt';
+  if (lang === 'pt') return;
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (!val) return;
+    if (val.indexOf('<') === -1) {
+      el.textContent = val;
+      return;
+    }
+    while (el.firstChild) el.removeChild(el.firstChild);
+    const frag = document.createRange().createContextualFragment(val);
+    el.appendChild(frag);
+  });
+  document.documentElement.lang = lang;
+})();
+</script>
+</body>
+</html>

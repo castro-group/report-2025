@@ -60,12 +60,12 @@
   --cg-pillar-situacao:  var(--cg-cyan);
   --cg-pillar-tomorrow:  var(--cg-green);
 
-  /* ── LEGACY ESG MAPPING (preserved from RS25) ───────────────────────────── */
-  /* Use ONLY inside ESG materiality / pillar widgets. Not for chrome. */
-  --cg-esg-env:        var(--cg-green);
-  --cg-esg-social:     #7C4DDB;   /* legacy purple */
-  --cg-esg-governance: #9E8FD4;   /* legacy lavender */
-  --cg-esg-economic:   #007A4A;   /* legacy deep green */
+  /* ── ESG PILLAR TOKENS (remapped to RS26 flag — legacy palette retired 2026) ─ */
+  /* Original RS25 values (purple/lavender/deep-green) discontinued. */
+  --cg-esg-env:        var(--cg-green);   /* unchanged: green */
+  --cg-esg-social:     #0E99D8;           /* was #7C4DDB purple → cg-cyan */
+  --cg-esg-governance: #FB7622;           /* was #9E8FD4 lavender → cg-orange */
+  --cg-esg-economic:   #CC512C;           /* was #007A4A dark green → cg-rust */
 
   /* ── BADGES / TAG TINTS (light surfaces on putty) ───────────────────────── */
   --cg-tag-orange-bg: #FBE3D2;   --cg-tag-orange-fg: #B0451A;

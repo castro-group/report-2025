@@ -46,10 +46,10 @@
   --cg-tag-navy-bg:   #D6DCEC; --cg-tag-navy-fg:   #2E4791;
   --cg-tag-rust-bg:   #F0D2C5; --cg-tag-rust-fg:   #8E3A1F;
 
-  /* ESG legacy (only inside ESG widgets) */
-  --cg-esg-social:     #7C4DDB;
-  --cg-esg-governance: #9E8FD4;
-  --cg-esg-economic:   #007A4A;
+  /* ESG pillar tokens (remapped to RS26 flag in 2026 — legacy purple/lavender retired) */
+  --cg-esg-social:     #0E99D8;  /* was #7C4DDB purple → now cg-cyan */
+  --cg-esg-governance: #FB7622;  /* was #9E8FD4 lavender → now cg-orange */
+  --cg-esg-economic:   #CC512C;  /* was #007A4A dark green → now cg-rust */
 
   /* MOTION */
   --cg-ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -86,7 +86,7 @@ nav.over-dark .nav-wordmark,
 nav.over-dark .nav-year { color: #fff; }
 
 .nav-left { display: flex; align-items: center; gap: 20px; }
-.nav-logo { height: 22px; width: auto; display: block; }
+.nav-logo { height: 34px; width: auto; display: block; }
 nav.over-dark .nav-logo { filter: brightness(0) invert(1); }
 .nav-sep { width: 1px; height: 18px; background: var(--cg-border); }
 nav.over-dark .nav-sep { background: rgba(255,255,255,0.2); }
@@ -95,7 +95,19 @@ nav.over-dark .nav-sep { background: rgba(255,255,255,0.2); }
   font-weight: 500; color: var(--cg-mid); white-space: nowrap;
 }
 
-.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-pdf {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 7px 14px; border-radius: 18px;
+  background: var(--cg-orange); color: #fff;
+  text-decoration: none;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background 0.2s var(--cg-ease), transform 0.2s var(--cg-ease);
+}
+.nav-pdf:hover { background: #E36410; transform: translateY(-1px); }
+.nav-pdf svg { width: 12px; height: 12px; }
+nav.over-dark .nav-pdf { background: rgba(255,255,255,0.92); color: var(--cg-navy); }
 .nav-year { font-size: 10px; letter-spacing: 0.12em; opacity: 0.5; color: var(--cg-ink); }
 .lang-toggle {
   display: flex; gap: 2px;
@@ -159,30 +171,7 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
   font-size: 10px; letter-spacing: 0.08em; opacity: 0.9;
 }
 
-/* RS26 cover bands — orange/cyan/green flag stripe */
-.hero-flag {
-  position: relative; z-index: 2;
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  width: 100%;
-}
-.hero-flag a {
-  padding: 28px 32px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.22em; text-transform: uppercase;
-  display: flex; align-items: center; justify-content: space-between;
-  transition: opacity 0.2s, transform 0.3s;
-}
-.hero-flag a:hover { opacity: 0.92; }
-.hero-flag a.castro    { background: var(--cg-orange); }
-.hero-flag a.situacao  { background: var(--cg-cyan); }
-.hero-flag a.tomorrow  { background: var(--cg-green); }
-.hero-flag a::after {
-  content: '→'; font-size: 16px; opacity: 0.85; letter-spacing: 0;
-}
-
-/* Hero stats strip — appears below flag */
+/* Hero stats strip — chapter rail handles chapter navigation now */
 .hero-stats {
   position: relative; z-index: 2;
   display: grid; grid-template-columns: repeat(5, 1fr);
@@ -240,9 +229,9 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
 /* Full-bleed colored band between chapters (RS26 signature) */
 .chapter-band {
   width: 100%;
-  padding: 96px 80px;
-  display: grid; grid-template-columns: 1fr 2fr;
-  gap: 48px; align-items: center;
+  padding: 52px 80px;
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 40px; align-items: center;
   border-radius: 0;
 }
 .chapter-band.orange  { background: var(--cg-orange); }
@@ -250,12 +239,12 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
 .chapter-band.green   { background: var(--cg-green); }
 .chapter-band .num {
   font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: clamp(120px, 14vw, 200px); font-weight: 400;
-  line-height: 0.8; color: rgba(255,255,255,0.92);
+  font-size: clamp(72px, 9vw, 120px); font-weight: 400;
+  line-height: 0.85; color: rgba(255,255,255,0.95);
   letter-spacing: -0.02em;
 }
 .chapter-band h2 {
-  font-size: clamp(36px, 4.5vw, 64px);
+  font-size: clamp(28px, 3.6vw, 48px);
   font-weight: 300; line-height: 1.05; color: #fff;
   letter-spacing: -0.02em;
 }
@@ -450,30 +439,624 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
 .stagger.visible > *:nth-child(7) { opacity:1;transform:none;transition-delay:0.42s }
 .stagger.visible > *:nth-child(8) { opacity:1;transform:none;transition-delay:0.49s }
 
+/* ── DOUBLE MATERIALITY MATRIX ────────────────────────────────────────── */
+.mm-section {
+  background: var(--cg-dark-ink);
+  color: #fff;
+  padding: 100px 80px;
+}
+.mm-section-inner { max-width: 1240px; margin: 0 auto; }
+.mm-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--cg-cyan);
+  margin-bottom: 14px;
+}
+.mm-section h2 {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;
+  color: #fff; margin-bottom: 12px;
+}
+.mm-section h2 strong { font-weight: 700; }
+.mm-section .mm-sub {
+  font-size: 13px; line-height: 1.7;
+  color: rgba(255,255,255,0.62);
+  max-width: 600px; margin-bottom: 48px;
+}
+.mm-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 24px; margin-bottom: 32px;
+}
+.mm-legend { display: flex; gap: 20px; flex-wrap: wrap; }
+.mm-legend-item {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 10px; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 600;
+  color: rgba(255,255,255,0.78);
+}
+.mm-legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.mm-grid {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-template-rows: 1fr 32px;
+  gap: 6px;
+  height: 520px;
+}
+.mm-yaxis-label {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.20em;
+  text-transform: uppercase; color: rgba(255,255,255,0.45);
+}
+.mm-xaxis-label {
+  grid-column: 2 / 3; grid-row: 2 / 3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; font-weight: 600; letter-spacing: 0.20em;
+  text-transform: uppercase; color: rgba(255,255,255,0.45);
+}
+.mm-plot {
+  position: relative;
+  background: linear-gradient(to top right, rgba(14,153,216,0.04) 0%, rgba(51,182,122,0.14) 100%);
+  border: 1px solid rgba(255,255,255,0.10);
+  overflow: visible;
+}
+.mm-plot::before, .mm-plot::after {
+  content: ''; position: absolute; background: rgba(255,255,255,0.07);
+}
+.mm-plot::before { top: 0; bottom: 0; left: 50%; width: 1px; }
+.mm-plot::after  { left: 0; right: 0; top: 50%; height: 1px; }
+.mm-quad-label {
+  position: absolute; font-size: 8px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: rgba(255,255,255,0.32);
+  padding: 8px 10px; pointer-events: none;
+}
+.mm-quad-tl { top: 8px; left: 8px; }
+.mm-quad-tr { top: 8px; right: 8px; }
+.mm-quad-bl { bottom: 8px; left: 8px; }
+.mm-quad-br { bottom: 8px; right: 8px; color: rgba(51,182,122,0.85); font-weight: 700; }
+.mm-point {
+  position: absolute;
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.90);
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+  transition: transform 0.2s var(--cg-ease), box-shadow 0.2s var(--cg-ease);
+  z-index: 2;
+}
+.mm-point:hover {
+  transform: translate(-50%, 50%) scale(1.4);
+  box-shadow: 0 0 0 6px rgba(255,255,255,0.08);
+  z-index: 5;
+}
+.mm-point .mm-tip {
+  position: absolute; left: 50%; bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  background: #0d0d22; color: #fff;
+  padding: 8px 12px; border-radius: 2px;
+  font-size: 11px; line-height: 1.4; white-space: nowrap;
+  border: 1px solid rgba(255,255,255,0.12);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.15s var(--cg-ease);
+}
+.mm-point .mm-tip strong { font-weight: 600; margin-right: 6px; }
+.mm-point .mm-tip span {
+  color: rgba(255,255,255,0.58); font-weight: 400; font-size: 10px;
+}
+.mm-point:hover .mm-tip { opacity: 1; }
+@media (max-width: 1024px) {
+  .mm-section { padding: 72px 32px; }
+  .mm-grid { height: 440px; }
+}
+@media (max-width: 640px) {
+  .mm-section { padding: 56px 20px; }
+  .mm-grid { height: 340px; grid-template-columns: 22px 1fr; gap: 4px; }
+  .mm-quad-label { font-size: 7px; padding: 4px 6px; }
+  .mm-point { width: 12px; height: 12px; }
+}
+
+/* ── PORTFOLIO MACRO (dot-rows + counts) ──────────────────────────────── */
+.pf-macro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px 80px;
+  margin-top: 48px;
+}
+.pf-cat {
+  display: flex; flex-direction: column;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  padding-bottom: 32px;
+}
+.pf-cat-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.32);
+  padding-bottom: 10px;
+}
+.pf-cat-title {
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 300; color: #fff;
+  letter-spacing: -0.01em;
+}
+.pf-cat-title strong { font-weight: 700; }
+.pf-cat-count {
+  font-size: clamp(22px, 2.4vw, 32px);
+  font-weight: 300; color: rgba(255,255,255,0.85);
+}
+.pf-cat-count::before { content: '['; }
+.pf-cat-count::after  { content: ']'; }
+.pf-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 6px 0;
+}
+.pf-row-meta { display: flex; flex-direction: column; gap: 4px; }
+.pf-row-dots {
+  display: flex; gap: 3px; align-items: center;
+  flex-wrap: nowrap;
+  margin-bottom: 6px;
+}
+.pf-row-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--cg-green);
+}
+.pf-row-label {
+  font-size: 12px; line-height: 1.45;
+  color: rgba(255,255,255,0.78);
+  letter-spacing: 0.01em;
+}
+.pf-row-sub {
+  font-size: 10px; line-height: 1.45;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.02em;
+  margin-top: 4px;
+}
+.pf-row-sub .pf-bullet {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cg-cyan); margin-right: 6px; vertical-align: 0;
+}
+.pf-row-num {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--cg-green); color: #fff;
+  display: grid; place-items: center;
+  font-size: 22px; font-weight: 400;
+  flex-shrink: 0;
+}
+.pf-row-num.lg { width: 64px; height: 64px; font-size: 26px; }
+.pf-landbank-row {
+  display: flex; gap: 16px; margin-top: 16px;
+}
+.pf-landbank-dot {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--cg-rust);
+}
+.pf-cidades {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 24px;
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.8);
+}
+.pf-cidades-item {
+  display: flex; align-items: center; gap: 8px;
+}
+.pf-cidades-item::before {
+  content: ''; display: inline-block;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--cg-cyan);
+}
+.pf-full-link {
+  margin-top: 56px;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 18px 28px;
+  background: var(--cg-orange); color: #fff;
+  text-decoration: none;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  transition: transform 0.2s var(--cg-ease), background 0.2s var(--cg-ease);
+}
+.pf-full-link:hover { transform: translateX(4px); background: #E36410; }
+.pf-full-link .arrow { font-size: 18px; line-height: 1; }
+@media (max-width: 1024px) {
+  .pf-macro { grid-template-columns: 1fr; gap: 40px; }
+  .pf-cidades { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .pf-cidades { grid-template-columns: 1fr; }
+  .pf-landbank-dot { width: 48px; height: 48px; }
+  .pf-row-num { width: 44px; height: 44px; font-size: 18px; }
+  .pf-row-num.lg { width: 52px; height: 52px; font-size: 21px; }
+}
+
+/* ── NAMES ORBIT (Agradecimentos, before footer) ───────────────────────── */
+.names-orbit {
+  background: var(--cg-navy);
+  color: #fff;
+  padding: 120px 32px 100px;
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.names-orbit-title {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 300; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.names-orbit-title strong { font-weight: 700; }
+.names-orbit-sub {
+  max-width: 540px;
+  font-size: 14px; line-height: 1.65;
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 56px;
+}
+.names-orbit-svg {
+  width: min(760px, 92vw);
+  height: min(760px, 92vw);
+  display: block;
+}
+.names-ring-g {
+  transform-box: view-box;
+  transform-origin: 350px 350px;
+}
+.names-ring-outer  { animation: orbit-spin     180s linear infinite; }
+.names-ring-middle { animation: orbit-spin-rev 130s linear infinite; }
+.names-ring-inner  { animation: orbit-spin      95s linear infinite; }
+.names-text {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  fill: #fff;
+}
+.names-text-outer  { font-size: 15px; font-weight: 400; letter-spacing: 0.04em; opacity: 0.92; }
+.names-text-middle { font-size: 15px; font-weight: 400; letter-spacing: 0.04em; opacity: 0.78; }
+.names-text-inner  { font-size: 13px; font-weight: 400; letter-spacing: 0.02em; opacity: 0.64; }
+.names-orbit-center {
+  fill: #fff;
+}
+@media (prefers-reduced-motion: reduce) {
+  .names-ring-outer, .names-ring-middle, .names-ring-inner { animation: none; }
+}
+@media (max-width: 640px) {
+  .names-orbit { padding: 72px 20px 64px; }
+  .names-text-outer, .names-text-middle { font-size: 12px; }
+  .names-text-inner { font-size: 10px; }
+}
+
+/* ── MISSÃO · VISÃO · VALORES (Venn diagram, pg.24 of PDF) ─────────────── */
+.mvv-section {
+  background: var(--cg-bone);
+  padding: 96px 80px;
+}
+.mvv-inner {
+  max-width: 1180px; margin: 0 auto;
+}
+.mvv-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--cg-rust);
+  margin-bottom: 12px;
+}
+.mvv-section h2 {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;
+  color: var(--cg-ink); margin-bottom: 56px;
+}
+.mvv-section h2 strong { font-weight: 700; }
+.mvv-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 72px;
+  align-items: center;
+}
+.mvv-diagram {
+  display: grid; place-items: center;
+  width: 100%;
+}
+.mvv-diagram svg {
+  width: 100%; max-width: 480px;
+  display: block;
+}
+.mvv-cards {
+  display: flex; flex-direction: column;
+  gap: 32px;
+}
+.mvv-card {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px; align-items: start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--cg-border);
+}
+.mvv-card:last-child { border-bottom: none; padding-bottom: 0; }
+.mvv-card-tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.20em;
+  text-transform: uppercase;
+  padding-top: 4px;
+}
+.mvv-card.mvv-missao  .mvv-card-tag { color: var(--cg-rust); }
+.mvv-card.mvv-visao   .mvv-card-tag { color: var(--cg-mid); }
+.mvv-card.mvv-valores .mvv-card-tag { color: var(--cg-orange); }
+.mvv-card p {
+  font-size: 14px; line-height: 1.75;
+  color: var(--cg-ink);
+}
+.mvv-card p em {
+  font-style: italic;
+  color: var(--cg-navy);
+}
+@media (max-width: 1024px) {
+  .mvv-section { padding: 72px 32px; }
+  .mvv-layout { grid-template-columns: 1fr; gap: 48px; }
+}
+@media (max-width: 640px) {
+  .mvv-section { padding: 56px 20px; }
+  .mvv-card { grid-template-columns: 1fr; gap: 8px; padding-bottom: 24px; }
+}
+
+/* ── PAUSA STAGE (embedded section before footer) ──────────────────────── */
+.pausa-stage {
+  position: relative;
+  min-height: 100vh;
+  padding: 96px 20px 80px;
+  overflow: hidden;
+  display: grid; place-items: center;
+  background: var(--cg-putty);
+}
+.pausa-grid {
+  position: absolute; inset: 0 80px 0 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: clamp(12px, 2vw, 32px);
+  padding: clamp(40px, 8vw, 120px);
+  pointer-events: none;
+  z-index: 1;
+}
+.pausa-sphere {
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  max-width: 130px;
+  justify-self: center; align-self: center;
+  background: var(--cg-navy);
+  animation: sphere-cycle 18s linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes sphere-cycle {
+  0%   { background: #2E4791; }
+  20%  { background: #FB7622; }
+  40%  { background: #0E99D8; }
+  60%  { background: #33B67A; }
+  80%  { background: #CC512C; }
+  100% { background: #2E4791; }
+}
+.pausa-orbit-wrap {
+  position: relative; z-index: 2;
+  width: min(800px, 88vw);
+  aspect-ratio: 1 / 1;
+  display: grid; place-items: center;
+}
+.pausa-orbit-svg { width: 100%; height: 100%; display: block; }
+.ring-g {
+  transform-box: view-box;
+  transform-origin: 400px 400px;
+}
+.ring-cg-outer  { animation: pausa-spin     90s linear infinite; }
+.ring-dr-outer  { animation: pausa-spin     70s linear infinite; }
+.ring-cg-middle { animation: pausa-spin-rev 60s linear infinite; }
+.ring-dr-inner  { animation: pausa-spin     40s linear infinite; }
+.ring-cg-inner  { animation: pausa-spin     34s linear infinite; }
+@keyframes pausa-spin     { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes pausa-spin-rev { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+.ring-text {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  fill: var(--cg-ink);
+}
+.ring-text-cg {
+  font-size: 22px; font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+.ring-text-cg-mid { font-size: 26px; letter-spacing: 0.34em; }
+.ring-text-cg-inner { font-size: 18px; letter-spacing: 0.28em; }
+.ring-text-dr {
+  font-family: 'Instrument Serif', 'Helvetica Neue', serif;
+  font-size: 20px; font-style: italic; font-weight: 400;
+  letter-spacing: 0.02em;
+  fill: var(--cg-navy);
+}
+.ring-text-dr-inner { font-size: 17px; }
+.pausa-tagline {
+  position: relative; z-index: 2;
+  margin-top: clamp(24px, 4vw, 48px);
+  font-size: 11px; font-weight: 600; letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--cg-mid);
+  text-align: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pausa-sphere,
+  .ring-cg-outer, .ring-cg-middle, .ring-cg-inner,
+  .ring-dr-outer, .ring-dr-inner { animation: none; }
+}
+@media (max-width: 1024px) {
+  .pausa-grid { padding: clamp(24px, 5vw, 80px); inset: 0 60px 0 0; }
+  .ring-text-cg { font-size: 17px; letter-spacing: 0.26em; }
+  .ring-text-cg-mid { font-size: 19px; letter-spacing: 0.28em; }
+  .ring-text-cg-inner { font-size: 14px; letter-spacing: 0.22em; }
+  .ring-text-dr { font-size: 16px; }
+  .ring-text-dr-inner { font-size: 14px; }
+}
+@media (max-width: 640px) {
+  .pausa-stage { padding: 64px 12px 56px; }
+  .pausa-grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding: 24px;
+    inset: 0;
+  }
+  .pausa-grid .pausa-sphere:nth-child(n+17) { display: none; }
+  .ring-text-cg { font-size: 11px; letter-spacing: 0.22em; }
+  .ring-text-cg-mid { font-size: 13px; letter-spacing: 0.22em; }
+  .ring-text-cg-inner { font-size: 9px; letter-spacing: 0.18em; }
+  .ring-text-dr { font-size: 11px; }
+  .ring-text-dr-inner { font-size: 10px; }
+}
+
+/* ── QUOTE ORBIT (between hero and chapter 01) ─────────────────────────── */
+.quote-orbit {
+  background: var(--cg-putty);
+  padding: 80px 32px;
+  display: grid; place-items: center;
+  overflow: hidden;
+  position: relative;
+}
+.quote-orbit-svg {
+  width: min(620px, 88vw);
+  height: min(620px, 88vw);
+  display: block;
+}
+.orbit-outer-g, .orbit-inner-g {
+  transform-box: view-box;
+  transform-origin: 300px 300px;
+}
+.orbit-outer-g { animation: orbit-spin 110s linear infinite; }
+.orbit-inner-g { animation: orbit-spin-rev 42s linear infinite; }
+.orbit-outer-text {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 18px; font-weight: 600;
+  letter-spacing: 0.16em;
+  fill: var(--cg-navy);
+  text-transform: uppercase;
+}
+.orbit-inner-text {
+  font-family: 'Instrument Serif', 'Helvetica Neue', serif;
+  font-size: 26px; font-style: italic;
+  fill: var(--cg-ink);
+}
+.orbit-center-mark { opacity: 0.95; }
+@keyframes orbit-spin     { from { transform: rotate(0deg); }   to { transform: rotate(360deg); } }
+@keyframes orbit-spin-rev { from { transform: rotate(0deg); }   to { transform: rotate(-360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .orbit-outer-g, .orbit-inner-g { animation: none; }
+}
+
+/* ── ISOTYPE PEOPLE DOTS (social pillar) ───────────────────────────────── */
+.dot-people {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin: 24px 0 8px;
+  max-width: 920px;
+}
+.person-dot {
+  width: 16px; height: 16px; border-radius: 50%;
+  opacity: 0; transform: scale(0);
+  transition: opacity 0.3s var(--cg-ease), transform 0.3s var(--cg-ease);
+}
+.person-dot.visible { opacity: 1; transform: scale(1); }
+.dot-people-legend {
+  display: flex; gap: 20px; margin-top: 12px;
+  font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--cg-mid);
+}
+.dot-people-legend .lg-dot {
+  display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+  margin-right: 8px; vertical-align: -1px;
+}
+
+/* ── SCROLL RAIL (lateral chapter index) ───────────────────────────────── */
+.scroll-rail {
+  position: fixed;
+  right: 0; top: 0; bottom: 0;
+  width: 48px;
+  z-index: 50;
+  display: flex; flex-direction: column;
+  pointer-events: none;
+}
+.rail-section {
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  position: relative;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: opacity 0.3s var(--cg-ease);
+  opacity: 0.82;
+  overflow: hidden;
+}
+.rail-section:hover { opacity: 1; }
+.rail-section.active { opacity: 1; }
+.rail-section.active::after {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: rgba(255,255,255,0.92);
+}
+.rail-section span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.18);
+}
+.rail-castro   { background: var(--cg-orange); }
+.rail-situacao { background: var(--cg-cyan); }
+.rail-tomorrow { background: var(--cg-green); }
+
+/* Reserve gutter so content doesn't sit under the rail */
+nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
+
 /* ── RESPONSIVE ────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
-  nav { padding: 0 32px; }
-  .section { padding: 80px 32px; }
+  .scroll-rail { width: 36px; }
+  .rail-section span { font-size: 10px; letter-spacing: 0.20em; }
+  nav { padding: 0 32px; padding-right: 80px; }
+  .section { padding: 80px 32px; padding-right: 80px; }
   .hero-content { padding: 110px 32px 48px; }
   .hero-flag { grid-template-columns: 1fr; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
   .hero-stat:nth-child(2n) { border-right: none; }
   .kpi-row { grid-template-columns: repeat(2, 1fr); }
   .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-  .chapter-band { grid-template-columns: 1fr; padding: 64px 32px; gap: 24px; }
+  .chapter-band { grid-template-columns: 1fr; padding: 64px 32px; padding-right: 80px; gap: 24px; }
+  footer { padding-right: 80px; }
 }
 @media (max-width: 640px) {
-  nav { padding: 0 16px; height: 56px; }
-  .nav-wordmark, .nav-sep { display: none; }
-  .section { padding: 56px 20px; }
-  .hero-content { padding: 96px 20px 32px; }
+  /* Rail flips to horizontal bar pinned to the top of the viewport */
+  .scroll-rail {
+    flex-direction: row;
+    width: 100%; height: 32px;
+    top: 0; right: 0; left: 0; bottom: auto;
+    z-index: 110;
+  }
+  .rail-section span {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+  .rail-section.active::after {
+    left: 0; right: 0; bottom: 0; top: auto;
+    width: 100%; height: 3px;
+  }
+  /* Nav slides below the horizontal rail */
+  nav { padding: 0 16px; height: 56px; top: 32px; padding-right: 16px; }
+  .nav-wordmark, .nav-sep, .nav-year { display: none; }
+  .nav-pdf { padding: 6px 10px; font-size: 9px; letter-spacing: 0.14em; }
+  .nav-pdf svg { width: 10px; height: 10px; }
+  .section { padding: 56px 20px; padding-right: 20px; }
+  .hero-content { padding: 128px 20px 32px; } /* +32 to account for top rail */
   .hero-title { font-size: 36px !important; }
   .hero-stats { grid-template-columns: 1fr; }
   .hero-stat { border-right: none; border-bottom: 1px solid var(--cg-border); }
   .hero-stat:last-child { border-bottom: none; }
   .hero-flag a { padding: 20px 24px; }
   .kpi-row, .metrics-grid { grid-template-columns: 1fr; }
-  .chapter-band { padding: 48px 20px; }
+  .chapter-band { padding: 48px 20px; padding-right: 20px; }
+  footer { padding-right: 20px; }
 }
 </style>
 </head>
@@ -482,18 +1065,37 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
 <!-- ── NAV ────────────────────────────────────────────────────────────── -->
 <nav id="main-nav">
   <div class="nav-left">
-    <img src="https://castro-group.pt/wp-content/uploads/2021/04/Logotipo_CastroGroup.png" alt="Castro Group" class="nav-logo" onerror="this.style.display='none'">
+    <img src="assets/brand/Castro_group_black.svg" alt="Castro Group" class="nav-logo">
     <div class="nav-sep"></div>
     <span class="nav-wordmark" data-pt="Relatório de Sustentabilidade" data-en="Sustainability Report">Relatório de Sustentabilidade</span>
   </div>
   <div class="nav-right">
     <span class="nav-year">2025</span>
+    <a class="nav-pdf" href="uploads/final report/RS26_identidade_12maio.pdf" download aria-label="Descarregar PDF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 19h16"/>
+      </svg>
+      <span data-pt="PDF" data-en="PDF">PDF</span>
+    </a>
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="setLang('pt')">PT</button>
       <button class="lang-btn" onclick="setLang('en')">EN</button>
     </div>
   </div>
 </nav>
+
+<!-- ── SCROLL RAIL (lateral chapter index) ───────────────────────────── -->
+<aside class="scroll-rail" id="scroll-rail" aria-label="Navegação por capítulos">
+  <a href="#castro" class="rail-section rail-castro active" data-target="castro">
+    <span data-pt="Castro Group" data-en="Castro Group">Castro Group</span>
+  </a>
+  <a href="#situacao" class="rail-section rail-situacao" data-target="situacao">
+    <span data-pt="Situação Atual" data-en="Current Situation">Situação Atual</span>
+  </a>
+  <a href="#tomorrow" class="rail-section rail-tomorrow" data-target="tomorrow">
+    <span data-pt="Creating Tomorrow" data-en="Creating Tomorrow">Creating Tomorrow</span>
+  </a>
+</aside>
 
 <!-- ── HERO ───────────────────────────────────────────────────────────── -->
 <section id="hero">
@@ -505,11 +1107,6 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
   </div>
 
   <div>
-    <div class="hero-flag" role="navigation" aria-label="Capítulos">
-      <a href="#castro" class="castro" data-pt="Castro Group" data-en="Castro Group">Castro Group</a>
-      <a href="#situacao" class="situacao" data-pt="Situação Atual" data-en="Current Situation">Situação Atual</a>
-      <a href="#tomorrow" class="tomorrow" data-pt="Creating Tomorrow" data-en="Creating Tomorrow">Creating Tomorrow</a>
-    </div>
     <div class="hero-stats stagger" id="hero-stats">
       <div class="hero-stat">
         <div class="hero-stat-val"><span class="cnt" data-n="57">0</span></div>
@@ -533,6 +1130,37 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
       </div>
     </div>
   </div>
+</section>
+
+<!-- ── QUOTE ORBIT (transition between hero and chapter 01) ─────────── -->
+<section class="quote-orbit" aria-label="Drucker quote orbit">
+  <svg class="quote-orbit-svg" viewBox="0 0 600 600" role="img" aria-labelledby="orbit-title">
+    <title id="orbit-title">The best way to predict the future is to create it. — Peter Drucker</title>
+    <defs>
+      <!-- Outer ring: title repetition, clockwise -->
+      <path id="orbit-outer-path" d="M 300 300 m -252 0 a 252 252 0 1 1 504 0 a 252 252 0 1 1 -504 0" fill="none"/>
+      <!-- Inner ring: Drucker quote, counter-clockwise (sweep flag flipped) -->
+      <path id="orbit-inner-path" d="M 300 300 m -168 0 a 168 168 0 1 0 336 0 a 168 168 0 1 0 -336 0" fill="none"/>
+    </defs>
+    <g class="orbit-outer-g">
+      <text class="orbit-outer-text">
+        <textPath href="#orbit-outer-path" startOffset="0" data-pt="Relatório de Sustentabilidade 2025  ·  Relatório de Sustentabilidade 2025  ·  Relatório de Sustentabilidade 2025  ·  " data-en="Sustainability Report 2025  ·  Sustainability Report 2025  ·  Sustainability Report 2025  ·  Sustainability Report 2025  ·  ">Relatório de Sustentabilidade 2025  ·  Relatório de Sustentabilidade 2025  ·  Relatório de Sustentabilidade 2025  ·  </textPath>
+      </text>
+    </g>
+    <g class="orbit-inner-g">
+      <text class="orbit-inner-text">
+        <textPath href="#orbit-inner-path" startOffset="0" data-pt="The best way to predict the future is to create it.  —  Peter Drucker  ·  " data-en="The best way to predict the future is to create it.  —  Peter Drucker  ·  ">The best way to predict the future is to create it.  —  Peter Drucker  ·  </textPath>
+      </text>
+    </g>
+    <!-- Mini RS26 flag at center: 5 dots in flag order -->
+    <g class="orbit-center-mark">
+      <circle cx="284" cy="300" r="3.5" fill="#2E4791"/>
+      <circle cx="292" cy="300" r="3.5" fill="#FB7622"/>
+      <circle cx="300" cy="300" r="3.5" fill="#0E99D8"/>
+      <circle cx="308" cy="300" r="3.5" fill="#33B67A"/>
+      <circle cx="316" cy="300" r="3.5" fill="#CC512C"/>
+    </g>
+  </svg>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════════
@@ -562,7 +1190,31 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
       </div>
       <div>
         <div style="font-size:22px;font-weight:300;line-height:1.5;color:var(--cg-ink);border-left:3px solid var(--cg-navy);padding-left:28px;font-style:italic;" data-pt="Criar valor é a nossa estratégia. Criar impacto positivo é a nossa ambição. Concretizar ambos é o nosso compromisso." data-en="Creating value is our strategy. Creating positive impact is our ambition. Delivering both is our commitment.">Criar valor é a nossa estratégia. Criar impacto positivo é a nossa ambição. Concretizar ambos é o nosso compromisso.</div>
-        <p class="body" style="margin-top:24px;" data-pt="O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team, o lançamento da marca BUZ pela 2gether Spaces, a consolidação da Política de Sustentabilidade, a implementação do Código de Conduta dos Fornecedores e a realização interna da Análise de Dupla Materialidade." data-en="The year 2025 marked a cycle of transformation and delivery at Castro Group. Milestones include the operation launch of our first LEED® Gold certified building (La Movida), the creation of the People Team department, the launch of the BUZ brand by 2gether Spaces, consolidation of the Sustainability Policy, implementation of the Supplier Code of Conduct and internal Double Materiality Analysis.">O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team, o lançamento da marca BUZ pela 2gether Spaces, a consolidação da Política de Sustentabilidade, a implementação do Código de Conduta dos Fornecedores e a realização interna da Análise de Dupla Materialidade.</p>
+        <p class="body" style="margin-top:24px;" data-pt="O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team, o lançamento da marca La Movida pela 2gether Spaces, a consolidação da Política de Sustentabilidade, a implementação do Código de Conduta dos Fornecedores e a realização interna da Análise de Dupla Materialidade." data-en="The year 2025 marked a cycle of transformation and delivery at Castro Group. Milestones include the operation launch of our first LEED® Gold certified building (La Movida), the creation of the People Team department, the launch of the La Movida brand by 2gether Spaces, consolidation of the Sustainability Policy, implementation of the Supplier Code of Conduct and internal Double Materiality Analysis.">O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team, o lançamento da marca La Movida pela 2gether Spaces, a consolidação da Política de Sustentabilidade, a implementação do Código de Conduta dos Fornecedores e a realização interna da Análise de Dupla Materialidade.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HEAD OF SUSTAINABILITY MESSAGE (mirror layout of CEO) -->
+<section class="section bone">
+  <div class="section-inner">
+    <p class="eyebrow fade-up" data-pt="Mensagem da Head of Sustainability" data-en="Message from the Head of Sustainability">Mensagem da Head of Sustainability</p>
+    <div class="hos-grid fade-up" style="display:grid;grid-template-columns:2fr 1fr;gap:80px;align-items:start;">
+      <div>
+        <div style="font-size:22px;font-weight:300;line-height:1.5;color:var(--cg-ink);border-left:3px solid var(--cg-cyan);padding-left:28px;font-style:italic;" data-pt="2025 foi um ano de concretização e maturidade. Entramos em 2026 com uma agenda clara: certificações ambientais, plano climático para 2030 e a integração da sustentabilidade como princípio operacional. As decisões que tomamos hoje são os alicerces do futuro que estamos a construir." data-en="2025 was a year of delivery and maturity. We enter 2026 with a clear agenda: environmental certifications, the 2030 climate plan and sustainability embedded as an operating principle. The decisions we make today are the foundations of the future we are building.">2025 foi um ano de concretização e maturidade. Entramos em 2026 com uma agenda clara: certificações ambientais, plano climático para 2030 e a integração da sustentabilidade como princípio operacional. As decisões que tomamos hoje são os alicerces do futuro que estamos a construir.</div>
+        <p class="body" style="margin-top:24px;" data-pt="Em 2025 consolidámos a estrutura ESG do Castro Group: o primeiro edifício LEED® Gold em operação (La Movida), a análise interna de Dupla Materialidade, a criação do People Team e a publicação do Código de Conduta dos Fornecedores. O Plano de Transição Climática define a trajetória até 2030 — uma redução de 40% nas emissões Scope 1+2 face ao baseline de 2025." data-en="In 2025 we consolidated the ESG structure of Castro Group: the first LEED® Gold building in operation (La Movida), the internal Double Materiality Analysis, the creation of the People Team and the publication of the Supplier Code of Conduct. The Climate Transition Plan sets the trajectory to 2030 — a 40% reduction in Scope 1+2 emissions versus the 2025 baseline.">Em 2025 consolidámos a estrutura ESG do Castro Group: o primeiro edifício LEED® Gold em operação (La Movida), a análise interna de Dupla Materialidade, a criação do People Team e a publicação do Código de Conduta dos Fornecedores. O Plano de Transição Climática define a trajetória até 2030 — uma redução de 40% nas emissões Scope 1+2 face ao baseline de 2025.</p>
+      </div>
+      <div style="text-align:right;">
+        <div style="width:200px;height:200px;overflow:hidden;border-radius:50%;margin:0 0 20px auto;background:var(--cg-putty);">
+          <img src="uploads/quotes/fernanda.jpg" alt="Fernanda Zelaya" loading="lazy" decoding="async" width="200" height="200" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
+        </div>
+        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cg-mid);margin-bottom:8px;" data-pt="Mensagem de" data-en="Message from">Mensagem de</div>
+        <div style="font-size:20px;font-weight:400;">Fernanda Zelaya</div>
+        <div style="font-size:12px;color:var(--cg-mid);margin-top:4px;display:inline-flex;align-items:center;gap:8px;justify-content:flex-end;">
+          <span data-pt="Head of Sustainability, Castro Group" data-en="Head of Sustainability, Castro Group">Head of Sustainability, Castro Group</span>
+          <a href="https://www.linkedin.com/in/mfzelaya/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:2px;background:var(--cg-cyan);color:#fff;text-decoration:none;font-size:8px;font-weight:700;">in</a>
+        </div>
       </div>
     </div>
   </div>
@@ -596,7 +1248,7 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
         <div class="kpi-stripe" style="background:var(--cg-orange)"></div>
         <div class="kpi-tag" style="color:var(--cg-orange)" data-pt="Operação" data-en="Operations">Operação</div>
         <div style="font-size:18px;font-weight:600;line-height:1.2;color:var(--cg-ink);margin-bottom:6px;">2gether Spaces</div>
-        <div class="kpi-desc" data-pt="Property as a service · marca BUZ · flex offices, coliving" data-en="Property as a service · BUZ brand · flex offices, coliving">Property as a service · marca BUZ · flex offices, coliving</div>
+        <div class="kpi-desc" data-pt="Property as a service · marca La Movida · flex offices, coliving" data-en="Property as a service · La Movida brand · flex offices, coliving">Property as a service · marca La Movida · flex offices, coliving</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-stripe" style="background:var(--cg-orange)"></div>
@@ -622,6 +1274,48 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
         <div style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--cg-navy);margin-bottom:10px;">SIC · APR 2025</div>
         <div style="font-size:18px;font-weight:600;color:var(--cg-ink);">Icon SIC</div>
         <div style="font-size:11px;color:var(--cg-mid);margin-top:8px;line-height:1.5;" data-pt="10 ativos · 3 desenvolvimento + 3 alienação + 4 landbank" data-en="10 assets · 3 development + 3 sale + 4 landbank">10 ativos · 3 desenvolvimento + 3 alienação + 4 landbank</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MISSÃO · VISÃO · VALORES (Venn diagram, pg.24 do PDF) ─────────── -->
+<section class="mvv-section" aria-label="Missão, Visão e Valores">
+  <div class="mvv-inner">
+    <p class="mvv-eyebrow" data-pt="Missão · Visão · Valores" data-en="Mission · Vision · Values">Missão · Visão · Valores</p>
+    <h2 data-pt="O que nos <strong>move</strong>" data-en="What <strong>drives us</strong>">O que nos <strong>move</strong></h2>
+
+    <div class="mvv-layout">
+      <div class="mvv-diagram fade-up">
+        <svg viewBox="0 0 600 720" role="img" aria-labelledby="mvv-svg-title">
+          <title id="mvv-svg-title">Diagrama Missão, Visão e Valores</title>
+          <!-- Missão (rust, top) -->
+          <circle cx="300" cy="260" r="220" fill="#CC512C" opacity="0.94"/>
+          <!-- Valores (orange, bottom) -->
+          <circle cx="300" cy="460" r="220" fill="#FB7622" opacity="0.94"/>
+          <!-- Visão (gray, intersection) -->
+          <ellipse cx="300" cy="360" rx="92" ry="58" fill="#8A8E96" opacity="0.96"/>
+
+          <!-- Labels -->
+          <text x="300" y="170" text-anchor="middle" fill="#fff" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30" font-weight="600">Missão</text>
+          <text x="300" y="370" text-anchor="middle" fill="#fff" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="22" font-weight="600">Visão</text>
+          <text x="300" y="585" text-anchor="middle" fill="#fff" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="30" font-weight="600">Valores</text>
+        </svg>
+      </div>
+
+      <div class="mvv-cards stagger">
+        <div class="mvv-card mvv-missao">
+          <div class="mvv-card-tag">Missão</div>
+          <p data-pt="Revolucionar e prosperar no <em>real estate business</em>, com base nos princípios fundamentais de localização, inovação, sustentabilidade e flexibilidade." data-en="To revolutionise and prosper in the <em>real estate business</em>, grounded in the core principles of location, innovation, sustainability and flexibility.">Revolucionar e prosperar no <em>real estate business</em>, com base nos princípios fundamentais de localização, inovação, sustentabilidade e flexibilidade.</p>
+        </div>
+        <div class="mvv-card mvv-visao">
+          <div class="mvv-card-tag">Visão</div>
+          <p data-pt="Desenvolver ativos imobiliários e serviços de referência que proporcionem ao cliente e à comunidade experiências sensoriais e emocionais e que, simultaneamente, promovam um futuro mais sustentável." data-en="To develop benchmark real estate assets and services that deliver sensory and emotional experiences to clients and communities while promoting a more sustainable future.">Desenvolver ativos imobiliários e serviços de referência que proporcionem ao cliente e à comunidade experiências sensoriais e emocionais e que, simultaneamente, promovam um futuro mais sustentável.</p>
+        </div>
+        <div class="mvv-card mvv-valores">
+          <div class="mvv-card-tag">Valores</div>
+          <p data-pt="Excelência, compromisso, inovação, responsabilidade ambiental, social e cultural." data-en="Excellence, commitment, innovation, and environmental, social and cultural responsibility.">Excelência, compromisso, inovação, responsabilidade ambiental, social e cultural.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -674,128 +1368,125 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
     <h2 class="heading fade-up" style="color:#fff;" data-pt="19 ativos<br><strong>+ 4 landbank</strong>" data-en="19 assets<br><strong>+ 4 landbank</strong>">19 ativos<br><strong>+ 4 landbank</strong></h2>
     <p class="body" style="color:rgba(255,255,255,0.7);max-width:560px;margin-top:-32px;margin-bottom:48px;" data-pt="GFA total 257.050 m² · 95,8% alinhado com estratégia de certificação · 1.º certificado LEED Gold emitido em 2025 (La Movida)." data-en="Total GFA 257,050 m² · 95.8% aligned with certification strategy · 1st LEED Gold issued in 2025 (La Movida).">GFA total 257.050 m² · 95,8% alinhado com estratégia de certificação · 1.º certificado LEED Gold emitido em 2025 (La Movida).</p>
 
-    <div class="portfolio-grid stagger">
-      <div class="photo-card wide">
-        <img src="uploads/projects/spark.jpg" alt="SPARK, Matosinhos" loading="lazy" decoding="async">
-        <div class="photo-card-badge construction" data-pt="Construção" data-en="Construction">Construção</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">SPARK</div>
-          <div class="photo-card-meta" data-pt="Matosinhos · 17.934 m² · Escritórios/Comércio · LEED+WELL+WiredScore+SmartScore" data-en="Matosinhos · 17,934 m² · Office/Retail · LEED+WELL+WiredScore+SmartScore">Matosinhos · 17.934 m² · Escritórios/Comércio · LEED+WELL+WiredScore+SmartScore</div>
+    <div class="pf-macro stagger">
+      <!-- Ativos em operação -->
+      <div class="pf-cat">
+        <div class="pf-cat-head">
+          <div class="pf-cat-title" data-pt="Ativos em operação" data-en="Operating assets">Ativos em operação</div>
+          <div class="pf-cat-count">10</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Com certificado ambiental" data-en="With environmental certification">Com certificado ambiental</div>
+          </div>
+          <div class="pf-row-num">1</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</div>
+          </div>
+          <div class="pf-row-num">2</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Sem objetivo de certificar" data-en="Not targeted for certification">Sem objetivo de certificar</div>
+            <div class="pf-row-sub">
+              <span class="pf-bullet"></span><span data-pt="Operação (Gestão por Terceiros) → 5" data-en="Operations (Third-party managed) → 5">Operação (Gestão por Terceiros) → 5</span><br>
+              <span class="pf-bullet"></span><span data-pt="Operação (Gestão CG) → 2" data-en="Operations (CG managed) → 2">Operação (Gestão CG) → 2</span>
+            </div>
+          </div>
+          <div class="pf-row-num lg">7</div>
         </div>
       </div>
-      <div class="photo-card">
-        <img src="uploads/projects/BUZ.jpg" alt="La Movida, Matosinhos" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação ✓" data-en="Operation ✓">Operação ✓</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">La Movida</div>
-          <div class="photo-card-meta" data-pt="Matosinhos · 1.660 m² · LEED Gold (BD+C)" data-en="Matosinhos · 1,660 m² · LEED Gold (BD+C)">Matosinhos · 1.660 m² · LEED Gold (BD+C)</div>
+
+      <!-- Projetos em desenvolvimento -->
+      <div class="pf-cat">
+        <div class="pf-cat-head">
+          <div class="pf-cat-title" data-pt="Projetos em desenvolvimento" data-en="Projects in development">Projetos em desenvolvimento</div>
+          <div class="pf-cat-count">5</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Projetos com objetivo de certificar" data-en="Projects targeted for certification">Projetos com objetivo de certificar</div>
+          </div>
+          <div class="pf-row-num">2</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Projetos OPR em implementação" data-en="OPR projects under implementation">Projetos OPR em implementação</div>
+          </div>
+          <div class="pf-row-num">3</div>
         </div>
       </div>
-      <div class="photo-card">
-        <img src="uploads/projects/the breeze.jpg" alt="The Breeze, V.N. Gaia" loading="lazy" decoding="async">
-        <div class="photo-card-badge construction" data-pt="Construção" data-en="Construction">Construção</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">The Breeze</div>
-          <div class="photo-card-meta" data-pt="V.N. Gaia · 11.147 m² · Residencial · LEED" data-en="V.N. Gaia · 11,147 m² · Residential · LEED">V.N. Gaia · 11.147 m² · Residencial · LEED</div>
+
+      <!-- Ativos em construção -->
+      <div class="pf-cat">
+        <div class="pf-cat-head">
+          <div class="pf-cat-title" data-pt="Ativos em construção" data-en="Assets under construction">Ativos em construção</div>
+          <div class="pf-cat-count">4</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Com certificado em desenvolvimento" data-en="Certification in progress">Com certificado em desenvolvimento</div>
+          </div>
+          <div class="pf-row-num">2</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</div>
+          </div>
+          <div class="pf-row-num">1</div>
+        </div>
+        <div class="pf-row">
+          <div class="pf-row-meta">
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-label" data-pt="Sem objetivo de certificar" data-en="Not targeted for certification">Sem objetivo de certificar</div>
+          </div>
+          <div class="pf-row-num">1</div>
         </div>
       </div>
-      <div class="photo-card">
-        <img src="uploads/projects/Valpark.jpg" alt="Valpark, Valongo" loading="lazy" decoding="async">
-        <div class="photo-card-badge construction" data-pt="Construção" data-en="Construction">Construção</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Valpark</div>
-          <div class="photo-card-meta" data-pt="Valongo · 13.200 m² · Logística" data-en="Valongo · 13,200 m² · Logistics">Valongo · 13.200 m² · Logística</div>
+
+      <!-- Landbank + Cidades stacked in right column -->
+      <div class="pf-cat">
+        <div class="pf-cat-head">
+          <div class="pf-cat-title">Landbank</div>
+          <div class="pf-cat-count">4</div>
         </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/fuse valley.jpg" alt="Fuse Valley, Matosinhos" loading="lazy" decoding="async">
-        <div class="photo-card-badge project" data-pt="Projeto" data-en="Project">Projeto</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Fuse Valley</div>
-          <div class="photo-card-meta" data-pt="Matosinhos · 95.000 m² · Escritórios/Comércio" data-en="Matosinhos · 95,000 m² · Office/Retail">Matosinhos · 95.000 m² · Escritórios/Comércio</div>
+        <div class="pf-landbank-row">
+          <span class="pf-landbank-dot" title="Vila Franca de Xira"></span>
+          <span class="pf-landbank-dot" title="Cortinha"></span>
+          <span class="pf-landbank-dot" title="Destaque Recarei"></span>
+          <span class="pf-landbank-dot" title="Casa do Rio"></span>
         </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/SPARK II.png" alt="SPARK 2, Matosinhos" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação" data-en="Operation">Operação</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">SPARK 2</div>
-          <div class="photo-card-meta" data-pt="Matosinhos · 17.357 m² · Escritórios" data-en="Matosinhos · 17,357 m² · Office">Matosinhos · 17.357 m² · Escritórios</div>
+
+        <div class="pf-cat-head" style="margin-top:40px;">
+          <div class="pf-cat-title" data-pt="Cidades" data-en="Cities">Cidades</div>
+          <div class="pf-cat-count">8</div>
         </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/BLOOM LIVING.jpg" alt="Bloom Living, Maia" loading="lazy" decoding="async">
-        <div class="photo-card-badge project" data-pt="Projeto · OPR" data-en="Project · OPR">Projeto · OPR</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Bloom Living</div>
-          <div class="photo-card-meta" data-pt="Maia · 67.160 m² · Residencial" data-en="Maia · 67,160 m² · Residential">Maia · 67.160 m² · Residencial</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/palacete.jpg" alt="Palacete 31 de Janeiro, Braga" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação" data-en="Operation">Operação</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Palacete 31 de Janeiro</div>
-          <div class="photo-card-meta" data-pt="Braga · 1.207 m² · Escritório" data-en="Braga · 1,207 m² · Office">Braga · 1.207 m² · Escritório</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/villa bloom.jpg" alt="Villa Bloom, Loulé" loading="lazy" decoding="async">
-        <div class="photo-card-badge construction" data-pt="Construção · OPR" data-en="Construction · OPR">Construção · OPR</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Villa Bloom</div>
-          <div class="photo-card-meta" data-pt="Loulé · 19.095 m² · Residencial" data-en="Loulé · 19,095 m² · Residential">Loulé · 19.095 m² · Residencial</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/exo 60.png" alt="EXO 60, V.N. Gaia" loading="lazy" decoding="async">
-        <div class="photo-card-badge project" data-pt="Projeto · OPR" data-en="Project · OPR">Projeto · OPR</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">EXO 60</div>
-          <div class="photo-card-meta" data-pt="V.N. Gaia · 7.195 m² · Residencial" data-en="V.N. Gaia · 7,195 m² · Residential">V.N. Gaia · 7.195 m² · Residencial</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/Villa Chloe Julho 23 HighRes (9 de 17).jpg" alt="Villa Chloe, Loulé" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação" data-en="Operation">Operação</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Villa Chloe</div>
-          <div class="photo-card-meta" data-pt="Loulé · 355 m² · Residencial" data-en="Loulé · 355 m² · Residential">Loulé · 355 m² · Residencial</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/IMMUNE.jpg" alt="Immune, Braga" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação · 3ºs" data-en="Operation · 3rd">Operação · 3ºs</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Immune</div>
-          <div class="photo-card-meta" data-pt="Braga · 397 m² · Instalação Desportiva" data-en="Braga · 397 m² · Sports Facility">Braga · 397 m² · Instalação Desportiva</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/ALDI.jpg" alt="ALDI, Matosinhos" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação · 3ºs" data-en="Operation · 3rd">Operação · 3ºs</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">ALDI</div>
-          <div class="photo-card-meta" data-pt="Matosinhos · 1.950 m² · Indústria/Retalho" data-en="Matosinhos · 1,950 m² · Industry/Retail">Matosinhos · 1.950 m² · Indústria/Retalho</div>
-        </div>
-      </div>
-      <div class="photo-card">
-        <img src="uploads/projects/polo negocios.jpg" alt="Polo Negócios, Braga" loading="lazy" decoding="async">
-        <div class="photo-card-badge operation" data-pt="Operação · 3ºs" data-en="Operation · 3rd">Operação · 3ºs</div>
-        <div class="photo-card-overlay">
-          <div class="photo-card-name">Polo Negócios</div>
-          <div class="photo-card-meta" data-pt="Braga · 2.000 m² · Escritório" data-en="Braga · 2,000 m² · Office">Braga · 2.000 m² · Escritório</div>
+        <div class="pf-cidades">
+          <span class="pf-cidades-item">Braga</span>
+          <span class="pf-cidades-item">Esposende</span>
+          <span class="pf-cidades-item">Valongo</span>
+          <span class="pf-cidades-item">Maia</span>
+          <span class="pf-cidades-item">Matosinhos</span>
+          <span class="pf-cidades-item">V. N. de Gaia</span>
+          <span class="pf-cidades-item">Alverca</span>
+          <span class="pf-cidades-item">Loulé</span>
         </div>
       </div>
     </div>
 
-    <div class="landbank-row stagger">
-      <span style="font-size:9px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-right:8px;align-self:center;" data-pt="Landbank" data-en="Landbank">Landbank</span>
-      <span class="landbank-chip">Vila Franca de Xira · Alverca</span>
-      <span class="landbank-chip">Cortinha · Matosinhos</span>
-      <span class="landbank-chip">Destaque Recarei · Matosinhos</span>
-      <span class="landbank-chip">Casa do Rio · Matosinhos</span>
-    </div>
+    <a href="projects.html" class="pf-full-link" data-pt="Ver portfólio completo" data-en="View full portfolio">
+      <span data-pt="Ver portfólio completo" data-en="View full portfolio">Ver portfólio completo</span>
+      <span class="arrow">→</span>
+    </a>
   </div>
 </section>
 
@@ -808,11 +1499,19 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
 
     <div class="arte-grid stagger">
       <div class="arte-card hero">
+        <img src="uploads/artworks/9.jpg" alt="Intervenção Coletivo RUA — composição urbana" loading="lazy" decoding="async">
+        <div class="arte-card-caption">
+          <div class="arte-card-author">Coletivo RUA · 2025</div>
+          <div class="arte-card-title" data-pt="Composição urbana" data-en="Urban composition">Composição urbana</div>
+          <div class="arte-card-meta" data-pt="Projeto Ruído · intervenção mural" data-en="Ruído Project · mural intervention">Projeto Ruído · intervenção mural</div>
+        </div>
+      </div>
+      <div class="arte-card">
         <img src="uploads/artworks/Spark Impact Walk  (442).jpg" alt="Girafa de Bordalo II em SPARK" loading="lazy" decoding="async">
         <div class="arte-card-caption">
           <div class="arte-card-author">Bordalo II · 2025</div>
           <div class="arte-card-title">Girafa</div>
-          <div class="arte-card-meta" data-pt="Série Big Trash Animals · 10×6×4m · SPARK, Matosinhos" data-en="Big Trash Animals series · 10×6×4m · SPARK, Matosinhos">Série Big Trash Animals · 10×6×4m · SPARK, Matosinhos</div>
+          <div class="arte-card-meta" data-pt="Big Trash Animals · 10×6×4m · SPARK" data-en="Big Trash Animals · 10×6×4m · SPARK">Big Trash Animals · 10×6×4m · SPARK</div>
         </div>
       </div>
       <div class="arte-card">
@@ -831,19 +1530,82 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
         </div>
       </div>
       <div class="arte-card">
-        <img src="uploads/artworks/C.jpg" alt="Mural Coletivo RUA — detalhe" loading="lazy" decoding="async">
+        <img src="uploads/artworks/2.jpg" alt="Mural Coletivo RUA — retrato" loading="lazy" decoding="async">
         <div class="arte-card-caption">
           <div class="arte-card-author">Coletivo RUA · 2025</div>
-          <div class="arte-card-title" data-pt="Detalhe — comunidade" data-en="Detail — community">Detalhe — comunidade</div>
+          <div class="arte-card-title" data-pt="Retrato pixelado" data-en="Pixelated portrait">Retrato pixelado</div>
+          <div class="arte-card-meta" data-pt="Projeto Ruído · detalhe" data-en="Ruído Project · detail">Projeto Ruído · detalhe</div>
         </div>
       </div>
-      <div class="arte-card">
-        <img src="uploads/artworks/K.jpg" alt="Mural Coletivo RUA — fragmento" loading="lazy" decoding="async">
-        <div class="arte-card-caption">
-          <div class="arte-card-author">Coletivo RUA · 2025</div>
-          <div class="arte-card-title" data-pt="Fragmento — ritmo" data-en="Fragment — rhythm">Fragmento — ritmo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DOUBLE MATERIALITY MATRIX (between chapter 01 and chapter 02) ─── -->
+<section class="mm-section" aria-label="Análise de Dupla Materialidade">
+  <div class="mm-section-inner">
+    <div class="mm-head">
+      <div>
+        <p class="mm-eyebrow" data-pt="Análise de Dupla Materialidade · 2025" data-en="Double Materiality Analysis · 2025">Análise de Dupla Materialidade · 2025</p>
+        <h2 data-pt="Os temas que <strong>moldam o nosso impacto</strong>" data-en="The topics that <strong>shape our impact</strong>">Os temas que <strong>moldam o nosso impacto</strong></h2>
+      </div>
+      <div class="mm-legend">
+        <span class="mm-legend-item"><span class="mm-legend-dot" style="background:var(--cg-green)"></span><span data-pt="Ambiental" data-en="Environmental">Ambiental</span></span>
+        <span class="mm-legend-item"><span class="mm-legend-dot" style="background:var(--cg-esg-social)"></span><span data-pt="Social" data-en="Social">Social</span></span>
+        <span class="mm-legend-item"><span class="mm-legend-dot" style="background:var(--cg-esg-governance)"></span><span data-pt="Governança" data-en="Governance">Governança</span></span>
+      </div>
+    </div>
+    <p class="mm-sub" data-pt="Primeira análise interna realizada em 2025. Cada tema é posicionado pela sua relevância financeira para o Grupo (eixo X) e o seu impacto externo em pessoas e ambiente (eixo Y). Os temas no quadrante superior direito são os de prioridade dupla." data-en="First internal analysis conducted in 2025. Each topic is positioned by its financial relevance to the Group (X-axis) and its external impact on people and environment (Y-axis). Topics in the upper-right quadrant are double-priority.">Primeira análise interna realizada em 2025. Cada tema é posicionado pela sua relevância financeira para o Grupo (eixo X) e o seu impacto externo em pessoas e ambiente (eixo Y). Os temas no quadrante superior direito são os de prioridade dupla.</p>
+
+    <div class="mm-grid fade-up">
+      <div class="mm-yaxis-label" data-pt="Materialidade de Impacto →" data-en="Impact Materiality →">Materialidade de Impacto →</div>
+      <div class="mm-plot">
+        <span class="mm-quad-label mm-quad-tl" data-pt="Alto Impacto" data-en="High Impact">Alto Impacto</span>
+        <span class="mm-quad-label mm-quad-tr" data-pt="Prioridade Dupla" data-en="Double Priority">Prioridade Dupla</span>
+        <span class="mm-quad-label mm-quad-bl" data-pt="Monitorizar" data-en="Monitor">Monitorizar</span>
+        <span class="mm-quad-label mm-quad-br" data-pt="Alta Mat. Financeira" data-en="High Financial Materiality">Alta Mat. Financeira</span>
+
+        <!-- Environmental (green) -->
+        <div class="mm-point" style="left:88%;bottom:90%;background:var(--cg-green);">
+          <div class="mm-tip"><strong>E1.1</strong><span data-pt="Energia &amp; Emissões" data-en="Energy &amp; Emissions">Energia &amp; Emissões</span></div>
+        </div>
+        <div class="mm-point" style="left:68%;bottom:80%;background:var(--cg-green);">
+          <div class="mm-tip"><strong>E5</strong><span data-pt="Gestão de Resíduos" data-en="Waste Management">Gestão de Resíduos</span></div>
+        </div>
+        <div class="mm-point" style="left:62%;bottom:82%;background:var(--cg-green);">
+          <div class="mm-tip"><strong>E1.2</strong><span data-pt="Adaptação Climática" data-en="Climate Adaptation">Adaptação Climática</span></div>
+        </div>
+        <div class="mm-point" style="left:52%;bottom:70%;background:var(--cg-green);">
+          <div class="mm-tip"><strong>E2</strong><span data-pt="Poluição" data-en="Pollution">Poluição</span></div>
+        </div>
+
+        <!-- Social (purple) -->
+        <div class="mm-point" style="left:82%;bottom:85%;background:var(--cg-esg-social);">
+          <div class="mm-tip"><strong>S1.2</strong><span data-pt="Condições de Trabalho" data-en="Working Conditions">Condições de Trabalho</span></div>
+        </div>
+        <div class="mm-point" style="left:74%;bottom:75%;background:var(--cg-esg-social);">
+          <div class="mm-tip"><strong>S2</strong><span data-pt="Direitos Humanos (cadeia)" data-en="Human Rights (supply)">Direitos Humanos (cadeia)</span></div>
+        </div>
+        <div class="mm-point" style="left:56%;bottom:62%;background:var(--cg-esg-social);">
+          <div class="mm-tip"><strong>S1.4</strong><span data-pt="Diversidade" data-en="Diversity">Diversidade</span></div>
+        </div>
+        <div class="mm-point" style="left:64%;bottom:55%;background:var(--cg-esg-social);">
+          <div class="mm-tip"><strong>S1.3</strong><span data-pt="Formação" data-en="Training">Formação</span></div>
+        </div>
+
+        <!-- Governance (lavender) -->
+        <div class="mm-point" style="left:90%;bottom:80%;background:var(--cg-esg-governance);">
+          <div class="mm-tip"><strong>G1.1</strong><span data-pt="Qualidade dos Edifícios" data-en="Building Quality">Qualidade dos Edifícios</span></div>
+        </div>
+        <div class="mm-point" style="left:78%;bottom:60%;background:var(--cg-esg-governance);">
+          <div class="mm-tip"><strong>G2</strong><span data-pt="Inovação Digital" data-en="Digital Innovation">Inovação Digital</span></div>
+        </div>
+        <div class="mm-point" style="left:70%;bottom:65%;background:var(--cg-esg-governance);">
+          <div class="mm-tip"><strong>G1.3</strong><span data-pt="Ética &amp; Compliance" data-en="Ethics &amp; Compliance">Ética &amp; Compliance</span></div>
         </div>
       </div>
+      <div></div>
+      <div class="mm-xaxis-label" data-pt="Materialidade Financeira →" data-en="Financial Materiality →">Materialidade Financeira →</div>
     </div>
   </div>
 </section>
@@ -955,44 +1717,58 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
   <div class="section-inner">
     <p class="eyebrow fade-up" data-pt="Pilar 02 — Social" data-en="Pillar 02 — Social">Pilar 02 — Social</p>
     <h2 class="heading fade-up" data-pt="As pessoas no<br><strong>centro de tudo</strong>" data-en="People at the<br><strong>heart of it all</strong>">As pessoas no<br><strong>centro de tudo</strong></h2>
+
+    <!-- ISOTYPE: 57 colaboradores (28 feminino + 29 masculino) -->
+    <div class="fade-up" style="margin-bottom: 56px;">
+      <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:4px;">
+        <span class="isotype-bignum" style="font-size:52px;font-weight:300;line-height:1;color:var(--cg-ink)">57</span>
+        <span style="font-size:12px;color:var(--cg-mid);letter-spacing:0.10em;" data-pt="colaboradores em 2025 · 28 feminino · 29 masculino" data-en="employees in 2025 · 28 female · 29 male">colaboradores em 2025 · 28 feminino · 29 masculino</span>
+      </div>
+      <div class="dot-people" id="dot-people-vis" aria-hidden="true"></div>
+      <div class="dot-people-legend">
+        <span><span class="lg-dot" style="background:var(--cg-esg-social)"></span><span data-pt="Feminino" data-en="Female">Feminino</span></span>
+        <span><span class="lg-dot" style="background:var(--cg-esg-governance)"></span><span data-pt="Masculino" data-en="Male">Masculino</span></span>
+      </div>
+    </div>
+
     <div class="metrics-grid stagger">
       <div class="metric-card light">
-        <div class="metric-pill" style="background:#ECE3F7;color:var(--cg-esg-social);" data-pt="Remuneração" data-en="Remuneration">Remuneração</div>
+        <div class="metric-pill" style="background:rgba(14,153,216,0.14);color:var(--cg-esg-social);" data-pt="Remuneração" data-en="Remuneration">Remuneração</div>
         <div class="metric-big">2.018,1€</div>
         <div class="metric-unit" data-pt="salário médio mensal (vs 1.967,3€ em 2024)" data-en="avg monthly salary (vs €1,967.3 in 2024)">salário médio mensal (vs 1.967,3€ em 2024)</div>
         <div class="metric-desc-text" data-pt="2,3x acima do salário mínimo (870€). 98,2% recebe acima do mínimo (+2,0 p.p. vs 2024). Gap salarial total subiu para 24,8% (vs 16,0% em 2024) — área prioritária para 2026." data-en="2.3x above minimum wage (€870). 98.2% earn above minimum (+2.0 p.p. vs 2024). Total pay gap rose to 24.8% (vs 16.0% in 2024) — priority area for 2026.">2,3x acima do salário mínimo (870€). 98,2% recebe acima do mínimo (+2,0 p.p. vs 2024). Gap salarial total subiu para 24,8% (vs 16,0% em 2024) — área prioritária para 2026.</div>
         <div class="bar-track"><div class="bar-fill" data-w="75" style="background:var(--cg-esg-social)"></div></div>
       </div>
       <div class="metric-card light">
-        <div class="metric-pill" style="background:#ECE3F7;color:var(--cg-esg-social);" data-pt="Formação" data-en="Training">Formação</div>
+        <div class="metric-pill" style="background:rgba(14,153,216,0.14);color:var(--cg-esg-social);" data-pt="Formação" data-en="Training">Formação</div>
         <div class="metric-big">1.385h</div>
         <div class="metric-unit" data-pt="horas de formação 2025" data-en="training hours 2025">horas de formação 2025</div>
         <div class="metric-desc-text" data-pt="45,6% dos colaboradores formados (vs 60,4% em 2024). Média: 24,3h/pessoa (vs 63,0h). Redução por aumento de volume de trabalho — compromisso de retoma em 2026." data-en="45.6% trained (vs 60.4% in 2024). Avg: 24.3h/person (vs 63.0h). Reduction due to workload — commitment to resume in 2026.">45,6% dos colaboradores formados (vs 60,4% em 2024). Média: 24,3h/pessoa (vs 63,0h). Redução por aumento de volume de trabalho — compromisso de retoma em 2026.</div>
         <div class="bar-track"><div class="bar-fill" data-w="46" style="background:var(--cg-esg-social)"></div></div>
       </div>
       <div class="metric-card light">
-        <div class="metric-pill" style="background:#ECE3F7;color:var(--cg-esg-social);" data-pt="Segurança" data-en="Safety">Segurança</div>
+        <div class="metric-pill" style="background:rgba(14,153,216,0.14);color:var(--cg-esg-social);" data-pt="Segurança" data-en="Safety">Segurança</div>
         <div class="metric-big">36,9</div>
         <div class="metric-unit" data-pt="Taxa VSME (vs 39,6 em 2024)" data-en="VSME rate (vs 39.6 in 2024)">Taxa VSME (vs 39,6 em 2024)</div>
         <div class="metric-desc-text" data-pt="141 trabalhadores médios em 4 obras. 27.104h trabalhadas. 5 acidentes não mortais · 1.424h perdidas. Formação SST: 236,8h (+58% vs 150h em 2024)." data-en="141 average workers across 4 sites. 27,104h worked. 5 non-fatal accidents · 1,424h lost. OHS training: 236.8h (+58% vs 150h in 2024).">141 trabalhadores médios em 4 obras. 27.104h trabalhadas. 5 acidentes não mortais · 1.424h perdidas. Formação SST: 236,8h (+58% vs 150h em 2024).</div>
         <div class="bar-track"><div class="bar-fill" data-w="63" style="background:var(--cg-esg-social)"></div></div>
       </div>
       <div class="metric-card light">
-        <div class="metric-pill" style="background:#ECE3F7;color:var(--cg-esg-social);" data-pt="Retenção" data-en="Retention">Retenção</div>
+        <div class="metric-pill" style="background:rgba(14,153,216,0.14);color:var(--cg-esg-social);" data-pt="Retenção" data-en="Retention">Retenção</div>
         <div class="metric-big">23,9<span style="font-size:24px;">%</span></div>
         <div class="metric-unit" data-pt="taxa de turnover (vs 3,9% em 2024)" data-en="turnover rate (vs 3.9% in 2024)">taxa de turnover (vs 3,9% em 2024)</div>
         <div class="metric-desc-text" data-pt="Aumento significativo. Reforço da estratégia de retenção: planos de progressão, proposta de valor e bem-estar organizacional." data-en="Significant increase. Strengthening retention strategy: career progression, value proposition and organisational wellbeing.">Aumento significativo. Reforço da estratégia de retenção: planos de progressão, proposta de valor e bem-estar organizacional.</div>
         <div class="bar-track"><div class="bar-fill" data-w="24" style="background:var(--cg-rust)"></div></div>
       </div>
       <div class="metric-card light">
-        <div class="metric-pill" style="background:#ECE3F7;color:var(--cg-esg-social);" data-pt="Performance" data-en="Performance">Performance</div>
+        <div class="metric-pill" style="background:rgba(14,153,216,0.14);color:var(--cg-esg-social);" data-pt="Performance" data-en="Performance">Performance</div>
         <div class="metric-big">78,9<span style="font-size:24px;">%</span></div>
         <div class="metric-unit" data-pt="colaboradores com prémios" data-en="employees with bonuses">colaboradores com prémios</div>
         <div class="metric-desc-text" data-pt="vs 84,9% em 2024. Atribuição elegível a partir do ano seguinte ao da admissão — reflete novas admissões em 2025." data-en="vs 84.9% in 2024. Eligibility begins the year after hire — reflects 2025 new hires.">vs 84,9% em 2024. Atribuição elegível a partir do ano seguinte ao da admissão — reflete novas admissões em 2025.</div>
         <div class="bar-track"><div class="bar-fill" data-w="79" style="background:var(--cg-esg-social)"></div></div>
       </div>
       <div class="metric-card light">
-        <div class="metric-pill" style="background:#ECE3F7;color:var(--cg-esg-social);" data-pt="Comunidade" data-en="Community">Comunidade</div>
+        <div class="metric-pill" style="background:rgba(14,153,216,0.14);color:var(--cg-esg-social);" data-pt="Comunidade" data-en="Community">Comunidade</div>
         <div class="metric-big">126,4k€</div>
         <div class="metric-unit" data-pt="investimento externo (vs 84,4k€ em 2024)" data-en="external investment (vs €84.4k in 2024)">investimento externo (vs 84,4k€ em 2024)</div>
         <div class="metric-desc-text" data-pt="61,7% arte (78k€ — Bordalo II + RUA). 37,4% académico (47k€, 3.848h ↑5,7x). 0,8% doações (1.015€ ↓88%). 0,1% voluntariado (7h). 19 iniciativas internas." data-en="61.7% art (€78k — Bordalo II + RUA). 37.4% academic (€47k, 3,848h ↑5.7x). 0.8% donations (€1,015 ↓88%). 0.1% volunteering (7h). 19 internal initiatives.">61,7% arte (78k€ — Bordalo II + RUA). 37,4% académico (47k€, 3.848h ↑5,7x). 0,8% doações (1.015€ ↓88%). 0,1% voluntariado (7h). 19 iniciativas internas.</div>
@@ -1009,40 +1785,40 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
     <h2 class="heading fade-up" style="color:#fff;" data-pt="Transparência e<br><strong>integridade institucional</strong>" data-en="Transparency and<br><strong>institutional integrity</strong>">Transparência e<br><strong>integridade institucional</strong></h2>
     <div class="metrics-grid stagger">
       <div class="metric-card dark">
-        <div class="metric-pill" style="background:rgba(158,143,212,0.18);color:var(--cg-esg-governance);" data-pt="Compliance" data-en="Compliance">Compliance</div>
+        <div class="metric-pill" style="background:rgba(251,118,34,0.14);color:var(--cg-esg-governance);" data-pt="Compliance" data-en="Compliance">Compliance</div>
         <div class="metric-big" style="font-size:24px;line-height:1.2;" data-pt="Código de Conduta ESG" data-en="ESG Code of Conduct">Código de Conduta ESG</div>
         <div class="metric-desc-text" style="margin-top:16px;" data-pt="Implementado em regime piloto em 2025 num projeto em construção. Taxa de resposta aquém do esperado — reformulação prevista para 2026 com integração como requisito de adjudicação." data-en="Implemented as pilot in 2025 on one construction project. Response rate below expectations — reformulation planned for 2026, integrated as procurement requirement.">Implementado em regime piloto em 2025 num projeto em construção. Taxa de resposta aquém do esperado — reformulação prevista para 2026 com integração como requisito de adjudicação.</div>
         <div class="bar-track"><div class="bar-fill" data-w="40" style="background:var(--cg-esg-governance)"></div></div>
       </div>
       <div class="metric-card dark">
-        <div class="metric-pill" style="background:rgba(158,143,212,0.18);color:var(--cg-esg-governance);" data-pt="Certificação" data-en="Certification">Certificação</div>
+        <div class="metric-pill" style="background:rgba(251,118,34,0.14);color:var(--cg-esg-governance);" data-pt="Certificação" data-en="Certification">Certificação</div>
         <div class="metric-big">95,8<span style="font-size:24px;">%</span></div>
         <div class="metric-unit" data-pt="GFA alinhado com estratégia" data-en="GFA aligned with strategy">GFA alinhado com estratégia</div>
         <div class="metric-desc-text" data-pt="257.050 m² GFA total (19 ativos, excl. landbank). 1.º LEED Gold emitido em 2025 — La Movida. SPARK e The Breeze em fase final." data-en="257,050 m² total GFA (19 assets, excl. landbank). 1st LEED Gold issued in 2025 — La Movida. SPARK and The Breeze in final phase.">257.050 m² GFA total (19 ativos, excl. landbank). 1.º LEED Gold emitido em 2025 — La Movida. SPARK e The Breeze em fase final.</div>
         <div class="bar-track"><div class="bar-fill" data-w="96" style="background:var(--cg-esg-governance)"></div></div>
       </div>
       <div class="metric-card dark">
-        <div class="metric-pill" style="background:rgba(158,143,212,0.18);color:var(--cg-esg-governance);" data-pt="Regulação" data-en="Regulation">Regulação</div>
+        <div class="metric-pill" style="background:rgba(251,118,34,0.14);color:var(--cg-esg-governance);" data-pt="Regulação" data-en="Regulation">Regulação</div>
         <div class="metric-big">CMVM</div>
         <div class="metric-unit" data-pt="autorização grande dimensão (NEXA SGOIC)" data-en="large-entity authorisation (NEXA SGOIC)">autorização grande dimensão (NEXA SGOIC)</div>
         <div class="metric-desc-text" data-pt="Em agosto 2025, a CMVM concedeu à NEXA autorização para o exercício como sociedade gestora de grande dimensão. Gere 3 organismos: Castro Capital SIC, Fuse Valley FII, Icon SIC." data-en="In August 2025, CMVM granted NEXA authorisation as large-scale management company. Manages 3 entities: Castro Capital SIC, Fuse Valley FII, Icon SIC.">Em agosto 2025, a CMVM concedeu à NEXA autorização para o exercício como sociedade gestora de grande dimensão. Gere 3 organismos: Castro Capital SIC, Fuse Valley FII, Icon SIC.</div>
         <div class="bar-track"><div class="bar-fill" data-w="100" style="background:var(--cg-esg-governance)"></div></div>
       </div>
       <div class="metric-card dark">
-        <div class="metric-pill" style="background:rgba(158,143,212,0.18);color:var(--cg-esg-governance);" data-pt="Materialidade" data-en="Materiality">Materialidade</div>
+        <div class="metric-pill" style="background:rgba(251,118,34,0.14);color:var(--cg-esg-governance);" data-pt="Materialidade" data-en="Materiality">Materialidade</div>
         <div class="metric-big" style="font-size:24px;line-height:1.2;" data-pt="Dupla Materialidade" data-en="Double Materiality">Dupla Materialidade</div>
         <div class="metric-desc-text" style="margin-top:16px;" data-pt="1.ª análise interna realizada em 2025. Prioritários: E1.1 Energia/Emissões, S1.2 Condições de Trabalho, G1.1 Segurança e Qualidade dos Edifícios. Externa prevista em 2026." data-en="1st internal analysis completed in 2025. Priorities: E1.1 Energy/Emissions, S1.2 Working Conditions, G1.1 Building Safety & Quality. External planned 2026.">1.ª análise interna realizada em 2025. Prioritários: E1.1 Energia/Emissões, S1.2 Condições de Trabalho, G1.1 Segurança e Qualidade dos Edifícios. Externa prevista em 2026.</div>
         <div class="bar-track"><div class="bar-fill" data-w="65" style="background:var(--cg-esg-governance)"></div></div>
       </div>
       <div class="metric-card dark">
-        <div class="metric-pill" style="background:rgba(158,143,212,0.18);color:var(--cg-esg-governance);" data-pt="Emissões Scope 3" data-en="Scope 3 Emissions">Emissões Scope 3</div>
+        <div class="metric-pill" style="background:rgba(251,118,34,0.14);color:var(--cg-esg-governance);" data-pt="Emissões Scope 3" data-en="Scope 3 Emissions">Emissões Scope 3</div>
         <div class="metric-big">13.482</div>
         <div class="metric-unit">TonCO₂e (98,6% <span data-pt="do total" data-en="of total">do total</span>)</div>
         <div class="metric-desc-text" data-pt="Compras, transportes e resíduos (Cat. 1+4+5): 13.313,3 TonCO₂e (98,7% Scope 3). Operação terceiros (Cat. 13): 137,2 TonCO₂e. Deslocações: 22,6 TonCO₂e. Viagens: 9,1 TonCO₂e." data-en="Purchases, transport, waste (Cat. 1+4+5): 13,313.3 TonCO₂e (98.7% Scope 3). Third-party ops (Cat. 13): 137.2 TonCO₂e. Commuting: 22.6 TonCO₂e. Travel: 9.1 TonCO₂e.">Compras, transportes e resíduos (Cat. 1+4+5): 13.313,3 TonCO₂e (98,7% Scope 3). Operação terceiros (Cat. 13): 137,2 TonCO₂e. Deslocações: 22,6 TonCO₂e. Viagens: 9,1 TonCO₂e.</div>
         <div class="bar-track"><div class="bar-fill" data-w="99" style="background:var(--cg-esg-governance)"></div></div>
       </div>
       <div class="metric-card dark">
-        <div class="metric-pill" style="background:rgba(158,143,212,0.18);color:var(--cg-esg-governance);" data-pt="Digitalização" data-en="Digitalisation">Digitalização</div>
+        <div class="metric-pill" style="background:rgba(251,118,34,0.14);color:var(--cg-esg-governance);" data-pt="Digitalização" data-en="Digitalisation">Digitalização</div>
         <div class="metric-big">Arc</div>
         <div class="metric-unit" data-pt="software ESG implementado em 2025" data-en="ESG software implemented in 2025">software ESG implementado em 2025</div>
         <div class="metric-desc-text" data-pt="Recolha e monitorização automática de dados de sustentabilidade. Objetivo 2026/2027: integração com GTC dos novos edifícios para reporte sem introdução manual." data-en="Automatic sustainability data collection and monitoring. 2026/2027 goal: integration with new buildings BMS for manual-free reporting.">Recolha e monitorização automática de dados de sustentabilidade. Objetivo 2026/2027: integração com GTC dos novos edifícios para reporte sem introdução manual.</div>
@@ -1302,6 +2078,116 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
   </div>
 </section>
 
+<!-- ── AGRADECIMENTOS — names orbit before footer ─────────────────────── -->
+<section class="names-orbit" aria-label="Agradecimentos">
+  <h2 class="names-orbit-title" data-pt="<strong>Agradecimentos</strong>" data-en="<strong>Acknowledgements</strong>"><strong>Agradecimentos</strong></h2>
+  <p class="names-orbit-sub" data-pt="À equipa Castro Group que, com o seu trabalho diário, tornou este relatório possível." data-en="To the Castro Group team whose daily work made this report possible.">À equipa Castro Group que, com o seu trabalho diário, tornou este relatório possível.</p>
+  <svg class="names-orbit-svg" viewBox="0 0 700 700" role="img" aria-labelledby="names-orbit-title">
+    <title id="names-orbit-title">Agradecimentos — equipa Castro Group</title>
+    <defs>
+      <path id="names-path-outer"  d="M 350 350 m -322 0 a 322 322 0 1 1 644 0 a 322 322 0 1 1 -644 0" fill="none"/>
+      <path id="names-path-middle" d="M 350 350 m -232 0 a 232 232 0 1 0 464 0 a 232 232 0 1 0 -464 0" fill="none"/>
+      <path id="names-path-inner"  d="M 350 350 m -142 0 a 142 142 0 1 1 284 0 a 142 142 0 1 1 -284 0" fill="none"/>
+    </defs>
+    <g class="names-ring-g names-ring-outer">
+      <text class="names-text names-text-outer">
+        <textPath href="#names-path-outer" textLength="2020" lengthAdjust="spacing">Alberto Melo · Amélia Vilaça · Ana Ferreira · Ângela Vaz · Anita Carvalho · Bárbara Vieira · Bruno Moreira · Carlos Silva · Carolina Oliveira · Catarina Martins · Catarina Silva · Eduardo Costa · Fátima Teixeira · Fernanda Zelaya · Filipa Vale · Francisco Oliveira · Francisco Santos · Gabriela Santos · </textPath>
+      </text>
+    </g>
+    <g class="names-ring-g names-ring-middle">
+      <text class="names-text names-text-middle">
+        <textPath href="#names-path-middle" textLength="1455" lengthAdjust="spacing">Helder Jesus · Hugo Brás · Hugo Esteves · Joana Magalhães · João Garcia · João Peixoto · José Silva · José Tedim · Lisandra Roupar · Luís Quinta · Margarida Fernandes · Márcia Silva · Maria Vasconcelos · Nuno Ribeirinho · </textPath>
+      </text>
+    </g>
+    <g class="names-ring-g names-ring-inner">
+      <text class="names-text names-text-inner">
+        <textPath href="#names-path-inner" textLength="890" lengthAdjust="spacing">Otílio Hipólito · Paula Monteiro · Paulo Castro · Pedro Barbosa · Raquel Fonseca · Rita Carneiro · Rui Fernandes · Rui Ferreira · Thaiane Maragno · Tiago Monteiro · Vanda Bastos · </textPath>
+      </text>
+    </g>
+    <!-- Center: tiny dot in white -->
+    <circle class="names-orbit-center" cx="350" cy="350" r="3.5" opacity="0.8"/>
+  </svg>
+</section>
+
+<!-- ── PAUSA STAGE — closing contemplative pause before footer ─────────── -->
+<section class="pausa-stage" aria-label="Pausa contemplativa">
+  <!-- Background sphere grid: 25 spheres cycling through 5 flag colors -->
+  <div class="pausa-grid" aria-hidden="true">
+    <span class="pausa-sphere" style="--delay:-1.2s"></span>
+    <span class="pausa-sphere" style="--delay:-4.8s"></span>
+    <span class="pausa-sphere" style="--delay:-9.4s"></span>
+    <span class="pausa-sphere" style="--delay:-13.1s"></span>
+    <span class="pausa-sphere" style="--delay:-2.5s"></span>
+    <span class="pausa-sphere" style="--delay:-15.7s"></span>
+    <span class="pausa-sphere" style="--delay:-6.3s"></span>
+    <span class="pausa-sphere" style="--delay:-11.2s"></span>
+    <span class="pausa-sphere" style="--delay:-0.4s"></span>
+    <span class="pausa-sphere" style="--delay:-17.0s"></span>
+    <span class="pausa-sphere" style="--delay:-7.9s"></span>
+    <span class="pausa-sphere" style="--delay:-14.3s"></span>
+    <span class="pausa-sphere" style="--delay:-3.1s"></span>
+    <span class="pausa-sphere" style="--delay:-10.6s"></span>
+    <span class="pausa-sphere" style="--delay:-5.2s"></span>
+    <span class="pausa-sphere" style="--delay:-12.4s"></span>
+    <span class="pausa-sphere" style="--delay:-8.5s"></span>
+    <span class="pausa-sphere" style="--delay:-16.1s"></span>
+    <span class="pausa-sphere" style="--delay:-2.0s"></span>
+    <span class="pausa-sphere" style="--delay:-11.8s"></span>
+    <span class="pausa-sphere" style="--delay:-4.0s"></span>
+    <span class="pausa-sphere" style="--delay:-14.9s"></span>
+    <span class="pausa-sphere" style="--delay:-7.2s"></span>
+    <span class="pausa-sphere" style="--delay:-9.0s"></span>
+    <span class="pausa-sphere" style="--delay:-1.6s"></span>
+  </div>
+
+  <div class="pausa-orbit-wrap">
+    <svg class="pausa-orbit-svg" viewBox="0 0 800 800" role="img" aria-labelledby="pausa-embed-title">
+      <title id="pausa-embed-title">Castro Group · The best way to predict the future is to create it. — Peter Drucker</title>
+      <defs>
+        <path id="pe-cg-outer"  d="M 400 400 m -360 0 a 360 360 0 1 1 720 0 a 360 360 0 1 1 -720 0" fill="none"/>
+        <path id="pe-dr-outer"  d="M 400 400 m -295 0 a 295 295 0 1 1 590 0 a 295 295 0 1 1 -590 0" fill="none"/>
+        <path id="pe-cg-middle" d="M 400 400 m -235 0 a 235 235 0 1 1 470 0 a 235 235 0 1 1 -470 0" fill="none"/>
+        <path id="pe-dr-inner"  d="M 400 400 m -175 0 a 175 175 0 1 1 350 0 a 175 175 0 1 1 -350 0" fill="none"/>
+        <path id="pe-cg-inner"  d="M 400 400 m -115 0 a 115 115 0 1 1 230 0 a 115 115 0 1 1 -230 0" fill="none"/>
+      </defs>
+      <g class="ring-g ring-cg-outer">
+        <text class="ring-text ring-text-cg">
+          <textPath href="#pe-cg-outer" textLength="2230" lengthAdjust="spacing">CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  </textPath>
+        </text>
+      </g>
+      <g class="ring-g ring-dr-outer">
+        <text class="ring-text ring-text-dr">
+          <textPath href="#pe-dr-outer" textLength="1830" lengthAdjust="spacing" data-pt="The best way to predict the future is to create it.  —  Peter Drucker  ·  The best way to predict the future is to create it.  —  Peter Drucker  ·  " data-en="The best way to predict the future is to create it.  —  Peter Drucker  ·  The best way to predict the future is to create it.  —  Peter Drucker  ·  ">The best way to predict the future is to create it.  —  Peter Drucker  ·  The best way to predict the future is to create it.  —  Peter Drucker  ·  </textPath>
+        </text>
+      </g>
+      <g class="ring-g ring-cg-middle">
+        <text class="ring-text ring-text-cg ring-text-cg-mid">
+          <textPath href="#pe-cg-middle" textLength="1460" lengthAdjust="spacing">CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  </textPath>
+        </text>
+      </g>
+      <g class="ring-g ring-dr-inner">
+        <text class="ring-text ring-text-dr ring-text-dr-inner">
+          <textPath href="#pe-dr-inner" textLength="1090" lengthAdjust="spacing" data-pt="The best way to predict the future is to create it.  —  Peter Drucker  ·  " data-en="The best way to predict the future is to create it.  —  Peter Drucker  ·  ">The best way to predict the future is to create it.  —  Peter Drucker  ·  </textPath>
+        </text>
+      </g>
+      <g class="ring-g ring-cg-inner">
+        <text class="ring-text ring-text-cg ring-text-cg-inner">
+          <textPath href="#pe-cg-inner" textLength="710" lengthAdjust="spacing">CASTRO GROUP  ·  CASTRO GROUP  ·  CASTRO GROUP  ·  </textPath>
+        </text>
+      </g>
+      <g class="pausa-center-flag">
+        <circle cx="384" cy="400" r="4" fill="#2E4791"/>
+        <circle cx="392" cy="400" r="4" fill="#FB7622"/>
+        <circle cx="400" cy="400" r="4" fill="#0E99D8"/>
+        <circle cx="408" cy="400" r="4" fill="#33B67A"/>
+        <circle cx="416" cy="400" r="4" fill="#CC512C"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="pausa-tagline" data-pt="Castro Group · Relatório de Sustentabilidade 2025" data-en="Castro Group · Sustainability Report 2025">Castro Group · Relatório de Sustentabilidade 2025</p>
+</section>
+
 <!-- FOOTER -->
 <footer style="background:var(--cg-dark-ink);padding:72px 80px 40px;color:#fff;">
   <div style="max-width:1240px;margin:0 auto;">
@@ -1350,11 +2236,13 @@ function setLang(lang) {
   document.documentElement.lang = lang;
 }
 
-// ── TYPOGRAPHIC KALEIDOSCOPE (hero) ───────────────────────────────────────
-// Floating, rotating words derived from the cover identity of RS26.
-let _kaleidoStop = null;
-function initKaleidoscope() {
-  if (_kaleidoStop) { _kaleidoStop(); _kaleidoStop = null; }
+// ── STRIPE DISCS (hero) ───────────────────────────────────────────────────
+// Floating discs built from vertical parallel stripes — the geometric motif
+// from RS26_identidade_capa.pdf (3×3 grid of striped circles in flag colors).
+// Combines the visual identity of the cover with the floating motion of RS25.
+let _ballsStop = null;
+function initBalls() {
+  if (_ballsStop) { _ballsStop(); _ballsStop = null; }
   const canvas = document.getElementById('kaleidoscope');
   if (!canvas) return;
   const hero = document.getElementById('hero');
@@ -1367,60 +2255,61 @@ function initKaleidoscope() {
   ctx.scale(dpr, dpr);
 
   const W = hero.offsetWidth, H = hero.offsetHeight;
-  const words = currentLang === 'en'
-    ? ['Sustainability', 'Report', '2025', 'Castro', 'Group', 'Creating', 'Tomorrow', 'Future',
-       'Today', 'Value', 'Impact', 'Commitment', 'Innovation', 'Transparency', 'Trust',
-       'Energy', 'Climate', 'Community', 'Circularity', 'Equity', 'Efficiency', 'Certification']
-    : ['Relatório', 'Sustentabilidade', '2025', 'Castro', 'Group', 'Criar', 'Tomorrow', 'Futuro',
-       'Hoje', 'Valor', 'Impacto', 'Compromisso', 'Inovação', 'Transparência', 'Confiança',
-       'Energia', 'Clima', 'Comunidade', 'Circularidade', 'Igualdade', 'Eficiência', 'Certificação'];
   const palette = [
-    'rgba(46, 71, 145, 0.18)',   // navy
-    'rgba(251, 118, 34, 0.16)',  // orange
-    'rgba(14, 153, 216, 0.16)',  // cyan
-    'rgba(51, 182, 122, 0.18)',  // green
-    'rgba(204, 81, 44, 0.14)',   // rust
-    'rgba(26, 31, 46, 0.10)'     // ink ghost
+    [46, 71, 145],   // navy
+    [251, 118, 34],  // orange
+    [14, 153, 216],  // cyan
+    [51, 182, 122],  // green
+    [204, 81, 44]    // rust
   ];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const count = W < 600 ? 28 : W < 900 ? 44 : 64;
+  const count = W < 600 ? 8 : W < 900 ? 12 : 16;
 
-  const items = [];
+  const discs = [];
   for (let i = 0; i < count; i++) {
-    items.push({
-      w: words[Math.floor(Math.random() * words.length)],
+    const radius = 44 + Math.random() * 96;
+    const c = palette[Math.floor(Math.random() * palette.length)];
+    const alpha = 0.78 + Math.random() * 0.18;            // stronger lines
+    const stripeWidth = 3;                                // thicker stripes
+    const gap = 1.6 + Math.random() * 1.4;                // tighter gaps
+    const stripeCount = Math.max(8, Math.floor((radius * 2) / (stripeWidth + gap)));
+    discs.push({
       x: Math.random() * W,
       y: Math.random() * H,
-      size: 14 + Math.random() * 56,
-      rot: (Math.random() - 0.5) * Math.PI * 0.6,
-      rotSpeed: (Math.random() - 0.5) * 0.0015,
-      vx: (Math.random() - 0.5) * 0.18,
-      vy: (Math.random() - 0.5) * 0.18,
-      c: palette[Math.floor(Math.random() * palette.length)],
-      weight: Math.random() < 0.35 ? 700 : 300
+      r: radius,
+      stripeWidth, gap, stripeCount,
+      color: `rgba(${c[0]},${c[1]},${c[2]},${alpha.toFixed(3)})`,
+      vx: (Math.random() - 0.5) * 0.46,                   // ~75% faster
+      vy: (Math.random() - 0.5) * 0.32
     });
+  }
+
+  function drawDisc(d) {
+    const totalSpan = d.stripeCount * d.stripeWidth + (d.stripeCount - 1) * d.gap;
+    const startX = d.x - totalSpan / 2;
+    const r2 = d.r * d.r;
+    ctx.fillStyle = d.color;
+    for (let i = 0; i < d.stripeCount; i++) {
+      const sx = startX + i * (d.stripeWidth + d.gap);
+      const off = sx + d.stripeWidth / 2 - d.x;
+      const o2 = off * off;
+      if (o2 >= r2) continue;
+      const h = 2 * Math.sqrt(r2 - o2);
+      ctx.fillRect(sx, d.y - h / 2, d.stripeWidth, h);
+    }
   }
 
   let frame = null, running = false;
   function draw() {
     ctx.clearRect(0, 0, W, H);
-    items.forEach(it => {
-      if (!reduced) {
-        it.x += it.vx; it.y += it.vy; it.rot += it.rotSpeed;
-      }
-      const pad = 200;
-      if (it.x < -pad) it.x = W + pad;
-      if (it.x > W + pad) it.x = -pad;
-      if (it.y < -pad) it.y = H + pad;
-      if (it.y > H + pad) it.y = -pad;
-      ctx.save();
-      ctx.translate(it.x, it.y);
-      ctx.rotate(it.rot);
-      ctx.fillStyle = it.c;
-      ctx.font = `${it.weight} ${it.size}px Helvetica Neue, Helvetica, Arial, sans-serif`;
-      ctx.textBaseline = 'middle';
-      ctx.fillText(it.w, 0, 0);
-      ctx.restore();
+    discs.forEach(d => {
+      if (!reduced) { d.x += d.vx; d.y += d.vy; }
+      const pad = d.r + 12;
+      if (d.x < -pad) d.x = W + pad;
+      if (d.x > W + pad) d.x = -pad;
+      if (d.y < -pad) d.y = H + pad;
+      if (d.y > H + pad) d.y = -pad;
+      drawDisc(d);
     });
     if (running) frame = requestAnimationFrame(draw);
   }
@@ -1431,22 +2320,50 @@ function initKaleidoscope() {
   io.observe(hero);
   document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
   start();
-  _kaleidoStop = () => { stop(); io.disconnect(); };
+  _ballsStop = () => { stop(); io.disconnect(); };
 }
 
 // ── COUNTER ───────────────────────────────────────────────────────────────
 function animateCount(el) {
-  const target = parseInt(el.dataset.n);
+  if (el._cntDone) return;
+  el._cntDone = true;
+  const raw = String(el.dataset.n);
+  const target = parseFloat(raw);
+  if (!Number.isFinite(target)) return;
+  const decimals = raw.includes('.') ? raw.split('.')[1].length : 0;
   const dur = 1200;
   const start = performance.now();
   function step(now) {
     const t = Math.min((now - start) / dur, 1);
     const ease = 1 - Math.pow(1 - t, 3);
-    el.textContent = Math.round(ease * target).toLocaleString('pt-PT');
+    const val = ease * target;
+    el.textContent = val.toLocaleString('pt-PT', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
     if (t < 1) requestAnimationFrame(step);
   }
   requestAnimationFrame(step);
 }
+
+// Auto-tag prominent numeric elements for count-up animation.
+// Runs once before the IntersectionObserver picks them up.
+(function tagCountUps() {
+  const selectors = ['.pf-row-num', '.pf-cat-count', '.isotype-bignum'];
+  selectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      if (el.classList.contains('cnt')) return;
+      const raw = el.textContent.trim();
+      // Convert PT-format ("16,6" or "1.999,4") to JS-parseable ("16.6" / "1999.4")
+      const clean = raw.replace(/\./g, '').replace(',', '.');
+      const num = parseFloat(clean);
+      if (!Number.isFinite(num)) return;
+      el.classList.add('cnt');
+      el.dataset.n = num;
+      el.textContent = '0';
+    });
+  });
+})();
 
 // ── INTERSECTION OBSERVER ─────────────────────────────────────────────────
 const io = new IntersectionObserver(entries => {
@@ -1457,21 +2374,65 @@ const io = new IntersectionObserver(entries => {
       setTimeout(() => { el.style.width = el.dataset.w + '%'; }, 200);
     });
     entry.target.querySelectorAll('.cnt[data-n]').forEach(el => animateCount(el));
+    if (entry.target.querySelector('#dot-people-vis') || entry.target.id === 'dot-people-vis') {
+      initPeopleDots();
+    }
     io.unobserve(entry.target);
   });
 }, { threshold: 0.08 });
 document.querySelectorAll('.fade-up, .stagger, section').forEach(el => io.observe(el));
 
-// Hero counters on load
-setTimeout(() => document.querySelectorAll('#hero-stats .cnt[data-n]').forEach(el => animateCount(el)), 800);
+// Hero counters animate when stats strip enters viewport — staggered L→R
+(function setupHeroStatsTrigger() {
+  const heroStats = document.getElementById('hero-stats');
+  if (!heroStats) return;
+  const obs = new IntersectionObserver(([entry]) => {
+    if (!entry.isIntersecting) return;
+    const stats = entry.target.querySelectorAll('.cnt[data-n]');
+    stats.forEach((el, i) => setTimeout(() => animateCount(el), i * 180));
+    obs.disconnect();
+  }, { threshold: 0.5 });
+  obs.observe(heroStats);
+})();
 
-// ── NAV DARK OVER HERO ────────────────────────────────────────────────────
+// ── ISOTYPE PEOPLE DOTS ───────────────────────────────────────────────────
+let _peopleDotsInit = false;
+function initPeopleDots() {
+  if (_peopleDotsInit) return;
+  const container = document.getElementById('dot-people-vis');
+  if (!container) return;
+  _peopleDotsInit = true;
+  while (container.firstChild) container.removeChild(container.firstChild);
+  const female = getComputedStyle(document.documentElement).getPropertyValue('--cg-esg-social').trim() || '#7C4DDB';
+  const male   = getComputedStyle(document.documentElement).getPropertyValue('--cg-esg-governance').trim() || '#9E8FD4';
+  const colors = [...Array(28).fill(female), ...Array(29).fill(male)];
+  colors.forEach((c, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'person-dot';
+    dot.style.background = c;
+    container.appendChild(dot);
+    setTimeout(() => dot.classList.add('visible'), i * 28);
+  });
+}
+
+// ── NAV DARK + SCROLL RAIL ACTIVE ─────────────────────────────────────────
 const nav = document.getElementById('main-nav');
+const railSections = document.querySelectorAll('.rail-section');
+function getActiveRail() {
+  const probe = window.scrollY + window.innerHeight * 0.35;
+  const tomorrowEl = document.getElementById('tomorrow');
+  const situacaoEl = document.getElementById('situacao');
+  if (tomorrowEl && probe >= tomorrowEl.offsetTop) return 'rail-tomorrow';
+  if (situacaoEl && probe >= situacaoEl.offsetTop) return 'rail-situacao';
+  return 'rail-castro';
+}
 function onScroll() {
-  const y = window.scrollY;
   nav.classList.toggle('over-dark', false); // hero is light putty, never dark
+  const active = getActiveRail();
+  railSections.forEach(el => el.classList.toggle('active', el.classList.contains(active)));
 }
 window.addEventListener('scroll', onScroll, {passive: true});
+onScroll();
 
 // ── SMOOTH SCROLL ─────────────────────────────────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -1483,8 +2444,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 // ── INIT ──────────────────────────────────────────────────────────────────
-window.addEventListener('load', initKaleidoscope);
-window.addEventListener('resize', () => { initKaleidoscope(); });
+window.addEventListener('load', initBalls);
+window.addEventListener('resize', () => { initBalls(); });
 </script>
 </body>
 </html>

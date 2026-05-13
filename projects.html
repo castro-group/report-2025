@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Castro Group — Portfólio Completo · RS 2025</title>
+<meta name="description" content="Portfólio completo Castro Group: 19 ativos + 4 landbank distribuídos por 8 cidades.">
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root {
+  --cg-navy:     #2E4791;
+  --cg-orange:   #FB7622;
+  --cg-cyan:     #0E99D8;
+  --cg-green:    #33B67A;
+  --cg-rust:     #CC512C;
+  --cg-putty:    #D8D5CC;
+  --cg-putty-2:  #CECDC9;
+  --cg-bone:     #EFEDE6;
+  --cg-ink:      #1A1F2E;
+  --cg-mid:      #6B7280;
+  --cg-border:   #C7C4BA;
+  --cg-border-soft: rgba(46, 71, 145, 0.18);
+  --cg-dark-ink: #14182A;
+  --cg-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background: var(--cg-putty);
+  color: var(--cg-ink);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 60px;
+  background: rgba(216, 213, 204, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cg-border);
+}
+.nav-left { display: flex; align-items: center; gap: 20px; }
+.nav-logo { height: 22px; width: auto; display: block; }
+.nav-sep { width: 1px; height: 18px; background: var(--cg-border); }
+.nav-wordmark {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cg-ink); opacity: 0.7;
+}
+.nav-back {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; text-decoration: none;
+  color: var(--cg-navy);
+  transition: gap 0.2s var(--cg-ease);
+}
+.nav-back:hover { gap: 14px; }
+.nav-back .arrow { font-size: 16px; line-height: 1; }
+
+/* HEADER */
+.pf-header {
+  padding: 140px 80px 60px;
+  background: var(--cg-putty);
+  border-bottom: 1px solid var(--cg-border);
+}
+.pf-header-inner { max-width: 1240px; margin: 0 auto; }
+.pf-header-eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--cg-navy); opacity: 0.7;
+  margin-bottom: 24px;
+}
+.pf-header h1 {
+  font-size: clamp(48px, 6vw, 88px);
+  font-weight: 300; line-height: 1.02; letter-spacing: -0.02em;
+  color: var(--cg-ink); margin-bottom: 24px;
+}
+.pf-header h1 strong { font-weight: 700; }
+.pf-header-sub {
+  max-width: 640px; font-size: 14px; line-height: 1.7;
+  color: var(--cg-mid);
+}
+
+/* SUMMARY KPI STRIP */
+.pf-summary {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  background: var(--cg-bone);
+  border-bottom: 1px solid var(--cg-border);
+}
+.pf-summary-item {
+  padding: 32px 24px;
+  border-right: 1px solid var(--cg-border);
+  text-align: left;
+}
+.pf-summary-item:last-child { border-right: none; }
+.pf-summary-num {
+  font-size: 44px; font-weight: 300; line-height: 1;
+  color: var(--cg-ink); margin-bottom: 6px;
+}
+.pf-summary-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--cg-mid);
+}
+
+/* CATEGORY BANDS */
+.cat-band {
+  padding: 80px 80px 64px;
+  position: relative;
+}
+.cat-band.operation    { background: var(--cg-bone); }
+.cat-band.construction { background: var(--cg-putty); }
+.cat-band.development  { background: var(--cg-putty-2); }
+.cat-band.landbank     { background: var(--cg-navy); color: #fff; }
+.cat-band-inner { max-width: 1240px; margin: 0 auto; }
+.cat-band-eyebrow {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.cat-band.operation    .cat-band-eyebrow { color: var(--cg-green); }
+.cat-band.construction .cat-band-eyebrow { color: var(--cg-orange); }
+.cat-band.development  .cat-band-eyebrow { color: var(--cg-cyan); }
+.cat-band.landbank     .cat-band-eyebrow { color: var(--cg-rust); }
+.cat-band h2 {
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 300; line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+.cat-band h2 strong { font-weight: 700; }
+.cat-band-meta {
+  font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  opacity: 0.6; margin-bottom: 40px;
+}
+
+/* PROJECT GRID */
+.proj-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.proj-card {
+  background: #fff;
+  border: 1px solid var(--cg-border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s var(--cg-ease), box-shadow 0.3s var(--cg-ease);
+}
+.cat-band.landbank .proj-card {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.12);
+  color: #fff;
+}
+.proj-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(26,31,46,0.10);
+}
+.proj-media {
+  width: 100%; aspect-ratio: 4 / 3;
+  background: var(--cg-bone);
+  display: grid; place-items: center;
+  position: relative; overflow: hidden;
+}
+.proj-media > img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.proj-cert-badge {
+  position: absolute;
+  bottom: 12px; right: 12px;
+  height: 56px; width: auto;
+  z-index: 3;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+}
+.proj-media-placeholder {
+  width: 100%; height: 100%;
+  display: grid; place-items: center;
+  background: var(--cg-bone);
+  position: relative;
+}
+.proj-media-placeholder::before {
+  content: ''; position: absolute;
+  height: 66%; aspect-ratio: 1 / 1; width: auto;
+  border-radius: 50%;
+  background: var(--cg-rust);
+  opacity: 0.92;
+}
+.cat-band.landbank .proj-media-placeholder { background: rgba(255,255,255,0.04); }
+.cat-band.landbank .proj-media-placeholder::before { opacity: 1; }
+.proj-body {
+  padding: 22px 22px 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  flex: 1;
+}
+.proj-name {
+  font-size: 22px; font-weight: 600; line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.proj-loc {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  opacity: 0.55;
+}
+.proj-attrs {
+  list-style: none; padding: 0; margin: 8px 0 0;
+  display: flex; flex-direction: column; gap: 6px;
+  font-size: 12px; line-height: 1.5;
+  opacity: 0.78;
+}
+.proj-attrs li {
+  display: grid; grid-template-columns: 100px 1fr;
+  gap: 12px;
+}
+.proj-attrs .key {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; opacity: 0.55;
+  padding-top: 1px;
+}
+.proj-badge {
+  display: inline-block;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+.proj-badge.cert-emit { background: var(--cg-green); color: #fff; }
+.proj-badge.cert-dev  { background: rgba(14,153,216,0.16); color: var(--cg-cyan); }
+.proj-badge.cert-tgt  { background: rgba(251,118,34,0.16); color: var(--cg-orange); }
+.proj-badge.cert-no   { background: rgba(107,114,128,0.16); color: var(--cg-mid); }
+.proj-badge.opr       { background: rgba(204,81,44,0.18); color: var(--cg-rust); }
+.cat-band.landbank .proj-attrs { opacity: 0.85; }
+.cat-band.landbank .proj-name  { color: #fff; }
+.cat-band.landbank .proj-loc   { color: rgba(255,255,255,0.55); }
+
+/* FOOTER */
+footer {
+  background: var(--cg-dark-ink);
+  padding: 56px 80px 36px;
+  color: #fff;
+  text-align: center;
+}
+footer p {
+  font-size: 11px; line-height: 1.7;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 8px;
+}
+footer a {
+  color: var(--cg-cyan); text-decoration: none;
+  font-weight: 600;
+}
+footer a:hover { text-decoration: underline; }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  nav { padding: 0 32px; }
+  .pf-header { padding: 120px 32px 48px; }
+  .pf-summary { grid-template-columns: repeat(2, 1fr); }
+  .pf-summary-item:nth-child(2) { border-right: none; }
+  .pf-summary-item:nth-child(odd) { border-right: 1px solid var(--cg-border); }
+  .cat-band { padding: 64px 32px 48px; }
+  .proj-grid { grid-template-columns: repeat(2, 1fr); }
+  footer { padding: 48px 32px 32px; }
+}
+@media (max-width: 640px) {
+  nav { padding: 0 16px; height: 56px; }
+  .nav-wordmark, .nav-sep { display: none; }
+  .pf-header { padding: 96px 20px 36px; }
+  .pf-summary { grid-template-columns: 1fr; }
+  .pf-summary-item { border-right: none; border-bottom: 1px solid var(--cg-border); }
+  .pf-summary-item:last-child { border-bottom: none; }
+  .cat-band { padding: 48px 20px 36px; }
+  .proj-grid { grid-template-columns: 1fr; gap: 16px; }
+  .proj-attrs li { grid-template-columns: 80px 1fr; gap: 8px; }
+  footer { padding: 40px 20px 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <img src="assets/brand/Castro_group_black.svg" alt="Castro Group" class="nav-logo">
+    <div class="nav-sep"></div>
+    <span class="nav-wordmark" data-pt="Portfólio · RS 2025" data-en="Portfolio · SR 2025">Portfólio · RS 2025</span>
+  </div>
+  <a href="index-v2.html" class="nav-back">
+    <span class="arrow">←</span>
+    <span data-pt="Voltar ao relatório" data-en="Back to report">Voltar ao relatório</span>
+  </a>
+</nav>
+
+<!-- HEADER -->
+<header class="pf-header">
+  <div class="pf-header-inner">
+    <p class="pf-header-eyebrow" data-pt="Castro Group · Portfólio Completo" data-en="Castro Group · Full Portfolio">Castro Group · Portfólio Completo</p>
+    <h1 data-pt="19 ativos<br><strong>+ 4 landbank</strong>" data-en="19 assets<br><strong>+ 4 landbank</strong>">19 ativos<br><strong>+ 4 landbank</strong></h1>
+    <p class="pf-header-sub" data-pt="GFA total 257.050 m² distribuídos por 8 cidades em Portugal. 95,8% do GFA alinhado com a estratégia de certificação ambiental. Primeiro certificado LEED Gold emitido em 2025 (La Movida)." data-en="Total GFA of 257,050 m² across 8 Portuguese cities. 95.8% of GFA aligned with the environmental certification strategy. First LEED Gold certification issued in 2025 (La Movida).">GFA total 257.050 m² distribuídos por 8 cidades em Portugal. 95,8% do GFA alinhado com a estratégia de certificação ambiental. Primeiro certificado LEED Gold emitido em 2025 (La Movida).</p>
+  </div>
+</header>
+
+<!-- KPI STRIP -->
+<div class="pf-summary">
+  <div class="pf-summary-item">
+    <div class="pf-summary-num">10</div>
+    <div class="pf-summary-label" data-pt="Em operação" data-en="In operation">Em operação</div>
+  </div>
+  <div class="pf-summary-item">
+    <div class="pf-summary-num">4</div>
+    <div class="pf-summary-label" data-pt="Em construção" data-en="Under construction">Em construção</div>
+  </div>
+  <div class="pf-summary-item">
+    <div class="pf-summary-num">5</div>
+    <div class="pf-summary-label" data-pt="Em desenvolvimento" data-en="In development">Em desenvolvimento</div>
+  </div>
+  <div class="pf-summary-item">
+    <div class="pf-summary-num">4</div>
+    <div class="pf-summary-label">Landbank</div>
+  </div>
+  <div class="pf-summary-item">
+    <div class="pf-summary-num">8</div>
+    <div class="pf-summary-label" data-pt="Cidades" data-en="Cities">Cidades</div>
+  </div>
+</div>
+
+<!-- OPERAÇÃO -->
+<section class="cat-band operation" id="operacao">
+  <div class="cat-band-inner">
+    <p class="cat-band-eyebrow" data-pt="Pilar de gestão · 01" data-en="Operating pillar · 01">Pilar de gestão · 01</p>
+    <h2 data-pt="Ativos em <strong>operação</strong>" data-en="<strong>Operating</strong> assets">Ativos em <strong>operação</strong></h2>
+    <p class="cat-band-meta">10 ativos · 7 com gestão CG · 3 sob gestão de terceiros</p>
+
+    <div class="proj-grid">
+
+      <article class="proj-card">
+        <div class="proj-media">
+          <img src="uploads/projects/BUZ.jpg" alt="La Movida" loading="lazy">
+          <img class="proj-cert-badge" src="uploads/leed/LEED_Gold-2026.svg" alt="LEED Gold 2026" loading="lazy">
+        </div>
+        <div class="proj-body">
+          <div class="proj-name">La Movida</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>1.660 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Escritório" data-en="Office">Escritório</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-emit" data-pt="LEED Gold emitido" data-en="LEED Gold issued">LEED Gold emitido</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/SPARK II.png" alt="SPARK 2" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">SPARK 2</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>17.357 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Escritório/Comércio" data-en="Office/Retail">Escritório/Comércio</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-tgt" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/palacete.jpg" alt="Palacete 31 de Janeiro" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Palacete 31 de Janeiro</div>
+          <div class="proj-loc">Braga, Braga</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>1.207 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Escritório" data-en="Office">Escritório</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/Villa Chloe Julho 23 HighRes (9 de 17).jpg" alt="Villa Chloé" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Villa Chloé</div>
+          <div class="proj-loc">Loulé, Faro</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>355 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Moradia Fão</div>
+          <div class="proj-loc">Esposende, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>706 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/IMMUNE.jpg" alt="Immune" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Immune</div>
+          <div class="proj-loc">Braga, Braga</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>397 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Instalação Desportiva" data-en="Sports Facility">Instalação Desportiva</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span data-pt="Por terceiros" data-en="Third-party">Por terceiros</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/ALDI.jpg" alt="ALDI" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">ALDI</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>1.950 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Indústria/Retalho" data-en="Industry/Retail">Indústria/Retalho</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span data-pt="Por terceiros" data-en="Third-party">Por terceiros</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/polo negocios.jpg" alt="Polo Negócios" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Polo Negócios</div>
+          <div class="proj-loc">Braga, Braga</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>2.000 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Escritório" data-en="Office">Escritório</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span data-pt="Por terceiros" data-en="Third-party">Por terceiros</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Mercado da Pedra</div>
+          <div class="proj-loc">Braga, Braga</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>3.450 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Indústria/Retalho" data-en="Industry/Retail">Indústria/Retalho</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span data-pt="Por terceiros" data-en="Third-party">Por terceiros</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">VivaGym</div>
+          <div class="proj-loc">Braga, Braga</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>1.785 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Comércio" data-en="Retail">Comércio</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span data-pt="Por terceiros" data-en="Third-party">Por terceiros</span></li>
+          </ul>
+          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONSTRUÇÃO -->
+<section class="cat-band construction" id="construcao">
+  <div class="cat-band-inner">
+    <p class="cat-band-eyebrow" data-pt="Pilar de gestão · 02" data-en="Operating pillar · 02">Pilar de gestão · 02</p>
+    <h2 data-pt="Ativos em <strong>construção</strong>" data-en="Assets under <strong>construction</strong>">Ativos em <strong>construção</strong></h2>
+    <p class="cat-band-meta">4 ativos · GFA agregado 61.376 m²</p>
+
+    <div class="proj-grid">
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/spark.jpg" alt="SPARK" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">SPARK</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>17.934 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Escritório/Comércio" data-en="Office/Retail">Escritório/Comércio</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-dev">LEED · WELL · WiredScore · SmartScore</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/the breeze.jpg" alt="The Breeze" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">The Breeze</div>
+          <div class="proj-loc">V. N. de Gaia, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>11.147 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-dev" data-pt="LEED em desenvolvimento" data-en="LEED in progress">LEED em desenvolvimento</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/Valpark.jpg" alt="Valpark" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Valpark</div>
+          <div class="proj-loc">Valongo, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>13.200 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Logística" data-en="Logistics">Logística</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-tgt" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/villa bloom.jpg" alt="Villa Bloom" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Villa Bloom</div>
+          <div class="proj-loc">Loulé, Faro</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>19.095 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge opr">OPR em implementação</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- DESENVOLVIMENTO -->
+<section class="cat-band development" id="desenvolvimento">
+  <div class="cat-band-inner">
+    <p class="cat-band-eyebrow" data-pt="Pilar de gestão · 03" data-en="Operating pillar · 03">Pilar de gestão · 03</p>
+    <h2 data-pt="Projetos em <strong>desenvolvimento</strong>" data-en="Projects in <strong>development</strong>">Projetos em <strong>desenvolvimento</strong></h2>
+    <p class="cat-band-meta">5 projetos · GFA pipeline 183.355 m²</p>
+
+    <div class="proj-grid">
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/fuse valley.jpg" alt="Fuse Valley" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Fuse Valley</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>95.000 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Comércio" data-en="Retail">Comércio</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-tgt" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/BLOOM LIVING.jpg" alt="Bloom Living" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">Bloom Living</div>
+          <div class="proj-loc">Maia, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>67.160 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge opr">OPR em implementação</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><img src="uploads/projects/exo 60.png" alt="EXO 60" loading="lazy"></div>
+        <div class="proj-body">
+          <div class="proj-name">EXO 60</div>
+          <div class="proj-loc">V. N. de Gaia, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>7.195 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge opr">OPR em implementação</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Lote 51 — Fuse Valley</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key">GFA</span><span>8.000 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>OPR</span></li>
+          </ul>
+          <span class="proj-badge opr">OPR em implementação</span>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Valongo</div>
+          <div class="proj-loc">Valongo, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key" data-pt="Estado" data-en="Status">Estado</span><span data-pt="Conceito" data-en="Concept">Conceito</span></li>
+            <li><span class="key">GFA</span><span>6.000 m²</span></li>
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Retalho" data-en="Retail">Retalho</span></li>
+            <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
+          </ul>
+          <span class="proj-badge cert-tgt" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- LANDBANK -->
+<section class="cat-band landbank" id="landbank">
+  <div class="cat-band-inner">
+    <p class="cat-band-eyebrow">Landbank</p>
+    <h2 data-pt="<strong>Reserva</strong> fundiária" data-en="<strong>Land</strong> reserve"><strong>Reserva</strong> fundiária</h2>
+    <p class="cat-band-meta" data-pt="4 terrenos · 3 em Matosinhos · 1 em Alverca" data-en="4 plots · 3 in Matosinhos · 1 in Alverca">4 terrenos · 3 em Matosinhos · 1 em Alverca</p>
+
+    <div class="proj-grid">
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Vila Franca de Xira</div>
+          <div class="proj-loc">Alverca, Lisboa</div>
+          <ul class="proj-attrs">
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span>Landbank</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Cortinha</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span>Landbank</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Destaque Recarei</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span>Landbank</span></li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="proj-card">
+        <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
+        <div class="proj-body">
+          <div class="proj-name">Casa do Rio</div>
+          <div class="proj-loc">Matosinhos, Porto</div>
+          <ul class="proj-attrs">
+            <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span>Landbank</span></li>
+          </ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p data-pt="Castro Group · Relatório de Sustentabilidade 2025 · Portfólio completo" data-en="Castro Group · Sustainability Report 2025 · Full portfolio">Castro Group · Relatório de Sustentabilidade 2025 · Portfólio completo</p>
+  <p><a href="index-v2.html" data-pt="← Voltar ao relatório" data-en="← Back to report">← Voltar ao relatório</a></p>
+</footer>
+
+<script>
+// Language toggle via ?lang=en query param.
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get('lang') === 'en' ? 'en' : 'pt';
+  if (lang === 'pt') return;
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const val = el.getAttribute('data-' + lang);
+    if (!val) return;
+    if (val.indexOf('<') === -1) {
+      el.textContent = val;
+      return;
+    }
+    while (el.firstChild) el.removeChild(el.firstChild);
+    const frag = document.createRange().createContextualFragment(val);
+    el.appendChild(frag);
+  });
+  document.documentElement.lang = lang;
+})();
+
+// Count-up animation for KPI strip and category counts.
+function animateCount(el) {
+  if (el._cntDone) return;
+  el._cntDone = true;
+  const raw = String(el.dataset.n);
+  const target = parseFloat(raw);
+  if (!Number.isFinite(target)) return;
+  const decimals = raw.includes('.') ? raw.split('.')[1].length : 0;
+  const dur = 1200;
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    const val = ease * target;
+    el.textContent = val.toLocaleString('pt-PT', {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals
+    });
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+(function tagCountUps() {
+  document.querySelectorAll('.pf-summary-num').forEach(el => {
+    const raw = el.textContent.trim();
+    const clean = raw.replace(/\./g, '').replace(',', '.');
+    const num = parseFloat(clean);
+    if (!Number.isFinite(num)) return;
+    el.classList.add('cnt');
+    el.dataset.n = num;
+    el.textContent = '0';
+  });
+})();
+
+// Trigger animation when summary strip enters viewport.
+const cntIO = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.querySelectorAll('.cnt[data-n]').forEach(animateCount);
+    cntIO.unobserve(entry.target);
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.pf-summary').forEach(el => cntIO.observe(el));
+</script>
+</body>
+</html>

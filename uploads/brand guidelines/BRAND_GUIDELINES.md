@@ -196,7 +196,12 @@ The three pillar names are **proper nouns** and stay capitalised in both languag
 - `colors_and_type.css` — RS26 tokens (current).
 - `colors_and_type.RS25.css` — previous tokens, archived.
 - `assets/photos/` — unchanged portfolio photography (BUZ, SPARK, The Breeze, Valpark, Fuse Valley, Palacete 31, Villa Bloom, Villa Chloe) + portraits (Paulo Castro, Fernanda Zelaya).
-- `assets/brand/` — Castro Group wordmark (logo).
+- `assets/brand/` — Castro Group wordmark kit (5 SVG variants):
+  - `Castro_group_black.svg` — mono black, transparent bg → **RS26 default on putty**
+  - `Castro_group_white.svg` — mono white, transparent bg → **RS26 over-dark / on navy**
+  - `Castro_group_color_black.svg` — gold `#e0ba6e` + black "GROUP", transparent bg → corporate use (not RS26)
+  - `Castro_group_color_white.svg` — gold `#e0ba6e` + white "GROUP", transparent bg → corporate use (not RS26)
+  - `Castro_group_blackground.svg` — full-bleed black rect with gold/white wordmark → corporate use only.
 - `preview/` — RS25 spec cards — **flag**: these still show the old palette and will need to be regenerated against the RS26 tokens.
 - `ui_kits/report/` — RS25 demo composition — **flag**: will need a RS26 pass.
 - `uploads/RS26_identidade_capa_11maio.pdf` — source cover identity.
@@ -206,8 +211,8 @@ The three pillar names are **proper nouns** and stay capitalised in both languag
 
 ## 8. Open questions for the brand team
 
-1. **Logo lockup on putty** — confirm the existing Castro Group wordmark holds on `#D8D5CC`, or supply a navy version.
-2. **Photography grade** — RS25 photos are warm golden-hour. Against the cooler navy/cyan palette, do we re-grade slightly cooler, or keep warm for contrast?
-3. **ESG widget retirement** — should we phase out the purple/lavender ESG identity entirely and remap Environmental/Social/Governance onto green/cyan/orange? Currently kept side-by-side; a decision should land before RS26 publish.
-4. **Rust (`#CC512C`)** — used sparingly on landbank maps in the source. OK to extend to other "real-estate" data marks (sqm, units), or keep as map-only?
+1. ~~**Logo lockup on putty**~~ — **Resolved 2026-05-13**: RS26 uses mono variants (`Castro_group_black.svg` on putty, `Castro_group_white.svg` on navy via `filter: brightness(0) invert(1)`). The gold/black corporate logo is reserved for Castro Group corporate materials, not the RS26 editorial system — it doesn't sit in the four-color flag palette and gold loses contrast against warm putty.
+2. ~~**Photography grade**~~ — **Resolved 2026-05-13**: keep warm golden-hour as-is. The warm/cool contrast (cálido photos on cool navy/cyan chrome) is the signature visual gesture of RS26, not a defect. No re-grading required for the 14 portfolio photos. Re-evaluate only if a specific photo loses too much contrast against navy backgrounds.
+3. ~~**ESG widget retirement**~~ — **Resolved 2026-05-13**: legacy purple/lavender/deep-green retired entirely. New ESG mapping uses the RS26 flag: Environmental→green, Social→cyan, Governance→orange, Economic→rust. Token names (`--cg-esg-*`) preserved for back-compat — only values changed in `:root`. Tinted backgrounds (`#ECE3F7`, `rgba(158,143,212,...)`) also remapped to cyan/orange alphas.
+4. ~~**Rust (`#CC512C`)**~~ — **Resolved 2026-05-13**: rust stays restricted to landbank/placeholder usage and a few existing accents (OPR badges, mini-flag center dot, ESG-economic token). NOT extended to general real-estate data marks (sqm, units) — rust competes visually with orange `#FB7622` and the flag works better with rust as a "fifth, rare" accent. Approved current usage: landbank circles (4 in macro + 4 in projects.html), OPR badges, mini-flag center, `--cg-esg-economic`.
 5. **Cover wordmark size** — `--cg-display-cover` is set to `clamp(56px, 6.5vw, 96px)`. Confirm with print spec from the print partner.

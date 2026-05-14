@@ -225,6 +225,85 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
   margin-top: 10px;
 }
 
+/* ── ESG SHORTCUT STRIP (jumps to each pillar from the top) ────────────── */
+.esg-shortcut {
+  background: var(--cg-bone);
+  padding: 0;
+  border-bottom: 1px solid var(--cg-border);
+}
+.esg-shortcut-inner {
+  max-width: 1240px; margin: 0 auto;
+  padding: 36px 80px 40px;
+}
+.esg-shortcut-eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cg-mid);
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 12px;
+}
+.esg-shortcut-eyebrow::before { content:''; width: 28px; height: 1px; background: var(--cg-mid); }
+.esg-shortcut-title {
+  font-size: 22px; font-weight: 300; line-height: 1.25;
+  color: var(--cg-ink);
+  margin-bottom: 22px;
+}
+.esg-shortcut-title strong { font-weight: 700; }
+.esg-shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--cg-border);
+  border: 1px solid var(--cg-border);
+}
+.esg-shortcut-tile {
+  display: flex; flex-direction: column; gap: 6px;
+  background: #fff;
+  padding: 22px 22px 20px;
+  text-decoration: none;
+  color: var(--cg-ink);
+  position: relative;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.esg-shortcut-tile:hover { background: #fafaf6; }
+.esg-shortcut-tile::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 4px; background: var(--accent, var(--cg-mid));
+}
+.esg-shortcut-tile.amb { --accent: var(--cg-green); }
+.esg-shortcut-tile.soc { --accent: var(--cg-esg-social); }
+.esg-shortcut-tile.gov { --accent: var(--cg-esg-governance); }
+.esg-shortcut-pilar {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cg-mid);
+}
+.esg-shortcut-name {
+  font-size: 18px; font-weight: 600; color: var(--cg-ink);
+  line-height: 1.15;
+}
+.esg-shortcut-desc {
+  font-size: 11px; line-height: 1.5; color: var(--cg-mid);
+  margin-top: 2px;
+}
+.esg-shortcut-arrow {
+  position: absolute; top: 22px; right: 22px;
+  font-size: 14px; color: var(--accent, var(--cg-mid));
+  transition: transform 0.2s ease;
+  font-weight: 700;
+}
+.esg-shortcut-tile:hover .esg-shortcut-arrow { transform: translate(3px, -3px); }
+@media (max-width: 1024px) {
+  .esg-shortcut-inner { padding: 28px 32px 32px; padding-right: 80px; }
+}
+@media (max-width: 640px) {
+  .esg-shortcut-inner { padding: 24px 20px 28px; padding-right: 20px; }
+  .esg-shortcut-title { font-size: 18px; margin-bottom: 18px; }
+  .esg-shortcut-grid { grid-template-columns: 1fr; }
+  .esg-shortcut-name { font-size: 16px; }
+  .esg-shortcut-tile { padding: 18px 22px 16px; }
+}
+
 /* ── SECTION COMMONS ───────────────────────────────────────────────────── */
 .section {
   padding: 100px 80px;
@@ -561,10 +640,8 @@ nav.over-dark .lang-btn.active { background: #fff; color: var(--cg-navy); }
 .cursor-orb.tap { width: 12px; height: 12px; background: var(--cg-orange); }
 @media (hover: none), (pointer: coarse) { .cursor-orb { display: none; } }
 @media (prefers-reduced-motion: reduce) {
-  .cursor-orb, #hero #kaleidoscope, .hero-eyebrow, .hero-quote, .hero-stats, .hero-title .hw {
-    transition: none !important; transform: none !important;
-    opacity: 1 !important; filter: none !important;
-  }
+  /* Disable the follow-cursor only — brand motion stays on (María's call) */
+  .cursor-orb { display: none; }
   html, body, a, button { cursor: auto !important; }
 }
 
@@ -1305,9 +1382,23 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
   .section { padding: 56px 20px; padding-right: 20px; }
   .hero-content { padding: 128px 20px 32px; } /* +32 to account for top rail */
   .hero-title { font-size: 36px !important; }
-  .hero-stats { grid-template-columns: 1fr; }
-  .hero-stat { border-right: none; border-bottom: 1px solid var(--cg-border); }
+  /* Minimalist transparent stats strip on mobile */
+  .hero-stats {
+    grid-template-columns: 1fr;
+    background: transparent;
+    border-top: 1px solid var(--cg-border-soft);
+    border-bottom: 1px solid var(--cg-border-soft);
+  }
+  .hero-stat {
+    padding: 12px 20px;
+    border-right: none;
+    border-bottom: 1px solid var(--cg-border-soft);
+    display: flex; align-items: baseline; gap: 14px;
+    background: transparent;
+  }
   .hero-stat:last-child { border-bottom: none; }
+  .hero-stat-val { font-size: 22px; flex-shrink: 0; min-width: 48px; }
+  .hero-stat-label { font-size: 9px; margin-top: 0; letter-spacing: 0.16em; }
   .hero-flag a { padding: 20px 24px; }
   .kpi-row, .metrics-grid { grid-template-columns: 1fr; }
   .chapter-band { padding: 48px 20px; padding-right: 20px; }
@@ -1442,6 +1533,34 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
         <div class="hero-stat-val"><span class="cnt" data-n="8">0</span></div>
         <div class="hero-stat-label" data-pt="Cidades" data-en="Cities">Cidades</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESG SHORTCUT STRIP — quick jump to each pillar ─────────────────── -->
+<section class="esg-shortcut" aria-label="ESG quick navigation">
+  <div class="esg-shortcut-inner">
+    <p class="esg-shortcut-eyebrow" data-pt="Desempenho ESG em destaque" data-en="ESG Performance Highlights">Desempenho ESG em destaque</p>
+    <h2 class="esg-shortcut-title" data-pt="Explore os <strong>três pilares</strong>" data-en="Explore the <strong>three pillars</strong>">Explore os <strong>três pilares</strong></h2>
+    <div class="esg-shortcut-grid">
+      <a href="#pilar-ambiental" class="esg-shortcut-tile amb">
+        <span class="esg-shortcut-pilar" data-pt="Pilar 01" data-en="Pillar 01">Pilar 01</span>
+        <span class="esg-shortcut-name" data-pt="Ambiental" data-en="Environmental">Ambiental</span>
+        <span class="esg-shortcut-desc" data-pt="Energia, emissões, água e resíduos" data-en="Energy, emissions, water and waste">Energia, emissões, água e resíduos</span>
+        <span class="esg-shortcut-arrow">→</span>
+      </a>
+      <a href="#pilar-social" class="esg-shortcut-tile soc">
+        <span class="esg-shortcut-pilar" data-pt="Pilar 02" data-en="Pillar 02">Pilar 02</span>
+        <span class="esg-shortcut-name" data-pt="Social" data-en="Social">Social</span>
+        <span class="esg-shortcut-desc" data-pt="Pessoas, formação, segurança, comunidade" data-en="People, training, safety, community">Pessoas, formação, segurança, comunidade</span>
+        <span class="esg-shortcut-arrow">→</span>
+      </a>
+      <a href="#pilar-governanca" class="esg-shortcut-tile gov">
+        <span class="esg-shortcut-pilar" data-pt="Pilar 03" data-en="Pillar 03">Pilar 03</span>
+        <span class="esg-shortcut-name" data-pt="Governança" data-en="Governance">Governança</span>
+        <span class="esg-shortcut-desc" data-pt="Compliance, certificação, materialidade" data-en="Compliance, certification, materiality">Compliance, certificação, materialidade</span>
+        <span class="esg-shortcut-arrow">→</span>
+      </a>
     </div>
   </div>
 </section>
@@ -2035,7 +2154,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 </section>
 
 <!-- ENVIRONMENTAL -->
-<section class="section" style="background:#142e1f;color:#fff;">
+<section class="section" id="pilar-ambiental" style="background:#142e1f;color:#fff;">
   <div class="section-inner">
     <p class="eyebrow fade-up" style="color:var(--cg-green);" data-pt="Pilar 01 — Ambiental" data-en="Pillar 01 — Environmental">Pilar 01 — Ambiental</p>
     <h2 class="heading fade-up" style="color:#fff;" data-pt="Energia, emissões<br><strong>e recursos naturais</strong>" data-en="Energy, emissions<br><strong>and natural resources</strong>">Energia, emissões<br><strong>e recursos naturais</strong></h2>
@@ -2087,7 +2206,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 </section>
 
 <!-- SOCIAL -->
-<section class="section">
+<section class="section" id="pilar-social">
   <div class="section-inner">
     <p class="eyebrow fade-up" data-pt="Pilar 02 — Social" data-en="Pillar 02 — Social">Pilar 02 — Social</p>
     <h2 class="heading fade-up" data-pt="As pessoas no<br><strong>centro de tudo</strong>" data-en="People at the<br><strong>heart of it all</strong>">As pessoas no<br><strong>centro de tudo</strong></h2>
@@ -2095,7 +2214,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
     <!-- ISOTYPE: 57 colaboradores (28 feminino + 29 masculino) -->
     <div class="fade-up" style="margin-bottom: 56px;">
       <div style="display:flex;align-items:baseline;gap:20px;margin-bottom:4px;">
-        <span class="isotype-bignum" style="font-size:52px;font-weight:300;line-height:1;color:var(--cg-ink)">57</span>
+        <span class="isotype-bignum" style="font-size:52px;font-weight:300;line-height:1;color:var(--cg-ink)"><span class="cnt" data-n="57">0</span></span>
         <span style="font-size:12px;color:var(--cg-mid);letter-spacing:0.10em;" data-pt="colaboradores em 2025 · 28 feminino · 29 masculino" data-en="employees in 2025 · 28 female · 29 male">colaboradores em 2025 · 28 feminino · 29 masculino</span>
       </div>
       <div class="dot-people" id="dot-people-vis" aria-hidden="true"></div>
@@ -2153,7 +2272,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 </section>
 
 <!-- GOVERNANCE -->
-<section class="section" style="background:#181c2e;color:#fff;">
+<section class="section" id="pilar-governanca" style="background:#181c2e;color:#fff;">
   <div class="section-inner">
     <p class="eyebrow fade-up" style="color:var(--cg-esg-governance);" data-pt="Pilar 03 — Governança" data-en="Pillar 03 — Governance">Pilar 03 — Governança</p>
     <h2 class="heading fade-up" style="color:#fff;" data-pt="Transparência e<br><strong>integridade institucional</strong>" data-en="Transparency and<br><strong>institutional integrity</strong>">Transparência e<br><strong>integridade institucional</strong></h2>
@@ -2563,12 +2682,15 @@ function initBalls() {
     [51, 182, 122],  // green
     [204, 81, 44]    // rust
   ];
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const count = W < 600 ? 8 : W < 900 ? 12 : 16;
+  // Brand canvas always animates — María explicitly wants motion on phone too.
+  // (iOS Low Power Mode would otherwise freeze it via prefers-reduced-motion.)
+  const reduced = false;
+  const count = W < 600 ? 10 : W < 900 ? 14 : 18;
 
   const discs = [];
   for (let i = 0; i < count; i++) {
-    const radius = 44 + Math.random() * 96;
+    // Smaller discs on phones — full-size 140px reads as a colored slab on a 360px screen
+    const radius = W < 600 ? (18 + Math.random() * 42) : (44 + Math.random() * 96);
     const c = palette[Math.floor(Math.random() * palette.length)];
     const alpha = 0.78 + Math.random() * 0.18;            // stronger lines
     const stripeWidth = 3;                                // thicker stripes

@@ -3,6 +3,9 @@ uploads/font/HelveticaNeue.ttc
 uploads/font/extract_ttc.py
 uploads/font/web/Helvetica_Neue*.woff2
 
+# Heavy reference videos (WhatsApp + frames extracted)
+uploads/references/videos/
+
 # Local
 .DS_Store
 *.log

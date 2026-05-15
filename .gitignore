@@ -1,11 +1,8 @@
+# Commercial font sources — DO NOT commit
+uploads/font/HelveticaNeue.ttc
+uploads/font/extract_ttc.py
+uploads/font/web/Helvetica_Neue*.woff2
+
+# Local
 .DS_Store
-*.pdf
-!uploads/final report/*.pdf
-screenshots/
-pdf-extractor.html
-pdf-text-only.html
-pdf-visual.html
-Reporte de Sustentabilidad v1.html
-.claude/
-uploads/*-c02ba35a.jpg
-uploads/_originals/
+*.log

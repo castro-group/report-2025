@@ -2688,21 +2688,44 @@ html.lenis, html.lenis body { height: auto; }
   to   { transform: translate3d(var(--op-track-shift, -50%), 0, 0); }
 }
 
-/* Cards inside ticker — magazine columns, fixed dimensions */
+/* Cards inside ticker — square magazine tiles, fixed dimensions */
 .op-comments-ticker .op-comment-card {
-  flex: 0 0 320px;
-  width: 320px;
-  min-height: 210px;
+  flex: 0 0 300px;
+  width: 300px;
+  height: 300px;                /* SQUARE — rolls left as a uniform block */
   background: transparent;
   border: none;
   border-right: 1px solid var(--cg-border);
   border-radius: 0;
-  padding: 8px 26px 10px;
+  padding: 22px 26px 22px;
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin: 0;
+  overflow: hidden;
+}
+
+/* Demo voices — clearly tagged so users know they're placeholders */
+.op-comments-ticker .op-comment-card.is-demo { opacity: 0.92; }
+.op-comments-ticker .op-comment-card.is-demo::after {
+  content: 'Exemplo';
+  position: absolute;
+  top: 16px; right: 18px;
+  font: 700 8.5px/1 'Inter', sans-serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cg-mid);
+  border: 1px solid var(--cg-border);
+  padding: 3px 6px 2px;
+  border-radius: 1px;
+  background: var(--cg-bone);
+  z-index: 2;
+}
+.op-comments-ticker .op-comment-card.is-demo .op-comment-author {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--cg-mid);
 }
 .op-comments-ticker .op-comment-card:first-child { border-left: 1px solid var(--cg-border); }
 .op-comments-ticker .op-comment-card.is-mine {
@@ -2796,18 +2819,19 @@ html.lenis, html.lenis body { height: auto; }
   border-radius: 1px;
 }
 
-/* Mobile — narrower columns, slower */
+/* Mobile — smaller squares, slower tempo */
 @media (max-width: 768px) {
   .op-comments-ticker { padding: 28px 0 22px; }
   .op-comments-ticker .op-comment-card {
-    flex-basis: 260px;
-    width: 260px;
-    padding: 8px 20px 10px;
-    min-height: 190px;
+    flex-basis: 250px;
+    width: 250px;
+    height: 250px;
+    padding: 20px 20px 20px;
   }
   .op-comments-ticker .op-comment-card.is-mine { padding-left: 17px; }
   .op-comments-ticker .op-comment-card::before { font-size: 80px; left: 14px; }
-  .op-comments-ticker .op-comment-text { font-size: 15px; }
+  .op-comments-ticker .op-comment-text { font-size: 15px; -webkit-line-clamp: 6; line-clamp: 6; }
+  .op-comments-ticker .op-comment-card.is-demo::after { top: 14px; right: 14px; font-size: 8px; }
   .op-comments-ticker .op-comments-list { animation-duration: 55s; }
   .op-ticker-meta { display: none; }   /* keep only LIVE flag on small screens */
 }
@@ -6132,7 +6156,10 @@ window.addEventListener('load', () => {
     function buildCommentCard(c) {
       const mine = c.visitor && state.visitorId && c.visitor === String(state.visitorId);
       const card = document.createElement('article');
-      card.className = 'op-comment-card' + (mine ? ' is-mine' : '');
+      let cls = 'op-comment-card';
+      if (mine)   cls += ' is-mine';
+      if (c.demo) cls += ' is-demo';
+      card.className = cls;
 
       const meta = document.createElement('div');
       meta.className = 'op-comment-meta';
@@ -6189,27 +6216,79 @@ window.addEventListener('load', () => {
     // animation loop matches one full set of originals (pixel-perfect loop).
     const cmTicker = document.getElementById('opCommentsTicker');
 
+    // Aspirational stakeholder voices — shown only when there are no real
+    // comments yet. Each is clearly badged "Exemplo" in the card UI so
+    // visitors don't mistake them for real submissions. They disappear the
+    // moment any real comment is posted.
+    const DEMO_VOICES = [
+      {
+        author: 'Voz esperada',
+        role:   'Investidor institucional',
+        body:   'Net zero 2050 só ganha credibilidade quando cada projecto publica embodied carbon e um plano operacional alinhado com SBTi. Castro Group está no caminho — falta a granularidade ativo-a-ativo.',
+        ts:     Date.now() - 42 * 60 * 1000,
+        votes:  ['E1', 'E2'],
+        demo:   true,
+      },
+      {
+        author: 'Voz esperada',
+        role:   'Arquitecto · LEED AP',
+        body:   'Certificações múltiplas — LEED, WELL, SmartScore — são caras mas válidas: cada uma cobre uma faceta diferente do edifício. O desafio é agregar a narrativa sem confundir o investidor.',
+        ts:     Date.now() - 3 * 60 * 60 * 1000,
+        votes:  ['G2', 'S4'],
+        demo:   true,
+      },
+      {
+        author: 'Voz esperada',
+        role:   'Tenant · Espaço flex',
+        body:   'O conforto térmico de verão será o KPI invisível de 2030. Os indicadores precisam chegar ao utilizador final — não ficar só no reporting institucional.',
+        ts:     Date.now() - 6 * 60 * 60 * 1000,
+        votes:  ['S2'],
+        demo:   true,
+      },
+      {
+        author: 'Voz esperada',
+        role:   'Município · Urbanismo',
+        body:   'Dupla materialidade tem de incluir o impacto na rede urbana: densidade, mobilidade ativa, espaços verdes públicos. O edifício certificado não é uma ilha — é parte de um sistema.',
+        ts:     Date.now() - 12 * 60 * 60 * 1000,
+        votes:  ['G3', 'E4'],
+        demo:   true,
+      },
+      {
+        author: 'Voz esperada',
+        role:   'Consultor ESG',
+        body:   'O dilema desinvestimento vs engagement está mal colocado. O capital paciente, certificado e transparente é a alavanca que falta no imobiliário português — e o Castro Group pode liderar essa narrativa.',
+        ts:     Date.now() - 22 * 60 * 60 * 1000,
+        votes:  ['G1'],
+        demo:   true,
+      },
+    ];
+
     function paintList(list) {
       currentList = list;
       cmCount.textContent = list.length;
       while (cmList.firstChild) cmList.removeChild(cmList.firstChild);
 
-      if (!list.length) {
-        cmEmpty.classList.remove('is-hidden');
-        if (cmTicker) cmTicker.classList.add('is-empty');
-        return;
+      // When there are no real comments, render the demo voices so the
+      // ticker stays alive (educates visitors about the kind of input
+      // welcome). Real comments override demos as soon as the first lands.
+      const usingDemos = !list.length;
+      const renderList = usingDemos ? DEMO_VOICES : list;
+
+      if (usingDemos) {
+        cmEmpty.classList.add('is-hidden');             // ticker covers the gap
+      } else {
+        cmEmpty.classList.add('is-hidden');
       }
-      cmEmpty.classList.add('is-hidden');
       if (cmTicker) cmTicker.classList.remove('is-empty');
 
       // Render the original set first
-      list.forEach(c => cmList.appendChild(buildCommentCard(c)));
+      renderList.forEach(c => cmList.appendChild(buildCommentCard(c)));
 
       // Compute card width (matches CSS breakpoint) and how many duplicates
       // we need so total track width > viewport × 2 (smooth wrap-around).
       const isNarrow = window.matchMedia('(max-width: 768px)').matches;
-      const cardW = isNarrow ? 260 : 320;
-      const setW = list.length * cardW;
+      const cardW = isNarrow ? 250 : 300;
+      const setW = renderList.length * cardW;
       const viewportEl = cmTicker ? cmTicker.querySelector('.op-ticker-viewport') : null;
       const viewportW = viewportEl ? viewportEl.offsetWidth : 1100;
       const minTotalW = viewportW * 2;
@@ -6217,7 +6296,7 @@ window.addEventListener('load', () => {
 
       // Append (setsNeeded - 1) clones so the loop is seamless
       for (let s = 1; s < setsNeeded; s++) {
-        list.forEach(c => {
+        renderList.forEach(c => {
           const clone = buildCommentCard(c);
           clone.setAttribute('aria-hidden', 'true');
           clone.dataset.ghost = '1';
@@ -6229,7 +6308,7 @@ window.addEventListener('load', () => {
       cmList.style.setProperty('--op-track-shift', '-' + setW + 'px');
 
       // Tempo scales with content: ~7s per card, floor 25s, ceiling 120s
-      const dur = Math.min(120, Math.max(25, list.length * 7));
+      const dur = Math.min(120, Math.max(25, renderList.length * 7));
       cmList.style.animationDuration = dur + 's';
     }
 

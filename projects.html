@@ -11,12 +11,12 @@
 <meta property="og:title" content="Castro Group — Portfólio Completo · RS 2025">
 <meta property="og:description" content="19 ativos + 4 landbank em 8 cidades. 257.050 m² · 95,8% alinhado com a estratégia de certificação · 1.º LEED Gold emitido.">
 <meta property="og:url" content="https://castro-group.github.io/report-2025/projects.html">
-<meta property="og:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png">
+<meta property="og:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="pt_PT">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png">
+<meta name="twitter:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png?v=2">
 <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,10 +30,11 @@
   --cg-cyan:     #0E99D8;
   --cg-green:    #33B67A;
   --cg-rust:     #CC512C;
-  /* Unified grey across the document — matches index.html (María) */
-  --cg-putty:    #D8D5CC;
-  --cg-putty-2:  #D8D5CC;     /* alias → putty */
-  --cg-bone:     #D8D5CC;     /* alias → putty */
+  /* Unified greys across the document — matches index.html (María) */
+  --cg-putty:       #D8D5CC;   /* body + nav background */
+  --cg-putty-2:     #D8D5CC;
+  --cg-bone:        #E2DFD6;   /* card fill — slightly lighter than putty */
+  --cg-bone-hover:  #ECEAE1;   /* card hover — even lighter, reveals interactivity */
   --cg-ink:      #1A1F2E;
   --cg-mid:      #6B7280;
   --cg-border:   #C7C4BA;
@@ -275,12 +276,14 @@ body[data-pf-view="city"]   .pf-jump a:hover { opacity: 1; }
   .proj-grid { grid-template-columns: repeat(3, 1fr); }
 }
 .proj-card {
-  background: #fff;
+  background: var(--cg-bone);          /* gris bone como cards index, no blanco */
   border: 1px solid var(--cg-border);
   display: flex; flex-direction: column;
   overflow: hidden;
-  transition: transform 0.3s var(--cg-ease), box-shadow 0.3s var(--cg-ease);
+  transition: transform 0.3s var(--cg-ease), box-shadow 0.3s var(--cg-ease),
+              background 0.25s var(--cg-ease);
 }
+.proj-card:hover { background: var(--cg-bone-hover, #ECEAE1); }
 .cat-band.landbank .proj-card {
   background: rgba(255,255,255,0.04);
   border-color: rgba(255,255,255,0.12);
@@ -408,8 +411,8 @@ body[data-pf-view="city"]   .pf-jump a:hover { opacity: 1; }
 }
 .pf-mapwrap {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: 1.5fr 1fr;
+  gap: clamp(32px, 4vw, 64px);
   align-items: stretch;
 }
 .pf-map {
@@ -418,9 +421,9 @@ body[data-pf-view="city"]   .pf-jump a:hover { opacity: 1; }
   background: var(--cg-putty);
   border: 1px solid var(--cg-border);
   border-radius: 2px;
-  padding: clamp(18px, 2.6vh, 36px);
-  max-width: 540px;
-  max-height: calc(100vh - 220px);
+  padding: clamp(20px, 2.6vh, 40px);
+  max-width: 720px;
+  max-height: calc(100vh - 160px);
   width: 100%;
   box-shadow: 0 1px 0 rgba(26,31,46,0.04), 0 32px 68px -32px rgba(26,31,46,0.22);
   overflow: hidden;
@@ -613,34 +616,50 @@ body[data-pf-view="city"]   .pf-jump a:hover { opacity: 1; }
   max-width: 1240px; margin: 0 auto;
   display: flex; flex-wrap: wrap; gap: 8px;
 }
+/* Tech pills · square corners, mono numerics, bone gris fill — mirrors
+   index.html .kpi-card greys instead of plain white. */
 .pf-jump a {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 8px 14px;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  font-family: var(--cg-font-mono);
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.20em; text-transform: uppercase;
   color: var(--cg-ink); text-decoration: none;
-  background: transparent;
+  background: var(--cg-bone);
   border: 1px solid var(--cg-border);
-  border-radius: 999px;
-  transition: all 0.2s var(--cg-ease);
+  border-radius: 2px;
+  transition: background 0.18s var(--cg-ease), color 0.18s var(--cg-ease),
+              border-color 0.18s var(--cg-ease), transform 0.18s var(--cg-ease);
+  position: relative;
+}
+.pf-jump a::before {
+  /* tech bracket — left edge accent that intensifies on hover */
+  content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px;
+  width: 3px; background: currentColor; opacity: 0; transition: opacity 0.18s var(--cg-ease);
 }
 .pf-jump a .dot {
-  width: 6px; height: 6px; border-radius: 50%;
+  width: 7px; height: 7px; border-radius: 0;     /* square dot reads more tech */
   display: inline-block;
 }
+.pf-jump a.op  { color: var(--cg-green); }
+.pf-jump a.con { color: var(--cg-orange); }
+.pf-jump a.dev { color: var(--cg-cyan); }
+.pf-jump a.land { color: var(--cg-rust); }
 .pf-jump a.op .dot   { background: var(--cg-green); }
 .pf-jump a.con .dot  { background: var(--cg-orange); }
 .pf-jump a.dev .dot  { background: var(--cg-cyan); }
 .pf-jump a.land .dot { background: var(--cg-rust); }
 .pf-jump a:hover {
-  background: #fff;
-  border-color: var(--cg-ink);
+  background: var(--cg-bone-hover, #ECEAE1);
+  border-color: currentColor;
   transform: translateY(-1px);
 }
+.pf-jump a:hover::before { opacity: 1; }
 .pf-jump a .count {
   font-family: var(--cg-font-mono);
   font-size: 9px; opacity: 0.55;
   font-weight: 500; letter-spacing: 0.08em;
+  color: var(--cg-mid);
 }
 
 /* FOOTER */
@@ -853,7 +872,7 @@ footer a:hover { text-decoration: underline; }
   <div class="cat-band-inner">
     <p class="cat-band-eyebrow" data-pt="Pilar de gestão · 01" data-en="Operating pillar · 01">Pilar de gestão · 01</p>
     <h2 data-pt="Ativos em <strong>operação</strong>" data-en="<strong>Operating</strong> assets">Ativos em <strong>operação</strong></h2>
-    <p class="cat-band-meta">10 ativos · 7 com gestão CG · 3 sob gestão de terceiros</p>
+    <p class="cat-band-meta">10 ativos · 5 com gestão CG · 5 sob gestão de terceiros</p>
 
     <div class="proj-grid">
 
@@ -875,9 +894,9 @@ footer a:hover { text-decoration: underline; }
       </article>
 
       <article class="proj-card">
-        <div class="proj-media"><img src="uploads/projects/SPARK II.png" alt="SPARK 2" loading="lazy"></div>
+        <div class="proj-media"><img src="uploads/projects/SPARK II.png" alt="SPARK II" loading="lazy"></div>
         <div class="proj-body">
-          <div class="proj-name">SPARK 2</div>
+          <div class="proj-name">SPARK II</div>
           <div class="proj-loc">Matosinhos, Porto</div>
           <ul class="proj-attrs">
             <li><span class="key">GFA</span><span>17.357 m²</span></li>
@@ -898,7 +917,7 @@ footer a:hover { text-decoration: underline; }
             <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Escritório" data-en="Office">Escritório</span></li>
             <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
           </ul>
-          <span class="proj-badge cert-no" data-pt="Sem objetivo de certificar" data-en="Not targeted">Sem objetivo de certificar</span>
+          <span class="proj-badge cert-tgt" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</span>
         </div>
       </article>
 
@@ -920,9 +939,9 @@ footer a:hover { text-decoration: underline; }
         <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
         <div class="proj-body">
           <div class="proj-name">Moradia Fão</div>
-          <div class="proj-loc">Esposende, Porto</div>
+          <div class="proj-loc">Esposende, Braga</div>
           <ul class="proj-attrs">
-            <li><span class="key">GFA</span><span>706 m²</span></li>
+            <li><span class="key">GFA</span><span>798 m²</span></li>
             <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
             <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
           </ul>
@@ -945,7 +964,7 @@ footer a:hover { text-decoration: underline; }
       </article>
 
       <article class="proj-card">
-        <div class="proj-media"><img src="uploads/projects/ALDI.jpg" alt="ALDI" loading="lazy" style="object-position:center 25%;"></div>
+        <div class="proj-media"><img src="uploads/projects/ALDI.jpg" alt="ALDI" loading="lazy" style="object-position:center top;"></div>
         <div class="proj-body">
           <div class="proj-name">ALDI</div>
           <div class="proj-loc">Matosinhos, Porto</div>
@@ -1009,7 +1028,7 @@ footer a:hover { text-decoration: underline; }
   <div class="cat-band-inner">
     <p class="cat-band-eyebrow" data-pt="Pilar de gestão · 02" data-en="Operating pillar · 02">Pilar de gestão · 02</p>
     <h2 data-pt="Ativos em <strong>construção</strong>" data-en="Assets under <strong>construction</strong>">Ativos em <strong>construção</strong></h2>
-    <p class="cat-band-meta">4 ativos · GFA agregado 61.376 m²</p>
+    <p class="cat-band-meta">4 ativos · GFA agregado 42.737 m²</p>
 
     <div class="proj-grid">
       <article class="proj-card">
@@ -1060,7 +1079,7 @@ footer a:hover { text-decoration: underline; }
           <div class="proj-name">Villa Bloom</div>
           <div class="proj-loc">Loulé, Faro</div>
           <ul class="proj-attrs">
-            <li><span class="key">GFA</span><span>19.095 m²</span></li>
+            <li><span class="key">GFA</span><span>456 m²</span></li>
             <li><span class="key" data-pt="Tipologia" data-en="Typology">Tipologia</span><span data-pt="Residencial" data-en="Residential">Residencial</span></li>
             <li><span class="key" data-pt="Gestão" data-en="Management">Gestão</span><span>CG</span></li>
           </ul>
@@ -1124,7 +1143,7 @@ footer a:hover { text-decoration: underline; }
       <article class="proj-card">
         <div class="proj-media"><div class="proj-media-placeholder" aria-hidden="true"></div></div>
         <div class="proj-body">
-          <div class="proj-name">Lote 81 — Fuse Valley</div>
+          <div class="proj-name">Lote 81</div>
           <div class="proj-loc">Matosinhos, Porto</div>
           <ul class="proj-attrs">
             <li><span class="key">GFA</span><span>8.000 m²</span></li>
@@ -1293,7 +1312,7 @@ document.querySelectorAll('.pf-summary').forEach(el => cntIO.observe(el));
 const PF_ASSETS = [
   // Operação (10)
   { name: 'La Movida',              city: 'Matosinhos',          status: 'operacao' },
-  { name: 'SPARK 2',                city: 'Matosinhos',          status: 'operacao' },
+  { name: 'SPARK II',               city: 'Matosinhos',          status: 'operacao' },
   { name: 'Palacete 31 de Janeiro', city: 'Braga',               status: 'operacao' },
   { name: 'Villa Chloé',            city: 'Loulé',               status: 'operacao' },
   { name: 'Moradia Fão',            city: 'Esposende',           status: 'operacao' },
@@ -1311,7 +1330,7 @@ const PF_ASSETS = [
   { name: 'Fuse Valley',            city: 'Matosinhos',          status: 'desenvolvimento' },
   { name: 'Bloom Living',           city: 'Maia',                status: 'desenvolvimento' },
   { name: 'EXO 60',                 city: 'Vila Nova de Gaia',   status: 'desenvolvimento' },
-  { name: 'Lote 81 — Fuse Valley',  city: 'Matosinhos',          status: 'desenvolvimento' },
+  { name: 'Lote 81',                city: 'Matosinhos',          status: 'desenvolvimento' },
   { name: 'Valongo',                city: 'Valongo',             status: 'desenvolvimento' },
   // Landbank (4)
   { name: 'Vila Franca de Xira',    city: 'Vila Franca de Xira', status: 'landbank' },

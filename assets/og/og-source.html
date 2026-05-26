@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<title>OG Source · Castro Group RS 2025</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@500&display=swap');
+  html, body { margin: 0; padding: 0; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #D8D5CC;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  .bolas {
+    position: absolute;
+    inset: 0;
+    width: 1200px;
+    height: 630px;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 10;
+  }
+  .scrim {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 820px;
+    height: 360px;
+    background: radial-gradient(ellipse at center, rgba(216,213,204,0.92) 0%, rgba(216,213,204,0.78) 55%, rgba(216,213,204,0) 100%);
+    pointer-events: none;
+    z-index: 5;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: #5b5e6a;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .year {
+    font-size: 240px;
+    font-weight: 700;
+    color: #14182A;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin: 0;
+  }
+  .org {
+    font-size: 52px;
+    font-weight: 500;
+    color: #14182A;
+    letter-spacing: -0.01em;
+    margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+
+<svg class="bolas" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- 6 bolas en 3×2 grid · paleta CG · 13 líneas verticales c/u -->
+  <g id="bola-grid"></g>
+</svg>
+
+<div class="scrim"></div>
+
+<div class="overlay">
+  <div class="eyebrow">Relatório de Sustentabilidade</div>
+  <div class="year">2025</div>
+  <div class="org">Castro Group</div>
+</div>
+
+<script>
+  // Bola geometry per CG spec: 13 vertical lines, strokeWidth = (D/13)*0.55, gap = (D/13)*0.45, linecap round
+  // Vertical extent: lines stop at sqrt(r^2 - dx^2) from center, capped to circular form
+  const COLORS = ['#3AA6DC','#4FB07A','#E87A2E','#3A4A9E','#C24A2E','#3E6B4E'];
+  const positions = [
+    {cx: 200, cy: 165}, {cx: 600, cy: 165}, {cx: 1000, cy: 165},
+    {cx: 200, cy: 465}, {cx: 600, cy: 465}, {cx: 1000, cy: 465}
+  ];
+  // Shuffle colors for variety while keeping all 6 distinct
+  const shuffled = COLORS.slice().sort(() => Math.random() - 0.5);
+  const D = 280; // diameter
+  const r = D / 2;
+  const N = 13;
+  const unit = D / N;
+  const strokeW = unit * 0.55;
+  const gap = unit * 0.45;
+  const svgns = 'http://www.w3.org/2000/svg';
+  const g = document.getElementById('bola-grid');
+  positions.forEach((pos, i) => {
+    const color = shuffled[i % shuffled.length];
+    // 13 lines, centered around cx, spacing = unit
+    // x positions: cx + (i - (N-1)/2) * unit, where i in [0, N)
+    for (let k = 0; k < N; k++) {
+      const xOffset = (k - (N - 1) / 2) * unit;
+      const x = pos.cx + xOffset;
+      // Line should be within circle, so y extent = sqrt(r^2 - xOffset^2)
+      const absX = Math.abs(xOffset);
+      if (absX > r) continue;
+      const h = Math.sqrt(r * r - absX * absX);
+      // Shrink slightly for stroke cap rounding
+      const halfH = Math.max(0, h - strokeW / 2);
+      const y1 = pos.cy - halfH;
+      const y2 = pos.cy + halfH;
+      const line = document.createElementNS(svgns, 'line');
+      line.setAttribute('x1', x);
+      line.setAttribute('y1', y1);
+      line.setAttribute('x2', x);
+      line.setAttribute('y2', y2);
+      line.setAttribute('stroke', color);
+      line.setAttribute('stroke-width', strokeW);
+      line.setAttribute('stroke-linecap', 'round');
+      g.appendChild(line);
+    }
+  });
+</script>
+
+</body>
+</html>

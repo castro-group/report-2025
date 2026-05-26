@@ -9,17 +9,17 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Castro Group">
 <meta property="og:title" content="Castro Group — Relatório de Sustentabilidade 2025">
-<meta property="og:description" content="A sua opinião conta · vote nas prioridades ESG 2030. Relatório interativo com 14 KPIs, plano de transição climática e painel de dupla materialidade externa.">
+<meta property="og:description" content="Relatório interativo com 14 KPIs, plano de transição climática e painel de dupla materialidade externa.">
 <meta property="og:url" content="https://castro-group.github.io/report-2025/">
-<meta property="og:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png">
+<meta property="og:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Castro Group · Relatório de Sustentabilidade 2025 · com o motivo Bolas Portada">
 <meta property="og:locale" content="pt_PT">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Castro Group — Relatório de Sustentabilidade 2025">
-<meta name="twitter:description" content="A sua opinião conta · vote nas prioridades ESG 2030.">
-<meta name="twitter:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png">
+<meta name="twitter:description" content="Relatório interativo com 14 KPIs e painel de dupla materialidade.">
+<meta name="twitter:image" content="https://castro-group.github.io/report-2025/assets/og/og-image.png?v=2">
 <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg?v=3">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -925,11 +925,13 @@ nav.over-dark .nav-vote { background: rgba(255,255,255,0.92); color: var(--cg-gr
 /* ── DATA MODAL (click any KPI/metric card to dive in) ─────────────────── */
 .kpi-card, .metric-card { cursor: pointer; position: relative; }
 .kpi-card::after, .metric-card::after {
-  content: '↗';
+  content: '';
   position: absolute; top: 14px; right: 14px;
-  font-size: 11px; font-weight: 700;
-  color: var(--cg-mid);
-  opacity: 0.32;
+  width: 11px; height: 11px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3.5 8.5L8.5 3.5M5 3.5h3.5V7'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.45;
   transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: none;
 }
@@ -1727,7 +1729,7 @@ nav.over-dark .nav-vote { background: rgba(255,255,255,0.92); color: var(--cg-gr
 }
 .mvv-eyebrow {
   font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
-  text-transform: uppercase; color: var(--cg-rust);
+  text-transform: uppercase; color: var(--cg-mid);
   margin-bottom: 12px;
 }
 .mvv-section h2 {
@@ -2093,49 +2095,43 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
   nav { padding: 0 12px; height: 56px; top: 32px; padding-right: 12px; }
   .nav-wordmark, .nav-sep, .nav-year { display: none; }
   .nav-right { gap: 4px; }
-  /* Pills tighten in mobile — icon-only Vote + PDF, slim lang toggle */
-  .nav-vote, .nav-pdf { padding: 7px 9px; font-size: 9px; letter-spacing: 0; gap: 0; }
+  /* Pills tighten in mobile — icon-only Vote + PDF, forced equal min-width */
+  .nav-vote, .nav-pdf { padding: 7px 9px; font-size: 9px; letter-spacing: 0; gap: 0; min-width: 36px; justify-content: center; }
   .nav-vote svg, .nav-pdf svg { width: 12px; height: 12px; }
   .nav-vote span, .nav-pdf span { display: none; }   /* icon-only */
   .lang-toggle { padding: 2px; gap: 2px; }
   .lang-btn { padding: 4px 7px; font-size: 9px; letter-spacing: 0.06em; }
-  /* Hero macro stats — single row of 5 instead of the 2-col stack */
-  .hero-stats-row { grid-template-columns: repeat(5, 1fr); gap: 4px; padding: 24px 14px 28px; }
-  .hero-stats-row::before { left: 14px; right: 14px; }
-  .hero-stat-cell { padding: 14px 4px 8px 6px; min-height: 78px; }
-  .hero-stat-cell-val { font-size: 22px; letter-spacing: -0.03em; }
-  .hero-stat-cell-label { font-size: 7px; letter-spacing: 0.10em; margin-top: 8px; }
-  .hero-stat-cell.active .hero-stat-cell-val,
-  .hero-stat-cell:hover .hero-stat-cell-val { transform: scale(1.25); }
-  /* ESG pills — same compact pattern as the nav Vote pill */
-  .esg-shortcut-inner { padding: 24px 16px 24px; }
-  .esg-shortcut-tile { padding: 10px 14px; gap: 10px; }
-  .esg-shortcut-pilar { font-size: 8px; letter-spacing: 0.16em; }
-  .esg-shortcut-name { font-size: 11px; letter-spacing: 0.06em; }
-  .esg-shortcut-arrow { font-size: 11px; }
-  /* CEO / Head messages — large pull-quote font shrinks for phones */
-  .ceo-grid, .hos-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
-  .ceo-grid > div > div[style*="font-size:22px"],
-  .hos-grid > div > div[style*="font-size:22px"] { font-size: 16px !important; padding-left: 18px !important; padding-right: 18px !important; }
+  /* ESG pills — match the nav Vote pill size (compact, no eyebrow PILAR 0X) */
+  .esg-shortcut-inner { padding: 20px 16px 20px; }
+  .esg-shortcut-tile { padding: 7px 11px; gap: 6px; }
+  .esg-shortcut-pilar { display: none; }                 /* drop the "PILAR 0X" eyebrow on phones */
+  .esg-shortcut-name { font-size: 9px; letter-spacing: 0.08em; }
+  .esg-shortcut-arrow { font-size: 10px; }
   .section { padding: 56px 20px; padding-right: 20px; }
-  .hero-content { padding: 128px 20px 32px; } /* +32 to account for top rail */
-  .hero-title { font-size: 36px !important; }
-  /* Hero stats row on mobile — single row of 5 (María) */
+  .hero-content { padding: 80px 20px 24px; } /* less top, pushes title + stats up */
+  .hero-title { font-size: 30px !important; margin-bottom: 0 !important; }
+  /* Hero stats row on mobile — single row of 5, numbers BIGGER than the
+     "2025" word in the title (per María: macro numbers must dominate).
+     Solid putty bg so the kaleidoscope bolas behind don't bleed into the stats. */
   .hero-stats-row {
     grid-template-columns: repeat(5, 1fr);
-    padding: 20px 12px 28px;
+    padding: 8px 10px 20px;       /* tighter, pulls the row up against the title */
     gap: 2px;
+    margin-top: 0;
+    background: var(--cg-putty);
+    position: relative;
+    z-index: 3;
   }
-  .hero-stats-row::before { left: 12px; right: 12px; }
+  .hero-stats-row::before { left: 10px; right: 10px; }
   .hero-stat-cell {
-    padding: 12px 3px 6px 5px;
-    min-height: 70px;
+    padding: 10px 2px 4px 4px;
+    min-height: 78px;
   }
-  .hero-stat-cell:first-child { padding-left: 5px; }
-  .hero-stat-cell-val { font-size: 20px; letter-spacing: -0.03em; }
+  .hero-stat-cell:first-child { padding-left: 4px; }
+  .hero-stat-cell-val { font-size: 40px; letter-spacing: -0.04em; }
   .hero-stat-cell.active .hero-stat-cell-val,
-  .hero-stat-cell:hover .hero-stat-cell-val { transform: scale(1.20); }
-  .hero-stat-cell-label { font-size: 6.5px; margin-top: 8px; letter-spacing: 0.08em; line-height: 1.15; }
+  .hero-stat-cell:hover .hero-stat-cell-val { transform: scale(1.15); }
+  .hero-stat-cell-label { font-size: 6px; margin-top: 6px; letter-spacing: 0.06em; line-height: 1.15; }
   .hero-flag a { padding: 20px 24px; }
   .kpi-row, .metrics-grid { grid-template-columns: 1fr; }
   .chapter-band {
@@ -2148,13 +2144,88 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
   .chapter-band .eyebrow { font-size: 9px !important; }
   footer { padding-right: 20px; }
 
-  /* CEO + HOS grids stack on mobile */
-  .ceo-grid, .hos-grid {
-    grid-template-columns: 1fr !important;
-    gap: 28px !important;
+  /* CEO + HOS — phrase + tiny photo bola side-by-side (per María).
+     Wrappers .ceo-left/.ceo-right are unwrapped via display:contents so
+     the grid items below them participate directly in named areas. */
+  .ceo-grid > .ceo-left,
+  .ceo-grid > .ceo-right,
+  .hos-grid > .hos-left,
+  .hos-grid > .hos-right { display: contents !important; }
+
+  .ceo-grid {
+    grid-template-columns: 1fr 96px !important;
+    grid-template-areas:
+      "quote photo"
+      "quote name"
+      "body  body" !important;
+    gap: 14px 16px !important;
+    align-items: start !important;
   }
-  .hos-grid > div:last-child { text-align: left !important; }
-  .hos-grid > div:last-child > div:first-child { margin-left: 0 !important; }
+  .ceo-photo { grid-area: photo; width: 96px !important; height: 96px !important; margin-bottom: 0 !important; }
+  .ceo-namecard { grid-area: name; align-self: start; }
+  .ceo-namecard .ceo-eyebrow { margin-bottom: 4px !important; font-size: 8px !important; letter-spacing: 0.12em !important; }
+  .ceo-namecard .ceo-name { font-size: 14px !important; line-height: 1.15 !important; }
+  .ceo-namecard .ceo-role { font-size: 10px !important; margin-top: 2px !important; }
+  .ceo-grid .ceo-quote {
+    grid-area: quote;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    padding-left: 14px !important;
+    border-left-width: 2px !important;
+    align-self: start;
+  }
+  .ceo-grid .ceo-body { grid-area: body; margin-top: 6px !important; font-size: 13px !important; }
+
+  .hos-grid {
+    grid-template-columns: 96px 1fr !important;
+    grid-template-areas:
+      "photo quote"
+      "name  quote"
+      "body  body" !important;
+    gap: 14px 16px !important;
+    align-items: start !important;
+  }
+  .hos-photo { grid-area: photo; width: 96px !important; height: 96px !important; margin: 0 !important; }
+  .hos-namecard { grid-area: name; align-self: start; text-align: left !important; }
+  .hos-namecard .hos-eyebrow { margin-bottom: 4px !important; font-size: 8px !important; letter-spacing: 0.12em !important; }
+  .hos-namecard .hos-name { font-size: 14px !important; line-height: 1.15 !important; }
+  .hos-namecard .hos-role {
+    font-size: 10px !important; margin-top: 2px !important;
+    display: flex !important; justify-content: flex-start !important;
+  }
+  .hos-grid .hos-quote {
+    grid-area: quote;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
+    padding-right: 14px !important;
+    border-right-width: 2px !important;
+    text-align: right !important;
+    align-self: start;
+  }
+  .hos-grid .hos-body {
+    grid-area: body;
+    margin-top: 6px !important;
+    font-size: 13px !important;
+    text-align: left !important;   /* full-width body reads left in mobile */
+  }
+
+  /* Opiniao bolas — 3-column grid (smaller bolas, same label size) */
+  .op-themes {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    justify-items: center;
+  }
+  .op-theme {
+    width: 100%;
+    max-width: 88px;
+    height: auto;
+    aspect-ratio: 1;
+    padding: 6px;
+  }
+  /* Back-to-top — orange like the desktop cursor-orb (per María) */
+  .back-to-top { background: var(--cg-orange) !important; color: #fff !important; }
+  .back-to-top:hover { background: var(--cg-orange-deep) !important; }
 
   /* Empresas / Fundos / Cidades grids stack */
   .kpi-row[style*="repeat(5"] { grid-template-columns: 1fr !important; }
@@ -2197,12 +2268,13 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 }
 
 @media (max-width: 380px) {
-  .hero-title { font-size: 30px !important; }
+  .hero-title { font-size: 26px !important; }
   .data-modal-value { font-size: 36px; }
   .nav-logo { height: 39px; }
   nav { padding: 0 12px; height: 52px; padding-right: 12px; }
   .section { padding: 48px 16px; padding-right: 16px; }
-  .hero-content { padding: 116px 16px 28px; }
+  .hero-content { padding: 72px 16px 20px; }
+  .hero-stat-cell-val { font-size: 34px; }
 }
 </style>
 </head>
@@ -2362,17 +2434,22 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
   <div class="section-inner">
     <p class="eyebrow fade-up" data-pt="Mensagem do CEO" data-en="CEO Message">Mensagem do CEO</p>
     <div class="ceo-grid fade-up" style="display:grid;grid-template-columns:1fr 2fr;gap:80px;align-items:start;">
-      <div>
-        <div style="width:200px;height:200px;overflow:hidden;border-radius:50%;margin-bottom:20px;background:var(--cg-putty);">
+      <div class="ceo-left">
+        <div class="ceo-photo" style="width:200px;height:200px;overflow:hidden;border-radius:50%;margin-bottom:20px;background:var(--cg-putty);">
           <img src="uploads/quotes/CEO.jpg" alt="Paulo Castro" loading="lazy" decoding="async" width="200" height="200" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
         </div>
-        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cg-mid);margin-bottom:8px;" data-pt="Mensagem de" data-en="Message from">Mensagem de</div>
-        <div style="font-size:20px;font-weight:400;">Paulo Castro</div>
-        <div style="font-size:12px;color:var(--cg-mid);margin-top:4px;" data-pt="CEO, Castro Group" data-en="CEO, Castro Group">CEO, Castro Group</div>
+        <div class="ceo-namecard">
+          <div class="ceo-eyebrow" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cg-mid);margin-bottom:8px;" data-pt="Mensagem de" data-en="Message from">Mensagem de</div>
+          <div class="ceo-name" style="font-size:20px;font-weight:400;">Paulo Castro</div>
+          <div class="ceo-role" style="font-size:12px;color:var(--cg-mid);margin-top:4px;display:inline-flex;align-items:center;gap:8px;">
+            <span data-pt="CEO, Castro Group" data-en="CEO, Castro Group">CEO, Castro Group</span>
+            <a href="https://www.linkedin.com/in/paulo-castro-75946a37/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:2px;background:var(--cg-navy);color:#fff;text-decoration:none;font-size:8px;font-weight:700;">in</a>
+          </div>
+        </div>
       </div>
-      <div>
-        <div style="font-size:22px;font-weight:300;line-height:1.5;color:var(--cg-ink);border-left:3px solid var(--cg-navy);padding-left:28px;font-style:italic;" data-pt="Criar valor é a nossa estratégia. Criar impacto positivo é a nossa ambição. Concretizar ambos é o nosso compromisso." data-en="Creating value is our strategy. Creating positive impact is our ambition. Delivering both is our commitment.">Criar valor é a nossa estratégia. Criar impacto positivo é a nossa ambição. Concretizar ambos é o nosso compromisso.</div>
-        <p class="body" style="margin-top:24px;" data-pt="O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team e o lançamento da marca BUZ pela 2gether Spaces." data-en="The year 2025 marked a cycle of transformation and delivery at Castro Group. Milestones include the operation launch of our first LEED® Gold certified building (La Movida), the creation of the People Team department and the launch of the BUZ brand by 2gether Spaces.">O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team e o lançamento da marca BUZ pela 2gether Spaces.</p>
+      <div class="ceo-right">
+        <div class="ceo-quote" style="font-size:22px;font-weight:300;line-height:1.5;color:var(--cg-ink);border-left:3px solid var(--cg-navy);padding-left:28px;font-style:italic;" data-pt="Criar valor é a nossa estratégia. Criar impacto positivo é a nossa ambição. Concretizar ambos é o nosso compromisso." data-en="Creating value is our strategy. Creating positive impact is our ambition. Delivering both is our commitment.">Criar valor é a nossa estratégia. Criar impacto positivo é a nossa ambição. Concretizar ambos é o nosso compromisso.</div>
+        <p class="body ceo-body" style="margin-top:24px;" data-pt="O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team e o lançamento da marca BUZ pela 2gether Spaces." data-en="The year 2025 marked a cycle of transformation and delivery at Castro Group. Milestones include the operation launch of our first LEED® Gold certified building (La Movida), the creation of the People Team department and the launch of the BUZ brand by 2gether Spaces.">O ano de 2025 marcou um ciclo de transformação e concretização no Castro Group. Entre os marcos alcançados, destaca-se a entrada em operação do nosso primeiro edifício com certificação LEED® Gold (La Movida), a criação do departamento People Team e o lançamento da marca BUZ pela 2gether Spaces.</p>
       </div>
     </div>
   </div>
@@ -2383,19 +2460,21 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
   <div class="section-inner">
     <p class="eyebrow fade-up" style="display:flex;flex-direction:row-reverse;justify-content:flex-start;" data-pt="Mensagem da Head of Sustainability" data-en="Message from the Head of Sustainability">Mensagem da Head of Sustainability</p>
     <div class="hos-grid fade-up" style="display:grid;grid-template-columns:2fr 1fr;gap:80px;align-items:start;">
-      <div>
-        <div style="font-size:22px;font-weight:300;line-height:1.5;color:var(--cg-ink);border-right:3px solid var(--cg-cyan);padding-right:28px;font-style:italic;text-align:right;" data-pt="As decisões que tomamos hoje são os alicerces do futuro que estamos a construir." data-en="The decisions we make today are the foundations of the future we are building.">As decisões que tomamos hoje são os alicerces do futuro que estamos a construir.</div>
-        <p class="body" style="margin-top:24px;text-align:right;" data-pt="2025 foi um ano de concretização e maturidade. Entramos em 2026 com uma agenda clara: certificações ambientais, plano climático para 2030 e a integração da sustentabilidade como princípio operacional. O Plano de Transição Climática define a trajetória até 2030 — uma redução de 40% nas emissões Scope 1+2 face ao baseline de 2025." data-en="2025 was a year of delivery and maturity. We enter 2026 with a clear agenda: environmental certifications, the 2030 climate plan and sustainability embedded as an operating principle. The Climate Transition Plan sets the trajectory to 2030 — a 40% reduction in Scope 1+2 emissions versus the 2025 baseline.">2025 foi um ano de concretização e maturidade. Entramos em 2026 com uma agenda clara: certificações ambientais, plano climático para 2030 e a integração da sustentabilidade como princípio operacional. O Plano de Transição Climática define a trajetória até 2030 — uma redução de 40% nas emissões Scope 1+2 face ao baseline de 2025.</p>
+      <div class="hos-left">
+        <div class="hos-quote" style="font-size:22px;font-weight:300;line-height:1.5;color:var(--cg-ink);border-right:3px solid var(--cg-cyan);padding-right:28px;font-style:italic;text-align:right;" data-pt="As decisões que tomamos hoje são os alicerces do futuro que estamos a construir." data-en="The decisions we make today are the foundations of the future we are building.">As decisões que tomamos hoje são os alicerces do futuro que estamos a construir.</div>
+        <p class="body hos-body" style="margin-top:24px;text-align:right;" data-pt="2025 foi um ano de concretização e maturidade. Entramos em 2026 com uma agenda clara: certificações ambientais, plano climático para 2030 e a integração da sustentabilidade como princípio operacional. O Plano de Transição Climática define a trajetória até 2030 — uma redução de 40% nas emissões Scope 1+2 face ao baseline de 2025." data-en="2025 was a year of delivery and maturity. We enter 2026 with a clear agenda: environmental certifications, the 2030 climate plan and sustainability embedded as an operating principle. The Climate Transition Plan sets the trajectory to 2030 — a 40% reduction in Scope 1+2 emissions versus the 2025 baseline.">2025 foi um ano de concretização e maturidade. Entramos em 2026 com uma agenda clara: certificações ambientais, plano climático para 2030 e a integração da sustentabilidade como princípio operacional. O Plano de Transição Climática define a trajetória até 2030 — uma redução de 40% nas emissões Scope 1+2 face ao baseline de 2025.</p>
       </div>
-      <div style="text-align:right;">
-        <div style="width:200px;height:200px;overflow:hidden;border-radius:50%;margin:0 0 20px auto;background:var(--cg-putty);">
+      <div class="hos-right" style="text-align:right;">
+        <div class="hos-photo" style="width:200px;height:200px;overflow:hidden;border-radius:50%;margin:0 0 20px auto;background:var(--cg-putty);">
           <img src="uploads/quotes/fernanda.jpg" alt="Fernanda Zelaya" loading="lazy" decoding="async" width="200" height="200" style="width:100%;height:100%;object-fit:cover;object-position:center top;">
         </div>
-        <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cg-mid);margin-bottom:8px;" data-pt="Mensagem de" data-en="Message from">Mensagem de</div>
-        <div style="font-size:20px;font-weight:400;">Fernanda Zelaya</div>
-        <div style="font-size:12px;color:var(--cg-mid);margin-top:4px;display:inline-flex;align-items:center;gap:8px;justify-content:flex-end;">
-          <span data-pt="Head of Sustainability, Castro Group" data-en="Head of Sustainability, Castro Group">Head of Sustainability, Castro Group</span>
-          <a href="https://www.linkedin.com/in/mfzelaya/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:2px;background:var(--cg-cyan);color:#fff;text-decoration:none;font-size:8px;font-weight:700;">in</a>
+        <div class="hos-namecard">
+          <div class="hos-eyebrow" style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cg-mid);margin-bottom:8px;" data-pt="Mensagem de" data-en="Message from">Mensagem de</div>
+          <div class="hos-name" style="font-size:20px;font-weight:400;">Fernanda Zelaya</div>
+          <div class="hos-role" style="font-size:12px;color:var(--cg-mid);margin-top:4px;display:inline-flex;align-items:center;gap:8px;justify-content:flex-end;">
+            <span data-pt="Head of Sustainability, Castro Group" data-en="Head of Sustainability, Castro Group">Head of Sustainability, Castro Group</span>
+            <a href="https://www.linkedin.com/in/mfzelaya/" target="_blank" rel="noopener" aria-label="LinkedIn" style="display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:2px;background:var(--cg-cyan);color:#fff;text-decoration:none;font-size:8px;font-weight:700;">in</a>
+          </div>
         </div>
       </div>
     </div>
@@ -2737,14 +2816,14 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
         </div>
         <div class="pf-row">
           <div class="pf-row-meta">
-            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
             <div class="pf-row-label" data-pt="Projetos com objetivo de certificar" data-en="Projects targeted for certification">Projetos com objetivo de certificar</div>
           </div>
           <div class="pf-row-num">2</div>
         </div>
         <div class="pf-row">
           <div class="pf-row-meta">
-            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
             <div class="pf-row-label" data-pt="Projetos OPR em implementação" data-en="OPR projects under implementation">Projetos OPR em implementação</div>
           </div>
           <div class="pf-row-num">3</div>
@@ -2759,21 +2838,21 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
         </div>
         <div class="pf-row">
           <div class="pf-row-meta">
-            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
             <div class="pf-row-label" data-pt="Com certificado em desenvolvimento" data-en="Certification in progress">Com certificado em desenvolvimento</div>
           </div>
           <div class="pf-row-num">2</div>
         </div>
         <div class="pf-row">
           <div class="pf-row-meta">
-            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
             <div class="pf-row-label" data-pt="Com objetivo de certificar" data-en="Targeted for certification">Com objetivo de certificar</div>
           </div>
           <div class="pf-row-num">1</div>
         </div>
         <div class="pf-row">
           <div class="pf-row-meta">
-            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
+            <div class="pf-row-dots"><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span><span class="pf-row-dot"></span></div>
             <div class="pf-row-label" data-pt="Sem objetivo de certificar" data-en="Not targeted for certification">Sem objetivo de certificar</div>
           </div>
           <div class="pf-row-num">1</div>
@@ -2974,7 +3053,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 <!-- ENVIRONMENTAL -->
 <section class="section" id="pilar-ambiental">
   <div class="section-inner">
-    <p class="eyebrow fade-up" style="color:var(--cg-green);" data-pt="Pilar 01 — Ambiental" data-en="Pillar 01 — Environmental">Pilar 01 — Ambiental</p>
+    <p class="eyebrow fade-up" data-pt="Pilar 01 — Ambiental" data-en="Pillar 01 — Environmental">Pilar 01 — Ambiental</p>
     <h2 class="heading fade-up" data-pt="Energia, emissões<br><strong>e recursos naturais</strong>" data-en="Energy, emissions<br><strong>and natural resources</strong>">Energia, emissões<br><strong>e recursos naturais</strong></h2>
     <div class="metrics-grid stagger">
       <div class="metric-card light" data-rich="energia">
@@ -3096,7 +3175,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 <!-- GOVERNANCE -->
 <section class="section" id="pilar-governanca">
   <div class="section-inner">
-    <p class="eyebrow fade-up" style="color:var(--cg-esg-governance);" data-pt="Pilar 03 — Governança" data-en="Pillar 03 — Governance">Pilar 03 — Governança</p>
+    <p class="eyebrow fade-up" data-pt="Pilar 03 — Governança" data-en="Pillar 03 — Governance">Pilar 03 — Governança</p>
     <h2 class="heading fade-up" data-pt="Transparência e<br><strong>integridade institucional</strong>" data-en="Transparency and<br><strong>institutional integrity</strong>">Transparência e<br><strong>integridade institucional</strong></h2>
     <div class="metrics-grid stagger">
       <div class="metric-card light">
@@ -3141,7 +3220,7 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 <!-- ECONOMIC -->
 <section class="section" id="pilar-economico">
   <div class="section-inner">
-    <p class="eyebrow fade-up" style="color:var(--cg-rust);" data-pt="Pilar 04 — Económico" data-en="Pillar 04 — Economic">Pilar 04 — Económico</p>
+    <p class="eyebrow fade-up" data-pt="Pilar 04 — Económico" data-en="Pillar 04 — Economic">Pilar 04 — Económico</p>
     <h2 class="heading fade-up" data-pt="Valor económico<br><strong>gerado e distribuído</strong>" data-en="Economic value<br><strong>generated and distributed</strong>">Valor económico<br><strong>gerado e distribuído</strong></h2>
     <div class="metrics-grid stagger">
       <div class="metric-card light" data-rich="distribuido">
@@ -3273,16 +3352,6 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
       </div>
     </div>
 
-    <div class="fade-up" style="margin-bottom:32px;">
-      <div style="font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--cg-mid);margin-bottom:14px;" data-pt="Referenciais de Certificação" data-en="Certification Frameworks">Referenciais de Certificação</div>
-      <div style="display:flex;gap:10px;flex-wrap:wrap;">
-        <span style="font-size:11px;font-weight:600;padding:8px 14px;border-radius:24px;background:var(--cg-green);color:#fff;border:1px solid var(--cg-green);">LEED</span>
-        <span style="font-size:11px;font-weight:600;padding:8px 14px;border-radius:24px;background:var(--cg-green);color:#fff;border:1px solid var(--cg-green);">WELL</span>
-        <span style="font-size:11px;font-weight:600;padding:8px 14px;border-radius:24px;background:var(--cg-green);color:#fff;border:1px solid var(--cg-green);">WiredScore</span>
-        <span style="font-size:11px;font-weight:600;padding:8px 14px;border-radius:24px;background:var(--cg-green);color:#fff;border:1px solid var(--cg-green);">SmartScore</span>
-        <span style="font-size:11px;font-weight:600;padding:8px 14px;border-radius:24px;background:var(--cg-putty);color:var(--cg-mid);border:1px solid var(--cg-border);">BREEAM</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -3925,17 +3994,23 @@ nav, .section, .hero-content, .chapter-band, footer { padding-right: 128px; }
 .data-modal .kpi-detail .kv > div strong {
   display: block; font-size: 16px; font-weight: 500; color: var(--cg-ink); margin-top: 2px;
 }
-/* Subtle hint on clickable empresa/fase cards: small arrow at top-right */
+/* Subtle hint on clickable empresa/fase cards: same minimalist SVG arrow,
+   keeps emoji-rendering OFF on mobile where Unicode ↗ becomes a 2-colour glyph. */
 .kpi-card[data-detail]::after,
 .pf-detail-card[data-detail]::after {
-  content: '↗';
+  content: '';
   position: absolute; top: 12px; right: 14px;
-  font-size: 11px; color: var(--cg-mid); opacity: 0.45;
+  width: 11px; height: 11px;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3.5 8.5L8.5 3.5M5 3.5h3.5V7'/></svg>");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.45;
   transition: opacity 0.2s var(--cg-ease), transform 0.2s var(--cg-ease);
 }
 .kpi-card[data-detail]:hover::after,
 .pf-detail-card[data-detail]:hover::after {
-  opacity: 1; transform: translate(2px, -2px); color: var(--cg-orange);
+  opacity: 1; transform: translate(2px, -2px);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='%23fb7622' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M3.5 8.5L8.5 3.5M5 3.5h3.5V7'/></svg>");
 }
 </style>
 
@@ -4005,9 +4080,9 @@ function initBalls() {
   // 13-line spec internally. Cover reference uses D ≈ 220 at 743px canvas.
   // On mobile we drop both the count and the size — fewer/smaller discs
   // animate noticeably smoother on phones (rAF + canvas is heavy at scale).
-  const D_MIN = W < 600 ? 80  : 170;
-  const D_MAX = W < 600 ? 140 : 260;
-  const count = W < 600 ? 4 : W < 900 ? 8 : 12;
+  const D_MIN = W < 600 ? 100 : 170;
+  const D_MAX = W < 600 ? 180 : 260;
+  const count = W < 600 ? 6 : W < 900 ? 8 : 12;
 
   // Colour order: shuffle, then repeat to fill count → guarantees every
   // palette colour appears at least once even on the smallest viewports.
@@ -4087,14 +4162,14 @@ function initBalls() {
         }
       }
       // Gentle damping so they settle back to baseline drift
-      d.vx *= 0.985;
-      d.vy *= 0.985;
+      d.vx *= 0.992;
+      d.vy *= 0.992;
       const vmag = Math.sqrt(d.vx * d.vx + d.vy * d.vy);
       if (vmag > VMAX) { d.vx = (d.vx / vmag) * VMAX; d.vy = (d.vy / vmag) * VMAX; }
       // Baseline jitter so a disc that comes to rest doesn't stay frozen
       if (vmag < VMIN) {
-        d.vx += (Math.random() - 0.5) * 0.18;
-        d.vy += (Math.random() - 0.5) * 0.12;
+        d.vx += (Math.random() - 0.5) * 0.32;
+        d.vy += (Math.random() - 0.5) * 0.22;
       }
       d.x += d.vx; d.y += d.vy;
       // Bounce off edges
@@ -5552,7 +5627,14 @@ window.addEventListener('resize', () => { initBalls(); });
   ];
   const VB=800, cx=400, cy=400;
   const rCenter=56, rArcIn=70, rArcOut=92;
-  const rDotMin=160, rDotMax=295, rLabel=335;
+  // Phone: pull dots + labels inward so they don't overflow the viewport.
+  const isPhone = window.innerWidth < 640;
+  const rDotMin = isPhone ? 138 : 160;
+  const rDotMax = isPhone ? 240 : 295;
+  const rLabel  = isPhone ? 268 : 335;
+  const dxAbs   = isPhone ? 6 : 10;
+  const idFont    = isPhone ? 11 : 13;
+  const labelFont = isPhone ? 9  : 11;
   const N=TOPICS.length;
   const eN=TOPICS.filter(t=>t.cat==='e').length;
   const sN=TOPICS.filter(t=>t.cat==='s').length;
@@ -5601,14 +5683,14 @@ window.addEventListener('resize', () => { initBalls(); });
     const flip=norm>90 && norm<270;
     const lrot=flip?aDeg+180:aDeg;
     const anc=flip?'end':'start';
-    const dx=flip?-10:10;
+    const dx=flip?-dxAbs:dxAbs;
     const g = appendEl('g',{class:'spoke spoke--'+t.cat});
     g.appendChild(appendEl('line',{x1:s0.x,y1:s0.y,x2:sd.x,y2:sd.y}));
     g.appendChild(appendEl('circle',{cx:sd.x,cy:sd.y,r:(4+t.pri*3).toFixed(1)}));
-    const idText = appendEl('text',{class:'id',x:lp.x,y:lp.y,'font-size':13,transform:'rotate('+lrot+' '+lp.x+' '+lp.y+') translate('+dx+' 0)','text-anchor':anc,dy:-2});
+    const idText = appendEl('text',{class:'id',x:lp.x,y:lp.y,'font-size':idFont,transform:'rotate('+lrot+' '+lp.x+' '+lp.y+') translate('+dx+' 0)','text-anchor':anc,dy:-2});
     idText.textContent = t.id;
     g.appendChild(idText);
-    const labelText = appendEl('text',{class:'label',x:lp.x,y:lp.y,'font-size':11,transform:'rotate('+lrot+' '+lp.x+' '+lp.y+') translate('+dx+' 12)','text-anchor':anc});
+    const labelText = appendEl('text',{class:'label',x:lp.x,y:lp.y,'font-size':labelFont,transform:'rotate('+lrot+' '+lp.x+' '+lp.y+') translate('+dx+' '+(isPhone?10:12)+')','text-anchor':anc});
     labelText.textContent = t.label;
     g.appendChild(labelText);
     svg.appendChild(g);

@@ -2775,6 +2775,13 @@ html.lenis, html.lenis body { height: auto; }
   width: 9px; height: 9px;   /* slightly larger than the cycle dot */
 }
 
+/* Adjacency fix: when is-mine (orange) sits next to a card whose nth-child
+   cycle position would also paint orange (5n+2), swap that neighbour to
+   navy so we never see two orange dots in a row. */
+.op-comments-ticker .op-comment-card.is-mine + .op-comment-card:nth-child(5n+2) {
+  --card-accent: var(--cg-navy);
+}
+
 /* Decorative color dot — small, minimal, free-cycling.
    Each card gets one of the 5 brand colors based purely on position.
    Color is NOT tied to the comment's vote — it's pure visual rhythm. */

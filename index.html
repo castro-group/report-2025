@@ -6306,16 +6306,23 @@ window.addEventListener('load', () => {
     // animation loop matches one full set of originals (pixel-perfect loop).
     const cmTicker = document.getElementById('opCommentsTicker');
 
-    // Rewind button — restarts the CSS animation from translateX(0) so the
-    // first (real) comment is immediately visible at the left edge again.
-    // Uses the classic "remove + force-reflow + reapply" trick.
+    // Force the CSS marquee to restart from translateX(0). Uses the safe
+    // animationName trick (not the full animation reset) so the per-paint
+    // animationDuration we set in paintList() survives the reset.
+    function restartMarquee() {
+      cmList.style.animationName = 'none';
+      void cmList.offsetWidth;        // force reflow
+      cmList.style.animationName = '';
+    }
+
+    // Rewind button — restarts the marquee so the first real comment is
+    // visible again. Blur() the button so the ticker's :focus-within pause
+    // doesn't lock the animation in a paused state after the click.
     const cmRewind = document.getElementById('opTickerRewind');
     if (cmRewind) {
       cmRewind.addEventListener('click', () => {
-        cmList.style.animation = 'none';
-        // Force a reflow so the browser registers the animation removal
-        void cmList.offsetWidth;
-        cmList.style.animation = '';
+        restartMarquee();
+        cmRewind.blur();
       });
     }
 
@@ -6349,34 +6356,49 @@ window.addEventListener('load', () => {
       const viewportEl = cmTicker ? cmTicker.querySelector('.op-ticker-viewport') : null;
       const viewportW = viewportEl ? viewportEl.offsetWidth : 1100;
 
-      // Render real comments ONCE each (no duplication), then pad the track
-      // with skeleton cards so the marquee wrap happens inside the skeleton
-      // zone (visually invisible because all skeletons look identical).
-      let realCount = 0;
-      if (!usingDemos) {
+      // padCards = enough skeletons to fill a viewport. Used BEFORE the
+      // real comment (so the comment starts off-screen-right and rolls in
+      // from the right side as the marquee progresses — the user has time
+      // to scroll into view) AND AFTER (so the wrap lands in skeleton zone
+      // → invisible snap-back).
+      const padCards = Math.max(2, Math.ceil(viewportW / cardW));
+
+      if (usingDemos) {
+        // Empty state: only skeletons, ~3x viewport so motion stays smooth
+        const totalSkel = padCards * 3;
+        for (let i = 0; i < totalSkel; i++) {
+          cmList.appendChild(buildSkeletonCard());
+        }
+        // Shift by one viewport's worth of skeletons (continuous drift)
+        cmList.style.setProperty('--op-track-shift', '-' + (padCards * cardW) + 'px');
+        cmList.style.animationDuration = '16s';
+      } else {
+        // [skeletons-left × padCards][real cards × N][skeletons-right × padCards]
+        // Skeletons BEFORE → real comment starts off-screen right
+        for (let i = 0; i < padCards; i++) cmList.appendChild(buildSkeletonCard());
+        // Real comments (each rendered once)
         list.forEach(c => cmList.appendChild(buildCommentCard(c)));
-        realCount = list.length;
+        // Skeletons AFTER → wrap happens inside this zone (invisible snap)
+        for (let i = 0; i < padCards; i++) cmList.appendChild(buildSkeletonCard());
+
+        const realCount = list.length;
+        // Animate the track to the LEFT by exactly (padCards + realCount) × cardW.
+        // At the end, viewport sits inside the right-skeleton zone, which
+        // visually matches the all-skeleton starting frame → seamless wrap.
+        const shiftPx = (padCards + realCount) * cardW;
+        cmList.style.setProperty('--op-track-shift', '-' + shiftPx + 'px');
+
+        // Tempo: ~3.5s per card-width of shift. User sees the real comment
+        // for ~3.5s × (1 + extra reading window via viewport overlap).
+        const dur = Math.max(18, Math.round((padCards + realCount) * 3.5));
+        cmList.style.animationDuration = dur + 's';
       }
 
-      // Skeletons needed so the "empty zone" is wider than the viewport →
-      // guarantees the wrap-around always lands inside a skeleton stretch.
-      // Floor 10 in skeleton-only mode (so even an empty ticker keeps rolling).
-      const skeletonsNeeded = Math.max(10, Math.ceil(viewportW * 2.5 / cardW));
-      for (let i = 0; i < skeletonsNeeded; i++) {
-        cmList.appendChild(buildSkeletonCard());
-      }
-
-      // Full track width (real ones + skeletons). The animation translates
-      // by exactly this amount, then resets — but the user only sees the
-      // skeleton zone at the moment of reset, so the snap is invisible.
-      const totalCards = realCount + skeletonsNeeded;
-      const trackW     = totalCards * cardW;
-      cmList.style.setProperty('--op-track-shift', '-' + trackW + 'px');
-
-      // Tempo ~3.5s per card → brisk editorial drift. Real comment still
-      // crosses the viewport once per loop, just ~30% faster than before.
-      const dur = Math.max(18, Math.round(totalCards * 3.5));
-      cmList.style.animationDuration = dur + 's';
+      // CRITICAL: restart the marquee animation so it plays from
+      // translateX(0) with the new track. Without this, after publishing
+      // a comment the animation can appear "stuck" (continuing from a
+      // mid-cycle position that no longer makes sense for the new content).
+      restartMarquee();
     }
 
     function updateCounter() {

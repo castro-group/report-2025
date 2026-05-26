@@ -2706,44 +2706,14 @@ html.lenis, html.lenis body { height: auto; }
   overflow: hidden;
 }
 
-/* Demo voices — clearly tagged so users know they're placeholders */
-.op-comments-ticker .op-comment-card.is-demo { opacity: 0.92; }
-.op-comments-ticker .op-comment-card.is-demo::after {
-  content: 'Exemplo';
-  position: absolute;
-  top: 16px; right: 18px;
-  font: 700 8.5px/1 'Inter', sans-serif;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cg-mid);
-  border: 1px solid var(--cg-border);
-  padding: 3px 6px 2px;
-  border-radius: 1px;
-  background: var(--cg-bone);
-  z-index: 2;
-}
-.op-comments-ticker .op-comment-card.is-demo .op-comment-author {
-  font-style: italic;
-  font-weight: 600;
-  color: var(--cg-mid);
-}
-
-/* Pure skeleton — empty placeholder card, oversized decorative ❝ glyph
-   fills the void as the hero element. No text, no meta, no votes. */
-.op-comments-ticker .op-comment-card.is-skeleton {
-  opacity: 1;
-}
+/* Skeleton card (empty state) — replaces the small dot with a big centered
+   color disc. No text, no badge: the dot IS the visual statement.
+   Each skeleton clone gets a different brand color via the nth-child cycle. */
 .op-comments-ticker .op-comment-card.is-skeleton::before {
-  content: '\201C';
-  font: italic 700 220px/1 'Instrument Serif', serif;
-  color: var(--cg-navy);
-  opacity: 0.07;
-  position: absolute;
-  top: -56px; left: 24px;
-}
-.op-comments-ticker .op-comment-card.is-skeleton::after {
-  content: 'Aguardando';
-  color: var(--cg-mid);
+  width: 88px; height: 88px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 10px color-mix(in srgb, var(--card-accent) 14%, transparent);
 }
 .op-comments-ticker .op-comment-card:first-child { border-left: 1px solid var(--cg-border); }
 .op-comments-ticker .op-comment-card.is-mine {
@@ -2751,16 +2721,37 @@ html.lenis, html.lenis body { height: auto; }
   padding-left: 23px;
 }
 
-/* Big drop-quote behind text */
+/* Color identity dot — replaces the old gray drop-quote.
+   Each card has --card-accent set by nth-child cycle or data-pillar override.
+   The dot itself is rendered via ::before below (with two sizes: small for
+   real comments, large+centered for the empty skeleton state). */
+.op-comments-ticker .op-comment-card { --card-accent: var(--cg-navy); }
+.op-comments-ticker .op-comment-card:nth-child(5n+2) { --card-accent: var(--cg-orange); }
+.op-comments-ticker .op-comment-card:nth-child(5n+3) { --card-accent: var(--cg-cyan);   }
+.op-comments-ticker .op-comment-card:nth-child(5n+4) { --card-accent: var(--cg-green);  }
+.op-comments-ticker .op-comment-card:nth-child(5n+5) { --card-accent: var(--cg-rust);   }
+
+/* Real comments override the cycle with the pillar of their first vote */
+.op-comments-ticker .op-comment-card[data-pillar="amb"] { --card-accent: var(--cg-green); }
+.op-comments-ticker .op-comment-card[data-pillar="soc"] { --card-accent: var(--cg-cyan);  }
+.op-comments-ticker .op-comment-card[data-pillar="gov"] { --card-accent: var(--cg-orange);}
+
+/* The dot itself — default = small identifier dot for real comments */
 .op-comments-ticker .op-comment-card::before {
-  content: '\201C';
+  content: '';
   position: absolute;
-  top: -16px; left: 18px;
-  font: italic 700 96px/1 'Instrument Serif', serif;
-  color: var(--cg-navy);
-  opacity: 0.08;
-  pointer-events: none;
-  z-index: 0;
+  display: block;
+  border-radius: 50%;
+  background: var(--card-accent);
+  width: 12px; height: 12px;
+  top: 26px; left: 26px;
+  z-index: 1;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--card-accent) 12%, transparent);
+}
+
+/* Shift meta line so it clears the dot */
+.op-comments-ticker .op-comment-card:not(.is-skeleton) .op-comment-meta {
+  padding-left: 22px;
 }
 
 /* Meta line — uppercase editorial tracking */
@@ -6178,6 +6169,14 @@ window.addEventListener('load', () => {
       if (mine)   cls += ' is-mine';
       if (c.demo) cls += ' is-demo';
       card.className = cls;
+
+      // Identity dot color — derived from the first vote's pillar (E/S/G)
+      // so the card visually anchors to the ESG theme. Skeletons + comments
+      // without votes fall through to the nth-child color cycle in CSS.
+      if (c.votes && c.votes.length) {
+        const p = pillarOf(c.votes[0]);
+        if (p) card.setAttribute('data-pillar', p);
+      }
 
       const meta = document.createElement('div');
       meta.className = 'op-comment-meta';

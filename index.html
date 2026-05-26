@@ -2727,6 +2727,24 @@ html.lenis, html.lenis body { height: auto; }
   font-weight: 600;
   color: var(--cg-mid);
 }
+
+/* Pure skeleton — empty placeholder card, oversized decorative ❝ glyph
+   fills the void as the hero element. No text, no meta, no votes. */
+.op-comments-ticker .op-comment-card.is-skeleton {
+  opacity: 1;
+}
+.op-comments-ticker .op-comment-card.is-skeleton::before {
+  content: '\201C';
+  font: italic 700 220px/1 'Instrument Serif', serif;
+  color: var(--cg-navy);
+  opacity: 0.07;
+  position: absolute;
+  top: -56px; left: 24px;
+}
+.op-comments-ticker .op-comment-card.is-skeleton::after {
+  content: 'Aguardando';
+  color: var(--cg-mid);
+}
 .op-comments-ticker .op-comment-card:first-child { border-left: 1px solid var(--cg-border); }
 .op-comments-ticker .op-comment-card.is-mine {
   border-left: 3px solid var(--cg-orange);
@@ -6216,79 +6234,48 @@ window.addEventListener('load', () => {
     // animation loop matches one full set of originals (pixel-perfect loop).
     const cmTicker = document.getElementById('opCommentsTicker');
 
-    // Aspirational stakeholder voices — shown only when there are no real
-    // comments yet. Each is clearly badged "Exemplo" in the card UI so
-    // visitors don't mistake them for real submissions. They disappear the
-    // moment any real comment is posted.
-    const DEMO_VOICES = [
-      {
-        author: 'Voz esperada',
-        role:   'Investidor institucional',
-        body:   'Net zero 2050 só ganha credibilidade quando cada projecto publica embodied carbon e um plano operacional alinhado com SBTi. Castro Group está no caminho — falta a granularidade ativo-a-ativo.',
-        ts:     Date.now() - 42 * 60 * 1000,
-        votes:  ['E1', 'E2'],
-        demo:   true,
-      },
-      {
-        author: 'Voz esperada',
-        role:   'Arquitecto · LEED AP',
-        body:   'Certificações múltiplas — LEED, WELL, SmartScore — são caras mas válidas: cada uma cobre uma faceta diferente do edifício. O desafio é agregar a narrativa sem confundir o investidor.',
-        ts:     Date.now() - 3 * 60 * 60 * 1000,
-        votes:  ['G2', 'S4'],
-        demo:   true,
-      },
-      {
-        author: 'Voz esperada',
-        role:   'Tenant · Espaço flex',
-        body:   'O conforto térmico de verão será o KPI invisível de 2030. Os indicadores precisam chegar ao utilizador final — não ficar só no reporting institucional.',
-        ts:     Date.now() - 6 * 60 * 60 * 1000,
-        votes:  ['S2'],
-        demo:   true,
-      },
-      {
-        author: 'Voz esperada',
-        role:   'Município · Urbanismo',
-        body:   'Dupla materialidade tem de incluir o impacto na rede urbana: densidade, mobilidade ativa, espaços verdes públicos. O edifício certificado não é uma ilha — é parte de um sistema.',
-        ts:     Date.now() - 12 * 60 * 60 * 1000,
-        votes:  ['G3', 'E4'],
-        demo:   true,
-      },
-      {
-        author: 'Voz esperada',
-        role:   'Consultor ESG',
-        body:   'O dilema desinvestimento vs engagement está mal colocado. O capital paciente, certificado e transparente é a alavanca que falta no imobiliário português — e o Castro Group pode liderar essa narrativa.',
-        ts:     Date.now() - 22 * 60 * 60 * 1000,
-        votes:  ['G1'],
-        demo:   true,
-      },
-    ];
+    // Empty-state skeleton: a single blank card (no text, no meta, no votes,
+    // no time) that the marquee duplicates to fill the viewport. Keeps the
+    // ticker animating even before any real comment exists. Disappears
+    // automatically the moment the first real comment lands.
+    function buildSkeletonCard() {
+      const card = document.createElement('article');
+      card.className = 'op-comment-card is-demo is-skeleton';
+      card.setAttribute('aria-hidden', 'true');
+      // No children — CSS pseudo-elements paint the drop-quote and "Exemplo"
+      // tag. The empty card body is intentional.
+      return card;
+    }
 
     function paintList(list) {
       currentList = list;
       cmCount.textContent = list.length;
       while (cmList.firstChild) cmList.removeChild(cmList.firstChild);
 
-      // When there are no real comments, render the demo voices so the
-      // ticker stays alive (educates visitors about the kind of input
-      // welcome). Real comments override demos as soon as the first lands.
-      const usingDemos = !list.length;
-      const renderList = usingDemos ? DEMO_VOICES : list;
-
-      if (usingDemos) {
-        cmEmpty.classList.add('is-hidden');             // ticker covers the gap
-      } else {
-        cmEmpty.classList.add('is-hidden');
-      }
+      // Always keep the ticker visible — empty state renders skeletons.
+      cmEmpty.classList.add('is-hidden');
       if (cmTicker) cmTicker.classList.remove('is-empty');
 
+      const usingDemos = !list.length;
+
       // Render the original set first
-      renderList.forEach(c => cmList.appendChild(buildCommentCard(c)));
+      if (usingDemos) {
+        cmList.appendChild(buildSkeletonCard());
+      } else {
+        list.forEach(c => cmList.appendChild(buildCommentCard(c)));
+      }
+
+      // For marquee math we treat the originals as a "logical set" of 1
+      // (skeleton mode) or list.length (real comments). renderLength drives
+      // both the loop duplication and the pixel-exact track shift below.
+      const renderLength = usingDemos ? 1 : list.length;
+      const renderList = usingDemos ? [null] : list;
 
       // Compute card width (matches CSS breakpoint) and how many duplicates
       // we need so total track width > viewport × 2 (smooth wrap-around).
       const isNarrow = window.matchMedia('(max-width: 768px)').matches;
       const cardW = isNarrow ? 250 : 300;
-      const setW = renderList.length * cardW;
+      const setW = renderLength * cardW;
       const viewportEl = cmTicker ? cmTicker.querySelector('.op-ticker-viewport') : null;
       const viewportW = viewportEl ? viewportEl.offsetWidth : 1100;
       const minTotalW = viewportW * 2;
@@ -6297,7 +6284,7 @@ window.addEventListener('load', () => {
       // Append (setsNeeded - 1) clones so the loop is seamless
       for (let s = 1; s < setsNeeded; s++) {
         renderList.forEach(c => {
-          const clone = buildCommentCard(c);
+          const clone = usingDemos ? buildSkeletonCard() : buildCommentCard(c);
           clone.setAttribute('aria-hidden', 'true');
           clone.dataset.ghost = '1';
           cmList.appendChild(clone);
@@ -6307,8 +6294,10 @@ window.addEventListener('load', () => {
       // Pixel-exact shift so animation loops on one full set
       cmList.style.setProperty('--op-track-shift', '-' + setW + 'px');
 
-      // Tempo scales with content: ~7s per card, floor 25s, ceiling 120s
-      const dur = Math.min(120, Math.max(25, renderList.length * 7));
+      // Tempo scales with content (skeleton mode = single set, fast pace)
+      const dur = usingDemos
+        ? 22                                          // empty: snappy loop
+        : Math.min(120, Math.max(25, renderLength * 7));
       cmList.style.animationDuration = dur + 's';
     }
 

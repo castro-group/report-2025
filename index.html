@@ -5886,7 +5886,7 @@ window.addEventListener('load', () => {
 // e-mail in the credits is where the Sustainability team will pull data
 // once a backend is wired up.
 (function setupOpiniao() {
-  const STORAGE_KEY = 'cg-opiniao-2025';
+  const STORAGE_KEY = 'cg-opiniao-2025-public';
   let state;
   try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null'); }
   catch (e) { state = null; }
@@ -5909,7 +5909,7 @@ window.addEventListener('load', () => {
   function paintId(n) { if (idEl) idEl.textContent = '#' + n; }
   function fetchCounter() {
     // counterapi.dev returns { count: N, ... } and increments on /up
-    return fetch('https://api.counterapi.dev/v1/castro-group/rs2025-launch/up')
+    return fetch('https://api.counterapi.dev/v1/castro-group/rs2025-public/up')
       .then(r => r.json())
       .then(data => {
         const n = data && (data.count || data.value);
@@ -6097,8 +6097,8 @@ window.addEventListener('load', () => {
 
   // ── COMMENTS · live board ──────────────────────────────────────────────
   // Backend: Firestore (real-time cross-user) with localStorage fallback.
-  const COMMENTS_KEY = 'cg-opiniao-comments-2025';
-  const COMMENTS_COLLECTION = 'comments';
+  const COMMENTS_KEY = 'cg-opiniao-comments-2025-public';
+  const COMMENTS_COLLECTION = 'comments-public';
 
   // localStorage is the fallback when Firestore is unreachable (offline,
   // ad-blocker, etc.). It also seeds the UI before Firestore connects so
